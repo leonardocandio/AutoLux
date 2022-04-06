@@ -16,7 +16,8 @@ La licencia es de tipo MIT por lo que está permitido copiar, distribuir, modifi
 
 # Creadores
 
-* Max Antunez
+
+* Max Antúnez
 * Leonardo Candio
 * Renato Cernades
 * Ronaldo Flores
