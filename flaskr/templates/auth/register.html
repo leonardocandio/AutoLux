@@ -1,0 +1,15 @@
+{% extends "auth/authbase.html" %}
+
+{% block title %}
+    <h3>Register</h3>
+{% endblock %}
+
+{% block button %}
+    Register
+{% endblock %} 
+
+{% block link %}
+    <label>Are you already registered?</label>
+    <a href="{{ url_for('auth.login') }}">Log in here</a>
+{% endblock %}
+
