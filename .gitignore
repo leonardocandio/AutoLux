@@ -2,3 +2,4 @@ flaskr/__pycache__
 flaskr/routes/__pycache__
 flaskr/utils/__pycache__
 flaskr/models/__pycache__
+flaskr/models/super_models/__pycache__
