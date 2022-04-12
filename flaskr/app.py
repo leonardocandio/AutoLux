@@ -3,6 +3,7 @@ import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from routes.home import menu
+from routes.articles import news
 from auth import bp
 
 # recogemos la contraseña
@@ -24,6 +25,7 @@ SQLAlchemy(app)
 
 app.register_blueprint(bp)
 app.register_blueprint(menu)
+app.register_blueprint(news)
 
 
 
