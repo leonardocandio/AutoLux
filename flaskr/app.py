@@ -1,5 +1,5 @@
 import sys
-
+from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from routes.home import menu
@@ -7,12 +7,12 @@ from routes.articles import news
 from auth import bp
 
 # recogemos la contraseña
-password = f'{sys.argv[1]}'
+load_dotenv()
 
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:{password}@localhost:5432/carsapp'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{DB_USER}:{DB_PASSWORD}@localhost:5432/{DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.from_mapping({
     'ENV': 'development',
