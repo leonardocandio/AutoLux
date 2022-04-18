@@ -1,18 +1,19 @@
 import sys
-from dotenv import load_dotenv
+import os
+from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from routes.home import menu
 from routes.articles import news
 from auth import bp
 
-# recogemos la contraseña
-load_dotenv()
+# recogemos los parametros de conexion de la base de datos
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{DB_USER}:{DB_PASSWORD}@localhost:5432/{DB_NAME}'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.from_mapping({
     'ENV': 'development',
@@ -26,7 +27,4 @@ SQLAlchemy(app)
 app.register_blueprint(bp)
 app.register_blueprint(menu)
 app.register_blueprint(news)
-
-
-
 
