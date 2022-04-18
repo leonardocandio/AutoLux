@@ -1,6 +1,0 @@
-{
-    "python.formatting.provider": "autopep8",
-    "files.associations": {
-        "*.html": "jinja-html"
-    },
-}

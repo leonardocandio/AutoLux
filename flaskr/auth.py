@@ -8,7 +8,6 @@ from flask import (
 
 bp = Blueprint('auth', __name__)
 
-
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -16,9 +15,9 @@ def register():
         password = request.form["password"]
         message = ''
 
-        # Ver si existe alguien con el mismo usuario
+        #Ver si existe alguien con el mismo usuario
         if username == "" or password == "":
-            flash('Username and password are required', 'danger')
+            flash('Username and password are required', 'danger') 
             return render_template("auth/register.html")
 
         if len(username) < 5 or len(password) < 5:
@@ -30,12 +29,11 @@ def register():
             new_user = User(username=username, password=password, role='user')
             db.session.add(new_user)
             db.session.commit()
-
+        
         flash('Someone else with that username already exists', 'danger')
         return render_template("auth/register.html")
 
     return render_template("auth/register.html")
-
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -51,17 +49,16 @@ def login():
         if user == None:
             flash('User not found', 'danger')
             return render_template("auth/register.html")
-
+        
         if password != user.password:
             flash('Your password are incorrect', 'danger')
             return render_template("auth/register.html")
-
+        
         session.clear()
         session['user_id'] = user.id
         return redirect('/')
 
     return render_template("auth/login.html")
-
 
 @bp.route('/logout')
 def logout():
@@ -88,11 +85,10 @@ def login_required(view):
         return view(**kwargs)
     return wrapped_view
 
-
 def admin_role_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
-        if g.user.role != "admin":
+        if g.user.role !=  "admin":
             flash("Admin role is required", 'danger')
             return redirect(url_for('auth.login', next=request.url))
 
