@@ -25,15 +25,18 @@ def register():
             flash('Username and password must be at least 5 characters', 'danger')
             return render_template("auth/register.html")
 
-        if User.query.filter_by(username=username).first() is None:
-            # Se crea el usuario
-            new_user = User(username=username, password=password, role='user')
-            db.session.add(new_user)
-            db.session.commit()
+        if User.query.filter_by(username=username).first() is not None:
+            flash('Someone else with that username already exists', 'danger')
+            return render_template("auth/register.html")
 
-        flash('Someone else with that username already exists', 'danger')
+        # Se crea el usuario
+        new_user = User(username=username, password=password, role='user')
+        db.session.add(new_user)
+        db.session.commit()
+        session.clear()
+        session['user_id'] = new_user.id
+
         return render_template("auth/register.html")
-
     return render_template("auth/register.html")
 
 
@@ -46,15 +49,15 @@ def login():
 
         if username == "" or password == "":
             flash('Username field or password field are empty', 'danger')
-            return render_template("auth/register.html")
+            return render_template("auth/login.html")
 
         if user == None:
             flash('User not found', 'danger')
-            return render_template("auth/register.html")
+            return render_template("auth/login.html")
 
         if password != user.password:
             flash('Your password are incorrect', 'danger')
-            return render_template("auth/register.html")
+            return render_template("auth/login.html")
 
         session.clear()
         session['user_id'] = user.id

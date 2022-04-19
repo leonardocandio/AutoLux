@@ -10,7 +10,7 @@ menu = Blueprint('menu', __name__)
 @menu.route('/')
 @login_required
 def home():
-    return 'Hola Mundo!'
+    return render_template("index.html")
 
 @menu.route('/add_car')
 def add_car():
