@@ -7,6 +7,7 @@ class User(db.Model, TimeModel):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False) 
     password = db.Column(db.String(120), nullable=False)
+    image_url = db.Column(db.String, default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
     role = db.Column(db.String(20), nullable=False)
 
     def __init__(self, username, password, role):
