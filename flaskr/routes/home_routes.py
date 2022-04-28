@@ -9,7 +9,7 @@ home = Blueprint('home', __name__)
 #Rutas de prueba
 @home.route('/')
 @login_required
-def home():
+def home_page():
     return render_template("index.html")
 
 @home.route('/add_car')
