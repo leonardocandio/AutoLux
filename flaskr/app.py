@@ -3,8 +3,9 @@ import os
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from routes.home import menu
-from routes.articles import news
+from routes.home_routes import home
+from routes.news_routes import news
+from routes.shop_routes import shop
 from auth import bp
 
 # recogemos los parametros de conexion de la base de datos
@@ -25,6 +26,7 @@ app.config.from_mapping({
 SQLAlchemy(app)
 
 app.register_blueprint(bp)
-app.register_blueprint(menu)
+app.register_blueprint(home)
 app.register_blueprint(news)
+app.register_blueprint(shop)
 
