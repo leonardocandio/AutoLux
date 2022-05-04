@@ -1,18 +1,15 @@
 {% extends "auth/authbase.html" %}
 
 {% block title %}
-    <h3>Login</h3>
+    Log in
 {% endblock %}
 
 {% block button %}  
-        Login
+    Log in
 {% endblock %} 
 
 {% block link %}
-    <label>Did you forget your password?</label>
-    <a href="{{ url_for('auth.login') }}">Reset Password</a>
-
-    <label>Not registered yet?</label>
-    <a href="{{ url_for('auth.register') }}">Register here</a>
+    <a class="main-link" style="padding-bottom:0px;" href="{{ url_for('auth.login') }}">Forgot password?</a>
+    <a class="main-link" href="{{ url_for('auth.register') }}">Not registered yet?</a>
 {% endblock %}
 

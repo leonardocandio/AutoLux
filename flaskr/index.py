@@ -4,12 +4,11 @@ from models.user import User
 from models.article import Article
 from models.car import Car
 from utils.db import db
-from utils.web_scraping_cars import create_all_cars
-from utils.web_scraping_news import create_all_articles
-
+from utils.carsapi import create_all_cars
+from utils.scraping import create_all_articles
+from flask_migrate import Migrate
 with app.app_context():
-    db.create_all()
-
+    migrate = Migrate(app, db)
     # Si tabla articles esta vacia, la llenamos con articulos
     if len(Article.query.all()) == 0:
         create_all_articles(db, Article)
