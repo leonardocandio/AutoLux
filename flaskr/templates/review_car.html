@@ -1,0 +1,51 @@
+{% extends "base.html"%}
+
+{% block body %}
+
+<div class="text-center mb-5">
+    <h1>{{ car.name }}</h1>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-6 col-ms-12 animate__animated animate__fadeInLeft">
+            <img class="w-100" src="{{ car.image_url }}">
+        </div>
+
+        <div class="card col-md-6 col-ms-12">
+            <h3 class="p-3">{{ car.name }}</h3>
+            <p>Precio: ${{ car.price }}</p>
+            <p>Marca: {{ car.brand }}</p>
+            <p>Modelo: {{ car.model }}</p>
+            <p>Categoría: {{ car.category }}</p>
+            <p>Año: {{ car.year }}</p>
+            <p>Año de fabricación:< {{ car.year_production }}</p>
+            <p>Kilometraje: {{ car.mileage }}</p>
+            <p>Transmisión: {{ car.transmission }}</p>
+            <p>Combustible: {{ car.fuel }}</p>
+            <p>Cilindrada: {{ car.engine_displacement }}</p>
+            <p>Número de puertas: {{ car.doors }}</p>
+            <p>Tipo de tracción: {{ car.drivetrain }}</p>
+            <p>Color: {{ car.color }}</p>
+            <p>Ubicación: {{ car.location }}</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h4 class="p-3">Descripción</h4>
+        <p class="p-3">{{ car.description }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h4 class="p-3">Comentarios</h4>
+        <input type="text" name="" id="">
+    </div>
+</div>
+
+
+{% endblock %}

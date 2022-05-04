@@ -10,8 +10,8 @@
         <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{ car.name }}</h5>
-          <p class="card-text">{{ car.price }}</p>
-          <a href="#" class="btn btn-primary">See more</a>
+          <p class="card-text">${{ car.price }}</p>
+          <a href="shop/{{ car.id }}" class="btn btn-primary">See more</a>
         </div>
       </div>
     {% endfor %}

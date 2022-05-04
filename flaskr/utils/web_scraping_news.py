@@ -42,15 +42,21 @@ def create_all_articles(db, Article):
 
         category = sub_soup.find('div', class_='news-article__breadcrumbs').a.get_text()
 
-        # Creamos cada articulo de noticia y lo añadimos a la base de datos
-        article = Article(
-            title= title,
-            description = description,
-            image_url= image_url,
-            content= content,
-            author= author,
-            date_published= date_published,
-            category= category
-        )
-        db.session.add(article)
-        db.session.commit()
+        try:
+            # Creamos cada articulo de noticia y lo añadimos a la base de datos
+            article = Article(
+                title= title,
+                description = description,
+                image_url= image_url,
+                content= content,
+                author= author,
+                date_published= date_published,
+                category= category
+            )
+            db.session.add(article)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+        finally:
+            db.session.close()
