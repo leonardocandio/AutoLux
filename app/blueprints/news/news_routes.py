@@ -1,5 +1,5 @@
 from flask import render_template
-from models.article import Article
+from .models.article import Article
 from app.blueprints.news import news
 
 @news.route('/news_list', methods=['GET', 'POST'])

@@ -1,5 +1,5 @@
 from flask import render_template
-from models.car import Car
+from .models.car import Car
 from app.blueprints.shop import shop
 
 @shop.route('/shop')
