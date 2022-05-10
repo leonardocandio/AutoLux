@@ -1,16 +1,17 @@
 import typing
 from flask import Flask
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
-from app.blueprints.news.models.article import Article
-from app.blueprints.auth.models.user import User
-from app.blueprints.auth.auth_routes import auth
-from app.blueprints.home.home_routes import home
 from database import db, migrate
 
+from app.blueprints.news.models.article import Article
+from app.blueprints.shop.models.car import Car
+from app.blueprints.auth.models.user import User
+
+from app.blueprints.auth.auth_routes import auth
+from app.blueprints.home.home_routes import home
 from app.blueprints.news.news_routes import news
 from app.blueprints.shop.shop_routes import shop
 
+from utils.web_scraping_cars import create_all_cars
 from utils.web_scraping_news import create_all_articles
 
 
