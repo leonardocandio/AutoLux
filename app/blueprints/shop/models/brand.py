@@ -1,5 +1,5 @@
-from utils.db import db
-from .super_models.time_model import TimeModel
+from app import db
+from app.models.super_models.time_model import TimeModel
 
 
 class Brand(db.Model, TimeModel):

@@ -1,5 +1,5 @@
 from datetime import datetime
-from utils.db import db
+from database import db
 
 class TimeModel(object):
     created_at = db.Column(

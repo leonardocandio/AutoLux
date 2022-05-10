@@ -1,15 +1,14 @@
 from functools import wraps
-from utils.db import db
-from models.user import User
+from app.blueprints.auth import auth
+from database import db
+from .models.user import User
 from flask import (
-    Blueprint, redirect, url_for, render_template, request,
+    redirect, url_for, render_template, request,
     session, g, flash
 )
 
-bp = Blueprint('auth', __name__)
 
-
-@bp.route('/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form["username"]
@@ -19,15 +18,15 @@ def register():
         # Ver si existe alguien con el mismo usuario
         if username == "" or password == "":
             flash('Username and password are required', 'danger')
-            return render_template("auth/register.html")
+            return render_template("register.html")
 
         if len(username) < 5 or len(password) < 5:
             flash('Username and password must be at least 5 characters', 'danger')
-            return render_template("auth/register.html")
+            return render_template("register.html")
 
         if User.query.filter_by(username=username).first() is not None:
             flash('Someone else with that username already exists', 'danger')
-            return render_template("auth/register.html")
+            return render_template("register.html")
 
         # Se crea el usuario
         new_user = User(username=username, password=password, role='user')
@@ -36,11 +35,11 @@ def register():
         session.clear()
         session['user_id'] = new_user.id
 
-        return render_template("auth/register.html")
-    return render_template("auth/register.html")
+        return redirect("/")
+    return render_template("register.html")
 
 
-@bp.route('/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form["username"]
@@ -49,34 +48,37 @@ def login():
 
         if username == "" or password == "":
             flash('Username field or password field are empty', 'danger')
-            return render_template("auth/login.html")
+            return render_template("login.html")
 
-        if user == None:
+        if user is None:
             flash('User not found', 'danger')
-            return render_template("auth/login.html")
+            return render_template("login.html")
 
         if password != user.password:
             flash('Your password are incorrect', 'danger')
-            return render_template("auth/login.html")
+            return render_template("login.html")
 
         session.clear()
         session['user_id'] = user.id
-        return redirect('/')
+        return redirect(url_for('home.home_page'))
 
-    return render_template("auth/login.html")
+    return render_template("login.html")
 
+@auth.route('/account-recovery')
+def recovery():
+    return render_template("recovery.html")
 
-@bp.route('/logout')
+@auth.route('/logout')
 def logout():
     session.clear()
     return redirect('/login')
 
 
-@bp.before_app_request
+@auth.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
 
-    if user_id == None:
+    if user_id is None:
         g.user = None
     else:
         g.user = User.query.filter_by(id=user_id).first()
@@ -89,6 +91,7 @@ def login_required(view):
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
+
     return wrapped_view
 
 
@@ -100,4 +103,5 @@ def admin_role_required(view):
             return redirect(url_for('auth.login', next=request.url))
 
         return view(**kwargs)
+
     return wrapped_view

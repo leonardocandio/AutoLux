@@ -1,4 +1,4 @@
-{% extends "auth/authbase.html" %}
+{% extends "authbase.html" %}
 
 {% block title %}
     Log in
@@ -9,7 +9,7 @@
 {% endblock %} 
 
 {% block link %}
-    <a class="main-link" style="padding-bottom:0px;" href="{{ url_for('auth.login') }}">Forgot password?</a>
+    <a class="main-link" style="padding-bottom:0;" href="{{ url_for('auth.recovery') }}">Forgot password?</a>
     <a class="main-link" href="{{ url_for('auth.register') }}">Not registered yet?</a>
 {% endblock %}
 

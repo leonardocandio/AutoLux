@@ -1,7 +1,7 @@
 from unicodedata import category
-from utils.db import db
+from app import db
 from datetime import datetime
-from .super_models.time_model import TimeModel
+from app.models.super_models.time_model import TimeModel
 
 
 class Car(db.Model, TimeModel):

@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
 from models.car import Car
-
-shop = Blueprint('shop', __name__)
+from app.blueprints import shop
 
 @shop.route('/shop')
 def shop_page():
