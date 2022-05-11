@@ -4,8 +4,9 @@ app/utils/__pycache__
 app/models/__pycache__
 app/models/super_models/__pycache__
 tests/__pycache__
-venv
+venv/*
 migrations
+migrations/*
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,flask
