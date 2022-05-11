@@ -1,9 +1,14 @@
+:root {
+    --color-base: #f5f5f5;
+    --color-accent: #395e76;
+}
+
 *:not(i) {
     font-family: 'Roboto', sans-serif;
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: var(--color-base);
 }
 
 h1 {
@@ -24,9 +29,129 @@ h3 {
     font-weight: bold;
 }
 
-a {
+a, a:hover {
     text-decoration: none;
+    color: var(--color-accent);
+    font-weight: 600;
 }
+
+nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100px;
+    background: var(--color-base);
+    z-index: 1000;
+    min-width: 580px;
+    box-shadow: 0 0 3px 1px lightgray, 0 -3px 1px 1px lightgray;
+}
+
+
+.main-logo {
+    position: relative;
+    float: left;
+    height: 100px;
+    line-height: 100px;
+    padding: 0 15px;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+
+}
+
+nav .links {
+    float: right;
+    margin-right: 30px;
+    position: relative;
+}
+
+nav .links li {
+    list-style: none;
+    position: relative;
+    margin: 20px;
+    display: inline-block;
+}
+
+nav .links li > a {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 30px;
+    height: 30px;
+}
+
+nav .links li > a:hover {
+    color: #fff;
+    background: var(--color-accent);
+    border-radius: 2px;
+}
+
+nav .links li > .trigger-drop {
+    padding-right: 30px;
+}
+
+nav .links li > a .arrow {
+    top: 35%;
+    right: auto;
+    position: absolute;
+    border: solid black;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-left: 11%;
+    transform: rotate(45deg);
+}
+
+nav .links li > a:hover .arrow {
+    border: solid white;
+    border-width: 0 1px 1px 0;
+}
+
+nav .links li ul {
+    position: absolute;
+    left: 0;
+    margin: 0;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+    display: none;
+}
+
+nav .links li ul > li {
+    clear: both;
+    list-style: none;
+    display: block;
+    padding: 0 10px;
+    margin: 0;
+    width: 100%;
+}
+
+nav .links li ul > li:hover {
+    background: var(--color-accent);
+}
+
+nav .links li ul > li:hover > a {
+    background: var(--color-accent);
+    color: #fff;
+}
+
+nav .links li:hover > .drop {
+    display: block;
+    animation: appear 0.3s ease;
+    -webkit-animation: appear 0.3s ease;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 
 .btn {
     display: inline-block;
@@ -92,7 +217,6 @@ a {
 }
 
 
-
 .form-control {
     width: 76%;
     color: darkgrey;
@@ -127,7 +251,7 @@ a {
 
 .page-title {
     padding-top: 12%;
-    color: #395e76;
+    color: var(--color-accent);
     font-weight: bold;
     font-size: 23px;
     text-align: center;
@@ -135,7 +259,6 @@ a {
 
 .main-link {
     text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-    color: #395e76;
     left: 50%;
     display: block;
     padding: 5%;

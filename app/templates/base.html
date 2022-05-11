@@ -8,22 +8,49 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.png') }}">
     <title>AutoLux</title>
 </head>
+<nav class="main-nav">
+    <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
+    <ul class="links">
+        <li class="dropdown"><a class="trigger-drop" href={{ url_for("forum.home") }}>Forum<i class="arrow"></i></a>
+            <ul class="drop">
+                {% include "dropdown/forum.html" %}
+            </ul>
+        </li>
+        <li class="dropdown"><a class="trigger-drop" href={{ url_for("news.home") }}>News<i class="arrow"></i></a>
+            <ul class="drop">
+                {% include "dropdown/news.html" %}
+                <li><a href="#">prueba1</a></li>
+                <li><a href="#">prueba2</a></li>
+                <li><a href="#">prueba3</a></li>
+            </ul>
+        </li>
+        <li class="dropdown"><a class="trigger-drop" href={{ url_for("shop.home") }}>Shop<i class="arrow"></i></a>
+            <ul class="drop">
+                {% include "dropdown/shop.html" %}
+                <li><a href="#">prueba1</a></li>
+                <li><a href="#">prueba2</a></li>
+                <li><a href="#">prueba3</a></li>
+            </ul>
+        </li>
+        <li><a class="" href={{ url_for("auth.logout") }}>Logout</a></li>
+    </ul>
+</nav>
 <body>
 
-    <!-- Mostrando las alertas -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
+<!-- Mostrando las alertas -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
             {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div>
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
             {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+        </ul>
+    {% endif %}
+{% endwith %}
 
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
 </body>
 </html>

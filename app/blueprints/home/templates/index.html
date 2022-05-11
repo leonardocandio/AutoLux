@@ -1,9 +1,1 @@
 {% extends 'base.html' %}
-    
-{% block body %}
-
-    <a class="btn btn-primary" href={{ url_for("forum.home") }}>Forum</a>
-    <a class="btn btn-primary" href={{ url_for("news.home") }}>News</a>
-    <a class="btn btn-primary" href={{ url_for("shop.home") }}>Shop</a>
-    <a class="btn btn-primary" href={{ url_for("auth.logout") }}>Logout</a>
-{% endblock %}
