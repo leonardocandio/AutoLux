@@ -122,7 +122,9 @@ def generate_cars(brands):
                     except Exception as e:
                         price = 0
 
-                    description = soup_car.find('div', {'class': "ficha_descripcion js-container-description"}).find('p').text
+                    description = soup_car.find('div', {'class': "ficha_descripcion js-container-description"})
+                    if description is not None:
+                        description = description.find('p').text
 
                     #Voy a usar el url como identificar para cada carro
                     cars[url] = {}
