@@ -101,7 +101,7 @@ def authorize():
     session['user'] = user_info
     session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
     print(user)
-    return redirect('/' )
+    return redirect('/')
 
 
 
@@ -109,7 +109,7 @@ def authorize():
 def load_logged_in_user():
     user_id = session.get('user_id')
 
-    if user_id is None or session.get('user') is None:
+    if user_id is None and session.get('user') is None:
         g.user = None
     else:
         g.user = User.query.filter_by(id=user_id).first()
