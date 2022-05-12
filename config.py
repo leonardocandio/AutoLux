@@ -22,7 +22,7 @@ class Config:
 
 
 class Development(Config):
-    DEBUG = True
+    FLASK_DEBUG = True
     TESTING = True
 
 

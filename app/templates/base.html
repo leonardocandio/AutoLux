@@ -12,25 +12,19 @@
     <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
     <ul class="links">
         <li class="dropdown"><a class="trigger-drop" href={{ url_for("forum.home") }}>Forum<i class="arrow"></i></a>
-            <ul class="drop">
+            <div class="dropdown-content">
                 {% include "dropdown/forum.html" %}
-            </ul>
+            </div>
         </li>
         <li class="dropdown"><a class="trigger-drop" href={{ url_for("news.home") }}>News<i class="arrow"></i></a>
-            <ul class="drop">
+            <div class="dropdown-content">
                 {% include "dropdown/news.html" %}
-                <li><a href="#">prueba1</a></li>
-                <li><a href="#">prueba2</a></li>
-                <li><a href="#">prueba3</a></li>
-            </ul>
+            </div>
         </li>
         <li class="dropdown"><a class="trigger-drop" href={{ url_for("shop.home") }}>Shop<i class="arrow"></i></a>
-            <ul class="drop">
+            <div class="dropdown-content">
                 {% include "dropdown/shop.html" %}
-                <li><a href="#">prueba1</a></li>
-                <li><a href="#">prueba2</a></li>
-                <li><a href="#">prueba3</a></li>
-            </ul>
+            </div>
         </li>
         <li><a class="" href={{ url_for("auth.logout") }}>Logout</a></li>
     </ul>

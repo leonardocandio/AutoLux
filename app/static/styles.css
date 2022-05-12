@@ -1,6 +1,8 @@
 :root {
     --color-base: #f5f5f5;
+    --color-background: #fff;
     --color-accent: #395e76;
+
 }
 
 *:not(i) {
@@ -29,10 +31,23 @@ h3 {
     font-weight: bold;
 }
 
-a, a:hover {
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    margin: 5%;
+}
+
+a {
     text-decoration: none;
     color: var(--color-accent);
     font-weight: 600;
+}
+
+a:hover {
+    cursor: pointer;
 }
 
 nav {
@@ -41,7 +56,7 @@ nav {
     right: 0;
     top: 0;
     height: 100px;
-    background: var(--color-base);
+    background: var(--color-background);
     z-index: 1000;
     min-width: 580px;
     box-shadow: 0 0 3px 1px lightgray, 0 -3px 1px 1px lightgray;
@@ -70,6 +85,8 @@ nav .links li {
     list-style: none;
     position: relative;
     margin: 20px;
+    margin-bottom: 0;
+    padding-bottom: 34px;
     display: inline-block;
 }
 
@@ -108,47 +125,52 @@ nav .links li > a:hover .arrow {
     border-width: 0 1px 1px 0;
 }
 
-nav .links li ul {
-    position: absolute;
-    left: 0;
-    margin: 0;
-    background: #fff;
-    border-radius: 2px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+nav .links li > .dropdown-content {
     display: none;
+    position: fixed;
+    background-color: var(--color-background);
+    top: 65px;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
-nav .links li ul > li {
-    clear: both;
-    list-style: none;
+nav .links li:hover > .dropdown-content {
     display: block;
-    padding: 0 10px;
-    margin: 0;
-    width: 100%;
+    margin-top: 35px;
+    animation-name: appear;
+    animation-duration: 350ms;
+    animation-fill-mode: both;
 }
 
-nav .links li ul > li:hover {
-    background: var(--color-accent);
+nav .nav-grid {
+    display: grid;
+    margin: 1%;
+    padding: 10px;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+    align-items: center;
+}
+nav .nav-grid-header h1 {
+    margin: 20px;
+    font-weight: bold;
+    font-size: 30px;
+}
+nav .grid-item {
+    text-align: center;
 }
 
-nav .links li ul > li:hover > a {
-    background: var(--color-accent);
-    color: #fff;
-}
-
-nav .links li:hover > .drop {
-    display: block;
-    animation: appear 0.3s ease;
-    -webkit-animation: appear 0.3s ease;
-}
 
 @keyframes appear {
     0% {
+        visibility: hidden;
         opacity: 0;
+        transform: translateY(-5px)
     }
     100% {
+        visibility: visible;
         opacity: 1;
-        transform: none;
+        transform: translateY(0);
     }
 }
 
@@ -225,12 +247,10 @@ nav .links li:hover > .drop {
     letter-spacing: 1px;
     background: lightgrey;
     padding: 10px 20px;
-    border: none;
     border-radius: 20px;
     outline: none;
     box-sizing: border-box;
     border: 2px solid lightgrey;
-    margin-bottom: 50px;
     margin-left: 46px;
     text-align: center;
     margin-bottom: 27px;
@@ -241,12 +261,12 @@ nav .links li:hover > .drop {
 }
 
 .main {
-    background-color: #fff;
+    background-color: var(--color-background);
     width: 400px;
     height: 400px;
     margin: 7em auto;
     border-radius: 1.5em;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
 }
 
 .page-title {
@@ -257,16 +277,14 @@ nav .links li:hover > .drop {
     text-align: center;
 }
 
-.main-link {
-    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-    left: 50%;
-    display: block;
-    padding: 5%;
-}
-
 .container {
     width: 100%;
     text-align: center;
+}
+
+.main-link {
+    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    display: inline-block;
 }
 
 
