@@ -2,4 +2,8 @@
     
 {% block body %}
     <a class="btn btn-primary" href={{ url_for("auth.logout") }}>Logout</a>
+    <h1>Hello {{ user.name }}</h1>
+    <img src="{{ user.picture }}">
+    <h2>Your email address is {{ user.email }}</h2>
+    <h3>And your password is ...</h3>
 {% endblock %}

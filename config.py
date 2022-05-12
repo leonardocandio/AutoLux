@@ -13,6 +13,17 @@ class Config:
     TEMPLATES_FOLDER = 'templates'
     PORT = 5001
 
+    # Sign in with Google
+    # GOOGLE = {
+    #     'consumer_key': os.getenv("GOOGLE_CLIENT_ID"),
+    #     'consumer_secret': os.getenv("GOOGLE_CLIENT_SECRET")
+    # }
+    
+
+    # Flask-Caching related configs
+    CACHE_TYPE: 'SimpleCache'  
+    CACHE_DEFAULT_TIMEOUT: 300
+
     # Application directory
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
