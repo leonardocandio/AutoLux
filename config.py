@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
 
 
 class Config:
     # Enabling development environment
+    load_dotenv(find_dotenv())
 
     FLASK_ENV = "development"
     SECRET_KEY = "secretkey"
@@ -33,7 +33,7 @@ class Config:
 
 
 class Development(Config):
-    DEBUG = True
+    FLASK_DEBUG = True
     TESTING = True
 
 

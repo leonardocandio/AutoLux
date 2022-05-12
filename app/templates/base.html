@@ -4,25 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-    <title>CarsApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.png') }}">
+    <title>AutoLux</title>
 </head>
-<body>
-    
-    <!-- Mostrando las alertas -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
+<nav class="main-nav">
+    <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
+    <ul class="links">
+        <li class="dropdown"><a class="trigger-drop" href={{ url_for("forum.home") }}>Forum<i class="arrow"></i></a>
+            <div class="dropdown-content">
+                {% include "dropdown/forum.html" %}
             </div>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+        </li>
+        <li class="dropdown"><a class="trigger-drop" href={{ url_for("news.home") }}>News<i class="arrow"></i></a>
+            <div class="dropdown-content">
+                {% include "dropdown/news.html" %}
+            </div>
+        </li>
+        <li class="dropdown"><a class="trigger-drop" href={{ url_for("shop.home") }}>Shop<i class="arrow"></i></a>
+            <div class="dropdown-content">
+                {% include "dropdown/shop.html" %}
+            </div>
+        </li>
+        <li><a class="" href={{ url_for("auth.logout") }}>Logout</a></li>
+    </ul>
+</nav>
+<body>
 
-    {% block body %}{% endblock %}
+<!-- Mostrando las alertas -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+{% block body %}{% endblock %}
 
 </body>
 </html>

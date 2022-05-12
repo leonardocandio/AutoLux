@@ -2,8 +2,8 @@ from flask import render_template
 from .models.article import Article
 from app.blueprints.news import news
 
-@news.route('/news_list', methods=['GET', 'POST'])
-def news_list():
+@news.route('/', methods=['GET', 'POST'])
+def home():
     articles = Article.query.all()
     return render_template('news.html', articles=articles)
 

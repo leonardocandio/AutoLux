@@ -6,9 +6,11 @@
 
 {% block button %}
     Register
-{% endblock %} 
+{% endblock %}
 
 {% block link %}
-    <a class="main-link" href="{{ url_for('auth.login') }}">Already registered?</a>
+    <li>
+        <a class="main-link" href="{{ url_for('auth.login') }}">Already registered?</a>
+    </li>
 {% endblock %}
 
