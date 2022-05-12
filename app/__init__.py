@@ -1,6 +1,8 @@
 import typing
 from flask import Flask
 from database import db, migrate
+from app.oauth import oauth
+from app.cache import cache
 
 from app.blueprints.news.models.article import Article
 from app.blueprints.shop.models.car import Car
@@ -15,6 +17,7 @@ from app.utils.web_scraping_cars import create_all_cars
 from app.utils.web_scraping_news import create_all_articles
 
 
+
 def create_app(config_type: str):
     """
     Creates app instance with specified type (see config.py)
@@ -27,7 +30,8 @@ def create_app(config_type: str):
     app.config.from_object(config_type)
 
     with app.app_context():
-        
+        cache.init_app(app)
+        oauth.init_app(app)
         db.init_app(app)
         migrate.init_app(app, db)
         # Si tabla articles esta vacía, la llenamos con artículos
