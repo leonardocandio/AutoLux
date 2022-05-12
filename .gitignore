@@ -7,6 +7,8 @@ tests/__pycache__
 venv/*
 migrations
 migrations/*
+.DS_Store
+.idea/
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,flask
