@@ -1,5 +1,8 @@
 from authlib.integrations.flask_client import OAuth
+from dotenv import load_dotenv,find_dotenv
 import os
+
+load_dotenv(find_dotenv())
 
 oauth = OAuth()
 

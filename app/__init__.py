@@ -1,3 +1,4 @@
+import typing
 from flask import Flask
 from database import db, migrate
 from app.oauth import oauth
@@ -17,7 +18,7 @@ from app.utils.web_scraping_cars import create_all_cars
 from app.utils.web_scraping_news import create_all_articles
 
 
-def create_app(config_type):
+def create_app():
     """
     Creates app instance with specified type (see config.py)
     config_type:
@@ -26,7 +27,7 @@ def create_app(config_type):
         'config.Development': Development config - Debug True
     """
     app = Flask(__name__)
-    app.config.from_object(config_type)
+    app.config.from_object('config.Config')
 
     with app.app_context():
         cache.init_app(app)
