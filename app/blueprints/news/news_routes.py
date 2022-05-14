@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, abort
 from .models.article import Article
 from app.blueprints.news import news
 

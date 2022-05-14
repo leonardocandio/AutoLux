@@ -16,6 +16,7 @@ from app.blueprints.forum.forum_routes import forum
 
 from app.utils.web_scraping_cars import create_all_cars
 from app.utils.web_scraping_news import create_all_articles
+from app.errors.error_handlers import error_handlers
 
 
 def create_app():
@@ -28,12 +29,16 @@ def create_app():
     """
     app = Flask(__name__)
     app.config.from_object('config.Config')
+    error_handlers(app)
 
     with app.app_context():
         cache.init_app(app)
         oauth.init_app(app)
         db.init_app(app)
         migrate.init_app(app, db)
+
+       
+
         #Si tabla articles esta vacía, la llenamos con artículos
         if len(Article.query.all()) == 0:
            create_all_articles(db, Article)
