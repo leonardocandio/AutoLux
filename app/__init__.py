@@ -6,6 +6,7 @@ from app.cache import cache
 
 from app.blueprints.news.models.article import Article
 from app.blueprints.shop.models.car import Car
+from app.blueprints.shop.models.brand import Brand
 from app.blueprints.auth.models.user import User
 
 from app.blueprints.auth.auth_routes import auth
@@ -16,7 +17,9 @@ from app.blueprints.forum.forum_routes import forum
 
 from app.utils.web_scraping_cars import create_all_cars
 from app.utils.web_scraping_news import create_all_articles
+from app.utils.web_scraping_cars import create_all_brands
 from app.errors.error_handlers import error_handlers
+
 
 
 def create_app():
@@ -37,16 +40,18 @@ def create_app():
         db.init_app(app)
         migrate.init_app(app, db)
 
-       
 
         #Si tabla articles esta vacía, la llenamos con artículos
         if len(Article.query.all()) == 0:
            create_all_articles(db, Article)
 
         # Si tabla cars esta vacía, la llenamos con carros
-
         if len(Car.query.all()) == 0:
             create_all_cars(db, Car)
+
+        # Si tabla brands esta vacía, la llenamos con marcas
+        if len(Brand.query.all()) == 0:
+           create_all_brands(db, Brand)
 
         #Creamos nuestro primer usuario administrador
         if User.query.filter_by(username="admin").first() is None:

@@ -58,24 +58,38 @@ def create_all_cars(db, Car):
             db.session.close()
             
 
+def create_all_brands(db, Brand):
+    brands = generate_brands()
+    for brand in brands.values():
+        try:
+            new_brand = Brand(
+            name=brand['name'],
+            image_url=brand['image_url']
+            )
+            db.session.add(new_brand)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+        finally:
+            db.session.close()
+            
+
 def generate_brands():
     brands = {}
     s0 = requests.Session()
     r1 = requests.get("https://neoauto.com/")
 
     if r1.status_code == 200:
-        soup = BeautifulSoup(r1.text, "html.parser")
+        soup = BeautifulSoup(r1._content.decode(), "html.parser")
 
         div_brands = soup.find('div', {'class': "tab_marca active"})
         lis = div_brands.find_all('li')
 
         for li in lis:
-            brand_image_url = li.find('img')['src']
             brand_name = li.find('img')['alt']
+            brand_image_url = li.find_all('img')[1]['src']
             url = li.find('a')['href']
-            # Esto es opcional
-            if " " in brand_name:
-                brand_name = '-'.join(brand_name.split(" "))
             
             brands[brand_name] = {}
             brands[brand_name]['name'] = brand_name
