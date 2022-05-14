@@ -14,36 +14,29 @@
     </div>
 </div>
 
-
-
-
-<div class="container">
-    <div class="row mb-5">
-        <div id = "image" class="col-md-6 col-ms-12 animate__animated animate__fadeInLeft">
-            <p><img class="w-100" src="{{ car.image_url }}">{{ car.name }}<br>
-                Precio: ${{ car.price }}<br>
-                Marca: {{ car.brand }}<br>
-                Modelo: {{ car.model }}<br>
-                Categoría: {{ car.category }}<br>
-                Año: {{ car.year }}<br>
-                Año de fabricación: {{ car.year_production }}<br>
-                Kilometraje: {{ car.mileage }}<br>
-                Transmisión: {{ car.transmission }}<br>
-                Combustible: {{ car.fuel }}<br>
-                Cilindrada: {{ car.engine_displacement }}<br>
-                Número de puertas: {{ car.doors }}<br>
-                Tipo de tracción: {{ car.drivetrain }}<br>
-                Color: {{ car.color }}<br>
-                Ubicación: {{ car.location }}<br>
-                
-            </p>
-        </div>
-
-        <div id = "inforcar" class="card col-md-6 col-ms-12">
-            
-
-        </div>
+<div class="cont">
+    <div class="padre">
+    <div class = "image">
+        <img class="w-100" src="{{ car.image_url }}">
     </div>
+    <div class="infocar">
+        Precio: ${{ car.price }}<br><br>
+        Marca: {{ car.brand }}<br><br>
+        Modelo: {{ car.model }}<br><br>
+        Categoría: {{ car.category }}<br><br>
+        Año: {{ car.year }}<br><br>
+        Año de fabricación: {{ car.year_production }}<br><br>
+        Kilometraje: {{ car.mileage }}<br><br>
+        Transmisión: {{ car.transmission }}<br><br>
+        Combustible: {{ car.fuel }}<br><br>
+        Cilindrada: {{ car.engine_displacement }}<br><br>
+        Número de puertas: {{ car.doors }}<br><br>
+        Tipo de tracción: {{ car.drivetrain }}<br><br>
+        Color: {{ car.color }}<br><br>
+        Ubicación: {{ car.location }}<br><br>
+    </div>
+</div>
+    
 </div>
 
 <div class="container">
