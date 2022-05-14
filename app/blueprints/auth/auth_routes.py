@@ -86,13 +86,14 @@ def authorize():
     user_info = resp.json()
 
     google_user = User.query.filter_by(username=user.sub).first()
-    if google_user is None:
-        db.session.add(User(username=user.sub, nickname=user.email.split("@")[0], password=user.email))
+    if google_user is None and user is not None:
+        new_user = User(username=user.sub, nickname=user.email.split("@")[0], password=user.email)
+        db.session.add(new_user)
         db.session.commit()
-        login_user(google_user)
+        login_user(new_user)
     else:
         login_user(google_user, remember=True)
-    print(google_user)
+
     return redirect(url_for("home.home_page"))
 
 
