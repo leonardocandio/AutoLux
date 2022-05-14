@@ -1,3 +1,5 @@
-from flask import Blueprint
+from .forum_routes import forum
 
-forum = Blueprint('forum',__name__, template_folder='templates',url_prefix="/forum")
+
+def create_module(app):
+    app.register_blueprint(forum)

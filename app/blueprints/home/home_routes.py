@@ -1,16 +1,17 @@
-from flask import Blueprint, render_template, session
-from database import db
-from app.blueprints.home import home
-from app.blueprints.auth.auth_routes import login_required, admin_role_required
+from flask import render_template
+from flask_login import login_required, current_user
+
+from app.blueprints.auth.models.role import Permission
+from app.blueprints.home.controller import home
 
 
-#Rutas de prueba
+# Rutas de prueba
 @home.route('/')
 @login_required
 def home_page():
-    user = session.get('user')
+    return render_template("index.html")
 
-    return render_template("index.html", user=user)
+
 #
 # @home.route('/add_car')
 # def add_car():
@@ -27,13 +28,16 @@ def home_page():
 #     return 'User added successfully'
 #
 # @home.route('/delete_user/<id>')
-# @admin_role_required
+# @admin_required
 # def delete_user(id):
 #     User.query.filter_by(id=id).delete()
 #     db.session.commit()
 #     return 'User deleted successfully'
 #
 # @home.route('/test')
-# @admin_role_required
+# @admin_required
 # def test():
 #     return render_template('base.html')
+@home.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)

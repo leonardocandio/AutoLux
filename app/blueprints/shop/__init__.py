@@ -1,5 +1,5 @@
-from flask import Blueprint
-
-shop = Blueprint('shop', __name__,template_folder="templates",url_prefix="/shop",)
+from .shop_routes import shop
 
 
+def create_module(app):
+    app.register_blueprint(shop)
