@@ -21,13 +21,13 @@ class LoginForm(FlaskForm):
         ).first()
         if user is None:
             self.username.errors.append(
-                'Invalid username or password'
+                'Usuario o contraseña invalida'
             )
             return False
         # Do the passwords match
         if not user.verify_password(self.password.data):
             self.username.errors.append(
-                'Invalid username or password'
+                'Usuario o contraseña invalida'
             )
             return False
         return True
