@@ -1,33 +1,46 @@
 {% extends "base.html"%}
 
 {% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/stylereview.css">
+</head>
 
-<div class="text-center mb-5">
-    <h1>{{ car.name }}</h1>
+<div id="fragment">
+    <div class="text-center mb-5">
+        <h1>{{ car.name }}</h1>
+    </div>
 </div>
+
+
+
 
 <div class="container">
     <div class="row mb-5">
-        <div class="col-md-6 col-ms-12 animate__animated animate__fadeInLeft">
-            <img class="w-100" src="{{ car.image_url }}">
+        <div id = "image" class="col-md-6 col-ms-12 animate__animated animate__fadeInLeft">
+            <p><img class="w-100" src="{{ car.image_url }}">{{ car.name }}<br>
+                Precio: ${{ car.price }}<br>
+                Marca: {{ car.brand }}<br>
+                Modelo: {{ car.model }}<br>
+                Categoría: {{ car.category }}<br>
+                Año: {{ car.year }}<br>
+                Año de fabricación: {{ car.year_production }}<br>
+                Kilometraje: {{ car.mileage }}<br>
+                Transmisión: {{ car.transmission }}<br>
+                Combustible: {{ car.fuel }}<br>
+                Cilindrada: {{ car.engine_displacement }}<br>
+                Número de puertas: {{ car.doors }}<br>
+                Tipo de tracción: {{ car.drivetrain }}<br>
+                Color: {{ car.color }}<br>
+                Ubicación: {{ car.location }}<br>
+                
+            </p>
         </div>
 
-        <div class="card col-md-6 col-ms-12">
-            <h3 class="p-3">{{ car.name }}</h3>
-            <p>Precio: ${{ car.price }}</p>
-            <p>Marca: {{ car.brand }}</p>
-            <p>Modelo: {{ car.model }}</p>
-            <p>Categoría: {{ car.category }}</p>
-            <p>Año: {{ car.year }}</p>
-            <p>Año de fabricación:< {{ car.year_production }}</p>
-            <p>Kilometraje: {{ car.mileage }}</p>
-            <p>Transmisión: {{ car.transmission }}</p>
-            <p>Combustible: {{ car.fuel }}</p>
-            <p>Cilindrada: {{ car.engine_displacement }}</p>
-            <p>Número de puertas: {{ car.doors }}</p>
-            <p>Tipo de tracción: {{ car.drivetrain }}</p>
-            <p>Color: {{ car.color }}</p>
-            <p>Ubicación: {{ car.location }}</p>
+        <div id = "inforcar" class="card col-md-6 col-ms-12">
+            
 
         </div>
     </div>
