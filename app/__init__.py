@@ -1,11 +1,5 @@
 from flask import Flask
 
-from app.blueprints.auth.models.user import User
-from app.blueprints.news.models.article import Article
-from app.blueprints.shop.models.car import Car
-from app.blueprints.forum.models.post import Post
-from app.blueprints.forum.models.comment import Comment
-
 from app.blueprints.auth import create_module as auth_create_module
 from app.blueprints.forum import create_module as forum_create_module
 from app.blueprints.home import create_module as home_create_module
@@ -14,9 +8,6 @@ from app.blueprints.shop import create_module as shop_create_module
 
 from app.cache import cache
 from app.oauth import oauth
-
-from app.utils.web_scraping_cars import create_all_cars
-from app.utils.web_scraping_news import create_all_articles
 
 from database import db, migrate
 

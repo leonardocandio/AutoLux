@@ -1,9 +1,8 @@
 from functools import wraps
 
-import password as password
 from flask import (
     redirect, url_for, render_template, request,
-    g, flash, session
+    abort
 )
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.urls import url_parse
@@ -14,7 +13,7 @@ from app.oauth import oauth
 from database import db
 from .forms import LoginForm, RegisterForm
 from .models.user import User
-from .models.role import Role
+from .models.role import Permission
 
 
 @cache.cached(timeout=50)
@@ -25,7 +24,7 @@ def register():
         username = form.username.data
         password = form.password.data
 
-        new_user = User(username=username, nickname=username, password=password, role='user')
+        new_user = User(username=username, nickname=username, password=password)
 
         try:
             db.session.add(new_user)
@@ -88,7 +87,7 @@ def authorize():
 
     google_user = User.query.filter_by(username=user.sub).first()
     if google_user is None:
-        db.session.add(User(username=user.sub, nickname=user.email.split("@")[0], password=user.email, role="user"))
+        db.session.add(User(username=user.sub, nickname=user.email.split("@")[0], password=user.email))
         db.session.commit()
         login_user(google_user)
     else:
@@ -97,13 +96,23 @@ def authorize():
     return redirect(url_for("home.home_page"))
 
 
-def admin_role_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user.role != "admin":
-            flash("Admin role is required", 'danger')
-            return redirect(url_for('auth.login', next=request.url))
+def permission_required(permission):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.can(permission):
+                abort(403)
+                return f(*args, **kwargs)
 
-        return view(**kwargs)
+        return decorated_function
 
-    return wrapped_view
+    return decorator
+
+
+def admin_required(f):
+    return permission_required(Permission.ADMINISTER)(f)
+
+
+@auth.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)

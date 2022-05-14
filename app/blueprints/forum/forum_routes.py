@@ -7,18 +7,13 @@ from .forms import PostForm
 # noinspection PyUnresolvedReferences
 from .models.comment import Comment
 from .models.post import Post
+from ..auth.models.role import Permission
 
 
 @forum.route('/')
 def home():
     posts = Post.query.order_by("publish_date").all()
-    try:
-        db.session.add(Post(title='Test', body="Lorem Ipsum", author=current_user.id))
-        db.session.commit()
-    except Exception as e:
-        print(e)
-    finally:
-        db.session.close()
+
     return render_template('forum.html', posts=posts)
 
 
@@ -35,3 +30,8 @@ def publish():
 
         return redirect(url_for("forum.home"))
     return url_for("forum.publish")
+
+
+@forum.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)

@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.super_models.time_model import TimeModel
 from database import db
+from .role import Permission
 
 
 class User(UserMixin, db.Model, TimeModel):
@@ -13,10 +14,19 @@ class User(UserMixin, db.Model, TimeModel):
     password_hash = db.Column(db.String(120), nullable=False)
     image_url = db.Column(db.String,
                           default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), default=2)
     posts = db.relationship(
         'Post', backref='user', lazy='dynamic'
     )
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+
+    def can(self, permissions):
+        return self.role is not None and (self.role.permissions & permissions) == permissions
+
+    def is_admin(self):
+        return self.can(Permission.ADMINISTER)
 
     @property
     def password(self):
@@ -43,3 +53,11 @@ class User(UserMixin, db.Model, TimeModel):
             ))
             db.session.commit()
             db.session.close()
+
+
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, permissions):
+        return False
+
+    def is_admin(self):
+        return False
