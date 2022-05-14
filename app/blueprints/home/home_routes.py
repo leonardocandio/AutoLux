@@ -1,16 +1,14 @@
-from flask import Blueprint, render_template, session
-from database import db
-from app.blueprints.home import home
-from app.blueprints.auth.auth_routes import login_required, admin_role_required
+from flask import render_template
+from flask_login import login_required, current_user
+
+from app.blueprints.home.controller import home
 
 
-#Rutas de prueba
+# Rutas de prueba
 @home.route('/')
 @login_required
 def home_page():
-    user = session.get('user')
-
-    return render_template("index.html", user=user)
+    return render_template("index.html")
 #
 # @home.route('/add_car')
 # def add_car():

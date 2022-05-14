@@ -1,6 +1,8 @@
 from flask import render_template
+
+from app.blueprints.news.controller import news
 from .models.article import Article
-from app.blueprints.news import news
+
 
 @news.route('/', methods=['GET', 'POST'])
 def home():

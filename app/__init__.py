@@ -1,21 +1,24 @@
-import typing
 from flask import Flask
-from database import db, migrate
-from app.oauth import oauth
-from app.cache import cache
 
+from app.blueprints.auth.models.user import User
 from app.blueprints.news.models.article import Article
 from app.blueprints.shop.models.car import Car
-from app.blueprints.auth.models.user import User
+from app.blueprints.forum.models.post import Post
+from app.blueprints.forum.models.comment import Comment
 
-from app.blueprints.auth.auth_routes import auth
-from app.blueprints.home.home_routes import home
-from app.blueprints.news.news_routes import news
-from app.blueprints.shop.shop_routes import shop
-from app.blueprints.forum.forum_routes import forum
+from app.blueprints.auth import create_module as auth_create_module
+from app.blueprints.forum import create_module as forum_create_module
+from app.blueprints.home import create_module as home_create_module
+from app.blueprints.news import create_module as news_create_module
+from app.blueprints.shop import create_module as shop_create_module
+
+from app.cache import cache
+from app.oauth import oauth
 
 from app.utils.web_scraping_cars import create_all_cars
 from app.utils.web_scraping_news import create_all_articles
+
+from database import db, migrate
 
 
 def create_app():
@@ -34,30 +37,11 @@ def create_app():
         oauth.init_app(app)
         db.init_app(app)
         migrate.init_app(app, db)
-        #Si tabla articles esta vacía, la llenamos con artículos
-        if len(Article.query.all()) == 0:
-           create_all_articles(db, Article)
 
-        # Si tabla cars esta vacía, la llenamos con carros
-
-        if len(Car.query.all()) == 0:
-            create_all_cars(db, Car)
-
-        #Creamos nuestro primer usuario administrador
-        if User.query.filter_by(username="admin").first() is None:
-            db.session.add(User(
-                username="admin",
-                password="password",
-                role="admin"
-            ))
-            db.session.commit()
-            db.session.close()
-
-        app.register_blueprint(home)
-        app.register_blueprint(news)
-        app.register_blueprint(shop)
-        app.register_blueprint(auth)
-        app.register_blueprint(forum)
+        auth_create_module(app)
+        shop_create_module(app)
+        news_create_module(app)
+        home_create_module(app)
+        forum_create_module(app)
 
     return app
-    
