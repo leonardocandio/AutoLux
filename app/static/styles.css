@@ -2,12 +2,21 @@
     --color-base: #f5f5f5;
     --color-background: #fff;
     --color-accent: #395e76;
-
 }
 
 *:not(i) {
     font-family: 'Roboto', sans-serif;
 }
+
+
+/*HERRAMIENTAS*/
+
+.center {
+    text-align: center;
+}
+
+
+/*Fin herramienta*/
 
 body {
     margin: 0;
@@ -62,7 +71,6 @@ nav {
     box-shadow: 0 0 3px 1px lightgray, 0 -3px 1px 1px lightgray;
 }
 
-
 .main-logo {
     position: relative;
     float: left;
@@ -72,7 +80,6 @@ nav {
     font-size: 22px;
     font-weight: 900;
     text-transform: uppercase;
-
 }
 
 nav .links {
@@ -90,7 +97,7 @@ nav .links li {
     display: inline-block;
 }
 
-nav .links li > a {
+nav .links li>a {
     position: relative;
     display: inline-block;
     padding: 0 20px;
@@ -98,17 +105,17 @@ nav .links li > a {
     height: 30px;
 }
 
-nav .links li > a:hover {
+nav .links li>a:hover {
     color: #fff;
     background: var(--color-accent);
     border-radius: 2px;
 }
 
-nav .links li > .trigger-drop {
+nav .links li>.trigger-drop {
     padding-right: 30px;
 }
 
-nav .links li > a .arrow {
+nav .links li>a .arrow {
     top: 35%;
     right: auto;
     position: absolute;
@@ -120,12 +127,12 @@ nav .links li > a .arrow {
     transform: rotate(45deg);
 }
 
-nav .links li > a:hover .arrow {
+nav .links li>a:hover .arrow {
     border: solid white;
     border-width: 0 1px 1px 0;
 }
 
-nav .links li > .dropdown-content {
+nav .links li>.dropdown-content {
     display: none;
     position: fixed;
     background-color: var(--color-background);
@@ -136,7 +143,7 @@ nav .links li > .dropdown-content {
     z-index: 1;
 }
 
-nav .links li:hover > .dropdown-content {
+nav .links li:hover>.dropdown-content {
     display: block;
     margin-top: 35px;
     animation-name: appear;
@@ -151,15 +158,16 @@ nav .nav-grid {
     grid-template-columns: auto auto auto auto auto auto auto auto;
     align-items: center;
 }
+
 nav .nav-grid-header h1 {
     margin: 20px;
     font-weight: bold;
     font-size: 30px;
 }
+
 nav .grid-item {
     text-align: center;
 }
-
 
 @keyframes appear {
     0% {
@@ -173,7 +181,6 @@ nav .grid-item {
         transform: translateY(0);
     }
 }
-
 
 .btn {
     display: inline-block;
@@ -214,7 +221,6 @@ nav .grid-item {
     text-decoration: none;
 }
 
-
 .alert-danger {
     color: #721c24;
     background-color: #f8d7da;
@@ -231,13 +237,11 @@ nav .grid-item {
     color: #004085;
     background-color: #cce5ff;
     border-color: #b8daff;
-
 }
 
 .form {
     padding-top: 5%;
 }
-
 
 .form-control {
     width: 76%;
@@ -287,9 +291,78 @@ nav .grid-item {
     display: inline-block;
 }
 
-
 @media (max-width: 600px) {
     .main {
         border-radius: 0px;
     }
+}
+
+
+/*NEWS*/
+
+@media (max-width: 1000px) {
+    .container-news {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .lista-productos {
+        padding: 0;
+        list-style: none;
+    }
+    .lista-productos li {
+        text-decoration: none;
+        float: left;
+        padding: 20px;
+        text-align: center;
+    }
+    .card-news {
+        width: 100%;
+        height: 100%;
+    }
+    .card-news img {
+        width: 100%;
+    }
+    .card-body-div {
+        display: grid;
+        margin: 0 auto 0 auto;
+        text-align: center;
+    }
+}
+
+.lista-productos {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.card-news img {
+    width: 100%;
+}
+
+.card-body-div {
+    position: relative;
+    padding: 5px;
+    box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
+    text-align: center;
+    height: 300px;
+}
+
+.card-text-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 40%;
+    margin-top: -35px;
+    /* Este valor es el resultado de dividir entre 2 height: 70*/
+    margin-left: -40%;
+    /* Este valor es el resultado de dividir entre 2 : width:80% */
+    color: #333;
+    text-align: center;
+}
+
+.card-body-div a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
