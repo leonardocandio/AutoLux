@@ -16,7 +16,7 @@ class User(UserMixin, db.Model, TimeModel):
                           default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), default=2)
     posts = db.relationship(
-        'Post', backref='user', lazy='dynamic'
+        'Post', backref='author', lazy='dynamic'
     )
 
     def __init__(self, **kwargs):
@@ -53,6 +53,23 @@ class User(UserMixin, db.Model, TimeModel):
             ))
             db.session.commit()
             db.session.close()
+
+    @staticmethod
+    def generate_fake(count=100):
+        from sqlalchemy.exc import IntegrityError
+        from random import seed
+        import forgery_py
+        seed()
+        for i in range(count):
+            n = forgery_py.internet.user_name(True)
+            u = User(username=n, nickname=n,
+                     password=forgery_py.lorem_ipsum.word())
+
+            db.session.add(u)
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
 
 
 class AnonymousUser(AnonymousUserMixin):

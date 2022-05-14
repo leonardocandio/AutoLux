@@ -25,7 +25,7 @@
         <form method="post" class="form">
         {{ form.csrf_token }}
         {{ form.username(class_="form-control", placeholder="Usuario") }}
-        {{ form.password(class_="form-control", placeholder="Contraseña") }}
+        {{ form.password(class_="form-control", placeholder="Contraseña",type="password") }}
     {% endblock %}
     {{ form.submit(class_="btn btn-submit") }}
     {% block button %}
