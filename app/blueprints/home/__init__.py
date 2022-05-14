@@ -1,3 +1,5 @@
-from flask import Blueprint
+from .home_routes import home
 
-home = Blueprint('home', __name__, template_folder='templates', static_folder='static')
+
+def create_module(app):
+    app.register_blueprint(home)

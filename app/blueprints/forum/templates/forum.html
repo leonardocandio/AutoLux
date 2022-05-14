@@ -2,6 +2,6 @@
 
 {% block body %}
     {% for post in posts %}
-        <p>{{ post.id }}</p>
+        <p>{{ post.id }}, {{ post.timestamp }}, {{ post.author }}</p>
     {% endfor %}
 {% endblock %}

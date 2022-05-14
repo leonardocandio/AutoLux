@@ -1,87 +1,72 @@
 from functools import wraps
-import re
-from app.blueprints.auth import auth
-from database import db
-from .models.user import User
-from app.cache import cache
-from app.oauth import oauth
+
 from flask import (
     redirect, url_for, render_template, request,
-    session, g, flash, session, jsonify
+    abort
 )
+from flask_login import login_user, login_required, logout_user, current_user
+from werkzeug.urls import url_parse
+
+from app.blueprints.auth.controller import auth
+from app.cache import cache
+from app.oauth import oauth
+from database import db
+from .forms import LoginForm, RegisterForm
+from .models.user import User
+from .models.role import Permission
+
 
 @cache.cached(timeout=50)
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        username = request.form["username"]
-        password = request.form["password"]
-        message = ''
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
 
-        # Ver si existe alguien con el mismo usuario
-        if username == "" or password == "":
-            flash('Username and password are required', 'danger')
-            return render_template("register.html")
+        new_user = User(username=username, nickname=username, password=password)
 
-        if len(username) < 5 or len(password) < 5:
-            flash('Username and password must be at least 5 characters', 'danger')
-            return render_template("register.html")
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+        except Exception as e:
+            print(e)
 
-        if User.query.filter_by(username=username).first() is not None:
-            flash('Someone else with that username already exists', 'danger')
-            return render_template("register.html")
+        login_user(new_user, remember=True)
+        return redirect(url_for("home.home_page"))
+    return render_template("register.html", form=form)
 
-        # Se crea el usuario
-        new_user = User(username=username, password=password, role='user')
-        db.session.add(new_user)
-        db.session.commit()
-        session.clear()
-        session['user_id'] = new_user.id
-
-        return redirect("/")
-    return render_template("register.html")
 
 @cache.cached(timeout=50)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-
-    if request.method == 'POST':
-        username = request.form["username"]
-        password = request.form["password"]
-        user = User.query.filter_by(username=username).first()
-
-        if username == "" or password == "":
-            flash('Username field or password field are empty', 'danger')
-            return render_template("login.html")
-
-        if user is None:
-            flash('User not found', 'danger')
-            return render_template("login.html")
-
-        if password != user.password:
-            flash('Your password are incorrect', 'danger')
-            return render_template("login.html")
-
-        session.clear()
-        session['user_id'] = user.id
-        return redirect(url_for('home.home_page'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).one()
+        login_user(user, remember=True)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for("home.home_page")
+        return redirect(next_page)
 
     google = oauth.create_client('google')
     redirect_uri = 'http://localhost:5000/authorize'
-    
-    return render_template("login.html")
+
+    return render_template("login.html", form=form)
+
 
 @auth.route('/account-recovery')
 def recovery():
     return render_template("recovery.html")
 
+
 @auth.route('/logout')
+@login_required
 def logout():
-    if session.get('profile') is not None:
-        session['profile'] = None
-    else:
-        session['user_id'] = None
+    user = current_user
+    logout_user()
     return redirect('/login')
+
 
 @auth.route('/login_google')
 def login_google():
@@ -89,51 +74,45 @@ def login_google():
     redirect_uri = url_for('auth.authorize', _external=True)
     return google.authorize_redirect(redirect_uri)
 
+
 @auth.route('/authorize')
 def authorize():
     google = oauth.create_client('google')  # create the google oauth client
     token = google.authorize_access_token()  # Access token from google (needed to get user info)
     resp = google.get('userinfo')  # userinfo contains stuff u specificed in the scrope
-    user_info = resp.json()
     user = oauth.google.userinfo()  # uses openid endpoint to fetch user info
     # Here you use the profile/user data that you got and query your database find/register the user
     # and set ur own data in the session not the profile from google
-    session['user'] = user_info
-    session.permanent = True  # make the session permanant so it keeps existing after broweser gets closed
-    print(user)
-    return redirect('/')
+    user_info = resp.json()
 
-
-
-@auth.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-
-    if user_id is None and session.get('user') is None:
-        g.user = None
+    google_user = User.query.filter_by(username=user.sub).first()
+    if google_user is None:
+        db.session.add(User(username=user.sub, nickname=user.email.split("@")[0], password=user.email))
+        db.session.commit()
+        login_user(google_user)
     else:
-        g.user = User.query.filter_by(id=user_id).first()
+        login_user(google_user, remember=True)
+    print(google_user)
+    return redirect(url_for("home.home_page"))
 
 
-def login_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None and session.get('user') is None:
-            return redirect(url_for('auth.login'))
-        return view(**kwargs)
+def permission_required(permission):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.can(permission):
+                abort(403)
+                return f(*args, **kwargs)
 
-    return wrapped_view
+        return decorated_function
 
-
-def admin_role_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user.role != "admin":
-            flash("Admin role is required", 'danger')
-            return redirect(url_for('auth.login', next=request.url))
-
-        return view(**kwargs)
-
-    return wrapped_view
+    return decorator
 
 
+def admin_required(f):
+    return permission_required(Permission.ADMINISTER)(f)
+
+
+@auth.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)

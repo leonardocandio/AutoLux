@@ -1,3 +1,5 @@
-from flask import Blueprint
+from .news_routes import news
 
-news = Blueprint('news', __name__, template_folder="templates",url_prefix="/news")
+
+def create_module(app):
+    app.register_blueprint(news)

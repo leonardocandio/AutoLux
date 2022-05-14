@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv, find_dotenv
 
 
@@ -7,7 +8,7 @@ class Config:
     load_dotenv(find_dotenv())
     FLASK_DEBUG = True
     TESTING = True
-    SECRET_KEY = "secretkey"
+    SECRET_KEY = '\x14\x86\r\x99\x1a\xf5DN\x87bg\x98\xa9\x03\x1f\x91\x8fVUT\xd0WT \x8b\x8e3\xd6bj\x8c+'
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
 

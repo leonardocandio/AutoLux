@@ -1,19 +1,18 @@
 {% extends "authbase.html" %}
 
 {% block title %}
-    Log in
+    Ingresa
 {% endblock %}
 
-{% block button %}
-    Log in
-{% endblock %}
+
 
 {% block link %}
     <li>
-        <a class="main-link" style="padding-bottom:0;" href="{{ url_for('auth.recovery') }}">Forgot password?</a>
+        <a class="main-link" style="padding-bottom:0;" href="{{ url_for('auth.recovery') }}">Olvidaste tu
+            contraseña?</a>
     </li>
     <li>
-        <a class="main-link" href="{{ url_for('auth.register') }}">Not registered yet?</a>
+        <a class="main-link" href="{{ url_for('auth.register') }}">Todavía no eres miembro?</a>
     </li>
 {% endblock %}
 

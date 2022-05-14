@@ -1,4 +1,6 @@
-from app import db
+from database import db
+from app.utils.web_scraping_news import create_all_articles
+
 
 class Article(db.Model):
     __tablename__ = 'articles'
@@ -11,3 +13,8 @@ class Article(db.Model):
     author = db.Column(db.String(120), default="No author")
     date_published = db.Column(db.DateTime, default="No date published")
     category = db.Column(db.String(255), default="No category")
+
+    @staticmethod
+    def get_news():
+        if len(Article.query.all()) == 0:
+            create_all_articles(db, Article)
