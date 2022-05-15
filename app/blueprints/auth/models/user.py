@@ -18,6 +18,7 @@ class User(UserMixin, db.Model, TimeModel):
     posts = db.relationship(
         'Post', backref='author', lazy='dynamic'
     )
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
