@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <title>AutoLux</title>
 </head>
-<body>
-<nav class="main-nav">
-    <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
-    <ul class="links">
-        <li class="dropdown"><a class="trigger-drop" href={{ url_for("forum.home") }}>Forum<i class="arrow"></i></a>
-            <div class="dropdown-content">
-                {% include "dropdown/forum.html" %}
-            </div>
-        </li>
-        <li class="dropdown"><a class="trigger-drop" href={{ url_for("news.home") }}>News<i class="arrow"></i></a>
-            <div class="dropdown-content">
-                {% include "dropdown/news.html" %}
-            </div>
-        </li>
-        <li class="dropdown"><a class="trigger-drop" href={{ url_for("shop.home") }}>Shop<i class="arrow"></i></a>
-            <div class="dropdown-content">
-                {% include "dropdown/shop.html" %}
-            </div>
-        </li>
-        <li><a class="" href={{ url_for("auth.logout") }}>Logout</a></li>
-    </ul>
-</nav>
 
-<!-- Mostrando las alertas -->
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-                <div class="alert alert-danger" role="alert">
-                    {{ message }}
+<body>
+    <nav class="main-nav">
+        <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
+        <ul class="links">
+            <li class="dropdown"><a class="trigger-drop" href={{ url_for( "forum.home") }}>Forum<i class="arrow"></i></a>
+                <div class="dropdown-content">
+                    {% include "dropdown/forum.html" %}
                 </div>
-            {% endfor %}
+            </li>
+            <li class="dropdown"><a class="trigger-drop" href={{ url_for( "news.home") }}>News<i class="arrow"></i></a>
+                <div class="dropdown-content">
+                    {% include "dropdown/news.html" %}
+                </div>
+            </li>
+            <li class="dropdown"><a class="trigger-drop" href={{ url_for( "shop.home") }}>Shop<i class="arrow"></i></a>
+                <div class="dropdown-content">
+                    {% include "dropdown/shop.html" %}
+                </div>
+            </li>
+            <li><a class="" href={{ url_for( "auth.logout") }}>Logout</a></li>
         </ul>
-    {% endif %}
-{% endwith %}
-<div>
-    {% block body %}{% endblock %}
-</div>
+    </nav>
+
+    <!-- Mostrando las alertas -->
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
+    <div>
+        {% block body %}{% endblock %}
+    </div>
 
 
 </body>
+
 </html>
