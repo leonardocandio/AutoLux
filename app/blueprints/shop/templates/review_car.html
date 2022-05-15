@@ -2,36 +2,33 @@
 
 {% block body %}
 
-<div class="text-center mb-5">
+<div class="namecar">
     <h1>{{ car.name }}</h1>
 </div>
 
-<div class="container">
-    <div class="row mb-5">
-        <div class="col-md-6 col-ms-12 animate__animated animate__fadeInLeft">
-            <img class="w-100" src="{{ car.image_url }}">
-        </div>
-
-        <div class="card col-md-6 col-ms-12">
-            <h3 class="p-3">{{ car.name }}</h3>
-            <p>Precio: ${{ car.price }}</p>
-            <p>Marca: {{ car.brand }}</p>
-            <p>Modelo: {{ car.model }}</p>
-            <p>Categoría: {{ car.category }}</p>
-            <p>Año: {{ car.year }}</p>
-            <p>Año de fabricación:< {{ car.year_production }}</p>
-            <p>Kilometraje: {{ car.mileage }}</p>
-            <p>Transmisión: {{ car.transmission }}</p>
-            <p>Combustible: {{ car.fuel }}</p>
-            <p>Cilindrada: {{ car.engine_displacement }}</p>
-            <p>Número de puertas: {{ car.doors }}</p>
-            <p>Tipo de tracción: {{ car.drivetrain }}</p>
-            <p>Color: {{ car.color }}</p>
-            <p>Ubicación: {{ car.location }}</p>
-
-        </div>
+<div class="cont">
+    <div class="padre">
+    <div class = "image">
+        <img class="imgcr" src="{{ car.image_url }}">
+    </div>
+    <div class="infocar">
+        Precio: ${{ car.price }}<br><br>
+        Marca: {{ car.brand }}<br><br>
+        Modelo: {{ car.model }}<br><br>
+        Categoría: {{ car.category }}<br><br>
+        Año: {{ car.year }}<br><br>
+        Año de fabricación: {{ car.year_production }}<br><br>
+        Kilometraje: {{ car.mileage }}<br><br>
+        Transmisión: {{ car.transmission }}<br><br>
+        Combustible: {{ car.fuel }}<br><br>
+        Cilindrada: {{ car.engine_displacement }}<br><br>
+        Número de puertas: {{ car.doors }}<br><br>
+        Tipo de tracción: {{ car.drivetrain }}<br><br>
+        Color: {{ car.color }}<br><br>
+        Ubicación: {{ car.location }}<br><br>
     </div>
 </div>
+
 
 <div class="container">
     <div class="card">
