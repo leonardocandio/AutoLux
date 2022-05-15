@@ -366,3 +366,48 @@ nav .grid-item {
     right: 0;
     left: 0;
 }
+
+
+/*REVIEW CARS*/
+.container {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.padre{
+    display: flex;
+    margin: auto auto;
+    border: 30px;
+}
+
+.infocar{
+    text-align: justify;
+    font-size: 20px;
+    padding: 10px 120px;
+    width: 800px;
+
+}
+
+.cont{
+    margin: 50px;
+    width: auto;
+    height: 600px;
+}
+
+.image{
+    padding: 1px 100px;
+}
+
+.imgcr{
+    border-radius: 15px;
+}
+
+.namecar{
+    background-color: #000;
+}
+
+h1{
+    color: #f0f0f0;
+    padding: 30px 350px;
+}
