@@ -4,7 +4,13 @@
     Registrate
 {% endblock %}
 
+{% block form %}
+    {{ form.username(class_="form-control", placeholder="Usuario") }}
 
+    {{ form.email(class_="form-control", placeholder="Correo") }}
+
+    {{ form.password(class_="form-control", placeholder="Contraseña",type="password") }}
+{% endblock %}
 
 {% block link %}
     <li>

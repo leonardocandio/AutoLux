@@ -9,8 +9,8 @@ from .role import Permission
 class User(UserMixin, db.Model, TimeModel):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    nickname = db.Column(db.String(80), nullable=False)
+    username = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
     password_hash = db.Column(db.String(120), nullable=False)
     image_url = db.Column(db.String,
                           default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
@@ -47,7 +47,7 @@ class User(UserMixin, db.Model, TimeModel):
         if User.query.filter_by(username="admin").first() is None:
             db.session.add(User(
                 username="admin",
-                nickname="admin",
+                email="admin@gmail.com",
                 password="password",
                 role_id="1"
             ))
@@ -62,7 +62,7 @@ class User(UserMixin, db.Model, TimeModel):
         seed()
         for i in range(count):
             n = forgery_py.internet.user_name(True)
-            u = User(username=n, nickname=n,
+            u = User(username=n, email=forgery_py.internet.email_address(),
                      password=forgery_py.lorem_ipsum.word())
 
             db.session.add(u)

@@ -11,12 +11,6 @@ def home():
     return render_template('news.html', articles=articles)
 
 
-@news.route('/<news_id>')
-def news_page(news_id):
-    car = Article.query.filter_by(id=news_id).first()
-    return render_template('review_news.html', car=car)
-
-
 @news.route('/add_news')
 def add_news():
     return 'add news'
