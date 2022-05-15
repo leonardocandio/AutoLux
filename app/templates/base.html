@@ -28,6 +28,17 @@
             </div>
         </li>
         <li><a class="" href={{ url_for("auth.logout") }}>Logout</a></li>
+
+        <a href="{{  url_for('profile.profile_page', username=session['user_username'] ) }} ">
+            <img style="
+                width: 60px;
+                height: 60px;
+                border-radius: 100%; 
+                box-shadow: 0 0 1px;" src="{{ session['user_image_url'] }}" alt="">
+        </a>
+        
+        
+        
     </ul>
 </nav>
 

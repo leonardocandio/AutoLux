@@ -2,6 +2,7 @@ from flask import render_template
 
 from app.blueprints.shop.controller import shop
 from .models.car import Car
+from .models.brand import Brand
 from ..auth.models.role import Permission
 
 

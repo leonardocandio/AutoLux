@@ -17,7 +17,7 @@ class LoginForm(FlaskForm):
             return False
         # Does our user exist
         user = User.query.filter_by(
-            username=self.username.data
+            email=self.email.data
         ).first()
         if user is None:
             self.email.errors.append(
