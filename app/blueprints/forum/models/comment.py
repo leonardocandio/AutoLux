@@ -7,7 +7,7 @@ class Comment(db.Model, TimeModel):
     id = db.Column(db.Integer(), primary_key=True)
     body = db.Column(db.Text)
     disabled = db.Column(db.Boolean)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     def __repr__(self):
