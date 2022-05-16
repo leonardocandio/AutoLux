@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, session, request, redirect, url_for, abort
+from flask import jsonify, render_template, session, request, redirect, url_for, abort, session
 from flask_login import current_user, login_required
 from database import db
 from app.blueprints.profile.controller import profile
@@ -10,6 +10,8 @@ from .forms import ChangeUsernameForm, ChangePasswordForm, ChangeImageForm
 @profile.route('/<id>', methods=['GET', 'POST'])
 def profile_page(id):
     user = User.query.filter_by(id=id).first()
+    print("current user id: ",current_user.id)
+    print("session user: ", session['user_id'])
     form1 = ChangeUsernameForm()
     if form1.validate_on_submit():
         username = form1.username.data

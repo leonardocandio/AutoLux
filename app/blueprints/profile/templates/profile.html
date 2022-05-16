@@ -47,48 +47,53 @@
         <p id="username-label" class="label label-username">{{ user.username }}</p>
         <p id="email-label" class="label label-email">{{ user.email }}</p>
         
-        <div>
-            <button onclick="show_username_form()" id="btn_change_username" class="btn btn-edit-2 hidden">Cambiar nombre de usuario</button>
+        {% if current_user.id == user.id %}
+            <div>
+                <button onclick="show_username_form()" id="btn_change_username" class="btn btn-edit-2 hidden">Cambiar nombre de usuario</button>
 
-            <button onclick="show_password_form()" id="btn_change_password" class="btn btn-edit-2 hidden">Cambiar contraseña</button>
+                <button onclick="show_password_form()" id="btn_change_password" class="btn btn-edit-2 hidden">Cambiar contraseña</button>
 
-            <button onclick="show_image_url_form()" id="btn_change_image_url" class="btn btn-edit-2 hidden">Cambiar foto de perfil</button>
-        </div>
+                <button onclick="show_image_url_form()" id="btn_change_image_url" class="btn btn-edit-2 hidden">Cambiar foto de perfil</button>
+            </div>
+            
+
+            <form method="POST" class="hidden" id="change_username_form">
+                {{ form1.csrf_token }}
+                <p class="label">Cambia tu nombre de usuario</p>
+                {{ form1.username(class_="form-control", placeholder="Nuevo nombre de usuario", type="text") }}
+
+                {{ form1.submit(class_="btn btn-submit") }}
+            </form>
+
+            <form method="POST" class="hidden" id="change_password_form">
+                {{ form2.csrf_token }}
+                <p class="label">Cambia tu contraseña</p>
+                {{ form2.password(class_="form-control", placeholder="Nueva contraseña", type="password") }}
+
+                {{ form2.submit(class_="btn btn-submit") }}
+            </form>
+
+            <form method="POST" class="hidden" id="change_image_url_form">
+                {{ form3.csrf_token }}
+                <p class="label">Cambia tu foto de perfil</p>
+                {{ form3.image_url(class_="form-control", placeholder="Nueva foto de perfil", type="text") }}
+
+                {{ form3.submit(class_="btn btn-submit") }}
+            </form>
+        {% else %}
+            <div></div>
+        {% endif %}
         
-
-        <form method="POST" class="hidden" id="change_username_form">
-            {{ form1.csrf_token }}
-            <p class="label">Cambia tu nombre de usuario</p>
-            {{ form1.username(class_="form-control", placeholder="Nuevo nombre de usuario", type="text") }}
-
-            {{ form1.submit(class_="btn btn-submit") }}
-        </form>
-
-        <form method="POST" class="hidden" id="change_password_form">
-            {{ form2.csrf_token }}
-            <p class="label">Cambia tu contraseña</p>
-            {{ form2.password(class_="form-control", placeholder="Nueva contraseña", type="password") }}
-
-            {{ form2.submit(class_="btn btn-submit") }}
-        </form>
-
-        <form method="POST" class="hidden" id="change_image_url_form">
-            {{ form3.csrf_token }}
-            <p class="label">Cambia tu foto de perfil</p>
-            {{ form3.image_url(class_="form-control", placeholder="Nueva foto de perfil", type="text") }}
-
-            {{ form3.submit(class_="btn btn-submit") }}
-        </form>
 
     </div>
 
 
     <div style="border: 2px solid lightgrey; text-align: center; width: 40%; padding: 2em; border-radius: 10px;">
-
+        {% if current_user.id == user.id %}
         <div>
             <button onclick="show_buttons()" class="btn btn-edit" id="btn_show_forms">Editar Perfil</button>
         </div>
-
+        {% endif %}
         <h2>Tus publicaciones</h2>
         
         {% for i in range(10)%}
