@@ -8,7 +8,7 @@
             <div class="card-body-div">
                 <h5 class="card-title">{{ article.title }}</h5>
                 <p class="card-text-div">{{ article.description }}</p>
-                <a href="#" class="btn btn-primary">See more</a>
+                <a href="{{ url_for('news.article_page',newid=article.id) }}" class="btn btn-primary">See more</a>
             </div>
         </li>
         {% endfor %}
