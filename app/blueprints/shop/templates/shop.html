@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block body %}
 
 <style>
-    .search{
+    .search {
         position: absolute;
         padding-top: 10px;
         border-radius: 20px;
@@ -9,10 +9,12 @@
         background-color: rgba(255, 255, 255, 0.1);
         cursor: pointer;
     }
-    .filter-container{
+    
+    .filter-container {
         padding-left: 20px;
     }
-    .filter-content{
+    
+    .filter-content {
         padding-left: 50px;
         width: 85%;
         border: 1px solid rgba(0, 0, 0, 0.3);
@@ -21,39 +23,41 @@
         height: 67vh;
         background-color: rgba(240, 240, 240, 1);
     }
-    .filter-title{
+    
+    .filter-title {
         font-size: 50px;
         padding-top: 20px;
         font-weight: 600;
         margin: 0;
     }
-    label{
-        margin:0;
+    
+    label {
+        margin: 0;
     }
 </style>
-    <h1 class="center">Shop</h1>
-    <div style="text-align: center;">
-        <input type="text" class="form-control" id="search-input" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
-        <button type="submit" class="search" onclick="search()">
+<h1 class="center">Tienda</h1>
+<div style="text-align: center;">
+    <input type="text" class="form-control" id="search-input" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
+    <button type="submit" class="search" onclick="search()">
             <img src="{{ url_for('static', filename='image/buscar.png') }}">
         </button>
-    </div>
+</div>
 
-    <div style="display:flex">
+<div style="display:flex">
 
 
-        <div style="width: 20%" class="filter-container">
-            <div class="filter-content">
-                <p class="filter-title">Filtros</p>
-                <ul>
-                    <form method="GET" action="filter">
+    <div style="width: 20%" class="filter-container">
+        <div class="filter-content">
+            <p class="filter-title">Filtros</p>
+            <ul>
+                <form method="GET" action="filter">
                     <li>
                         <label>Rango de precios</label>
                         <div></div>
                         <input name="start_price_filter" placeholder="Desde" type="number" step="50" min="100" max="100000" class="form-control" id="search-input" style="width: 50%; margin-left: 0px;" placeholder="">
-                    
+
                         <input name="end_price_filter" placeholder="Hasta" type="number" step="50" min="100" max="100000" class="form-control" id="search-input" style="width: 50%; margin-left: 0px;" placeholder="">
-                        
+
                     </li>
 
                     <li>
@@ -72,14 +76,14 @@
                     </li>
 
                     <li>
-                        <button class="btn" type="submit">Filtar</button>
+                        <button class="btn btn-primary" type="submit">Filtrar</button>
                     </li>
-                    </form>
-                </ul>
-            </div>
+                </form>
+            </ul>
         </div>
+    </div>
 
-        <!-- <script type="text/javascript">
+    <!-- <script type="text/javascript">
             const form = document.getElementById('filter-form')
             form.addEventListener('submit', (e) => {
                 const start_price = document.getElementById('price-start-filter').value
@@ -106,47 +110,38 @@
         </script> -->
 
 
-        <div class="cont-shop" style="width: 80%">
-            <div class="lista-tienda">
-                {% for car in cars %}
-                    <div class="cars-shop">
-                        <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
-    
-                        <div class="card-body-shop">
-                            <h3 class="card-title">{{ car.name }}</h3>
-                            <p class="card-text">
-                                {% if car.price == 0 %}
-                                    Consultar
-                                {% else %}
-                                    ${{ car.price }}
-                                {% endif %}
-                            </p>
-                            <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See
-                                more</a>
-                        </div>
-                    </div>
-                {% endfor %}
+    <div class="cont-shop" style="width: 80%">
+        <div class="lista-tienda">
+            {% for car in cars %}
+            <div class="cars-shop">
+                <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
+
+                <div class="card-body-shop">
+                    <h3 class="card-title">{{ car.name }}</h3>
+                    <p class="card-text">
+                        {% if car.price == 0 %} Consultar {% else %} ${{ car.price }} {% endif %}
+                    </p>
+                    <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">Ver mas</a>
+                </div>
             </div>
+            {% endfor %}
         </div>
-
-
-
-
-
     </div>
 
-    
 
-    <script type="text/javascript">
-    
-        function search(){
-            const value = document.getElementById("search-input").value.toLowerCase() ;
-            window.location.replace("/shop/search/" + value);
-        }
 
-        
-       
-    </script>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+    function search() {
+        const value = document.getElementById("search-input").value.toLowerCase();
+        window.location.replace("/shop/search/" + value);
+    }
+</script>
 
 
 {% endblock %}

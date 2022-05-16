@@ -15,30 +15,30 @@
 </head>
 
 <body>
-<div class="content-wrap">
-    <nav class="main-nav">
-        <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
-        <ul class="links">
-            <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "forum.home") }}'>Forum<i
+    <div class="content-wrap">
+        <nav class="main-nav">
+            <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
+            <ul class="links">
+                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "forum.home") }}'>Foro<i
                     class="arrow"></i></a>
-                <div class="dropdown-content">
-                    {% include "dropdown/forum.html" %}
-                </div>
-            </li>
-            <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "news.home") }}'>News<i
+                    <div class="dropdown-content">
+                        {% include "dropdown/forum.html" %}
+                    </div>
+                </li>
+                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "news.home") }}'>Noticias<i
                     class="arrow"></i></a>
-                <div class="dropdown-content">
-                    {% include "dropdown/news.html" %}
-                </div>
-            </li>
-            <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "shop.home") }}'>Shop<i
+                    <div class="dropdown-content">
+                        {% include "dropdown/news.html" %}
+                    </div>
+                </li>
+                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "shop.home") }}'>Tienda<i
                     class="arrow"></i></a>
-                <div class="dropdown-content">
-                    {% include "dropdown/shop.html" %}
-                </div>
-            </li>
-            <li><a class="" href={{ url_for( "auth.logout") }}>Logout</a></li>
-            {% if current_user.is_authenticated %}
+                    <div class="dropdown-content">
+                        {% include "dropdown/shop.html" %}
+                    </div>
+                </li>
+                <li><a class="" href='{{url_for( "auth.logout") }}'>Salir</a></li>
+
                 <a href="{{ url_for('profile.profile_page', id=current_user.id ) }} ">
 
                     <img style="
@@ -47,60 +47,58 @@
                 border-radius: 100%; 
                 box-shadow: 0 0 1px;" src="{{ session['user_image_url'] }}" alt="">
                 </a>
-            {% endif %}
+
+            </ul>
+        </nav>
+
+        {% block body %} {% endblock %}
+
+    </div>
+    <footer class="footer">
+
+        <a class="link-footer" href="{{ url_for('home.home_page') }}">
+            <img class="img-footer" src="{{ url_for('static', filename='image/autolux_logo_blanco.png') }}" alt="autolux_logo_blanco">
+        </a>
+        <ul class="links-footer">
+
+            <li class="link-footer"><a href="{{ url_for('forum.home') }}">Foro</a>
+            </li>
+
+            <li class="link-footer"><a href="{{ url_for('news.home') }}">Noticias</a>
+            </li>
+
+            <li class="link-footer"><a href="{{ url_for('shop.home') }}">Tienda</a>
+            </li>
         </ul>
-    </nav>
-
-    {% block body %}
-    {% endblock %}
-
-</div>
-<footer class="footer">
-
-    <a class="link-footer" href="{{ url_for('home.home_page') }}">
-        <img class="img-footer" src="{{ url_for('static', filename='image/autolux_logo_blanco.png') }}"
-             alt="autolux_logo_blanco">
-    </a>
-    <ul class="links-footer">
-
-        <li class="link-footer"><a href="{{ url_for('forum.home') }}">Forum</a>
-        </li>
-
-        <li class="link-footer"><a href="{{ url_for('news.home') }}">News</a>
-        </li>
-
-        <li class="link-footer"><a href="{{ url_for('shop.home') }}">Shop</a>
-        </li>
-    </ul>
 
 
-</footer>
-{% block script %}{% endblock %}
-<style>
-    .footer {
-        background-color: lightgray;
-        width: 100%;
-        text-align: center;
-        flex-shrink: 0;
-    }
-
-    .links-footer {
-        display: flex;
-        justify-content: center;
-        height: auto;
-    }
-
-    .link-footer {
-        font-size: 17px;
-        margin: 20px 50px;
-    }
-
-    .img-footer {
-        width: 150px;
-        margin-top: 20px;
-        border-radius: 10px;
-    }
-</style>
+    </footer>
+    {% block script %}{% endblock %}
+    <style>
+        .footer {
+            background-color: lightgray;
+            width: 100%;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .links-footer {
+            display: flex;
+            justify-content: center;
+            height: auto;
+        }
+        
+        .link-footer {
+            font-size: 17px;
+            margin: 20px 50px;
+        }
+        
+        .img-footer {
+            width: 150px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
 </body>
 
 </html>
