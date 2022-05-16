@@ -654,7 +654,6 @@ PUBLISH
 .container {
     width: 100%;
     text-align: center;
-    padding: 100px 20px;
     display: block;
 }
 
@@ -690,4 +689,121 @@ PUBLISH
 
 h1 {
     padding: 30px 350px;
+}
+
+
+/*POST*/
+.post-container {
+    display: grid;
+    grid-gap: 20px;
+    width: 70%;
+    height: 100%;
+    margin: auto auto 5%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(500px, 1000px);
+    grid-template-areas:
+            "post all-comments";
+}
+
+
+.main-post {
+    display: grid;
+    align-items: center;
+    background: var(--color-background);
+    box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
+    border-radius: 1.5em;
+    grid-gap: 10px;
+    grid-area: post;
+    grid-template-columns: auto auto auto 1fr;
+    grid-template-rows: 15% auto 1fr;
+    grid-template-areas:
+    "title title title title"
+    "photo author date . "
+    "body body body body";
+}
+
+.post-main-title {
+    text-align: center;
+    grid-area: title;
+    color: var(--color-accent);
+    font-size: 300%;
+}
+
+.post-author-image {
+    padding-left: 30px;
+    grid-area: photo;
+}
+
+.post-main-date {
+    grid-area: date;
+}
+
+.post-body {
+    text-align: justify;
+    margin: 5% 30px;
+    grid-area: body;
+    align-self: start;
+}
+
+.post-author {
+    text-align: left;
+    grid-area: author;
+}
+
+.all-comments {
+    grid-area: all-comments;
+}
+
+.comment-container {
+    height: 90%;
+    overflow: auto;
+}
+
+.comment {
+    display: grid;
+    align-self: center;
+    width: 70%;
+    grid-template-columns: max-content auto auto;
+    grid-template-rows: 30px auto;
+    grid-template-areas:
+    "pic a time"
+    "pic b b";
+
+    background: var(--color-background);
+    border-radius: 1.5em;
+    box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+.comment-img {
+    grid-area: pic;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+    align-self: start;
+    justify-self: center;
+}
+
+.comment-author {
+    grid-area: a;
+    width: auto;
+    height: 10%;
+    margin: 15px 10px 20px;
+}
+
+.comment-date {
+    grid-area: time;
+    color: #a7a5a5;
+    width: auto;
+    margin: 15px 0px 20px 10px;
+}
+
+.comment-body {
+    grid-area: b;
+    width: 87%;
+    margin: 10px 0px 20px 10px;
+    text-align: justify;
+}
+
+.form-container {
 }

@@ -46,7 +46,7 @@ def post(id):
     return render_template("post.html", posts=[post_q], form=form, comments=comments, validate=validate)
 
 
-@forum.route('/<id>/create_comment', methods=['GET', 'POST'])
+@forum.route('/<id>/create-comment', methods=['GET', 'POST'])
 def create_comment(id):
     post_q = Post.query.get_or_404(id)
     body = request.get_json()
@@ -58,11 +58,26 @@ def create_comment(id):
         db.session.commit()
         return jsonify({
             "body": comment.body,
+            "img": comment.author.image_url,
             "author": comment.author.username,
-            "last_updated": comment.last_updated})
+            "last_updated": comment.last_updated.strftime("%Y-%m-%d")})
     except Exception as e:
         print(e)
         db.session.rollback()
+
+
+@forum.route('/<id>/delete-comment', methods=['GET', 'POST'])
+def delete_comment(id):
+    try:
+        comment = Comment.query.get_or_404(id)
+        db.session.delete(comment)
+        db.session.commit()
+        success = True
+    except Exception as e:
+        success = False
+        print(e)
+        db.session.rollback()
+    return jsonify({"success": success})
 
 
 @forum.app_context_processor
