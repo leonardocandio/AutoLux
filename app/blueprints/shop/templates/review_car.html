@@ -13,7 +13,12 @@
             </div>
             <ul class="infocar">
                 <li>
-                    Precio: ${{ car.price }}
+                    Precio: 
+                    {% if car.price == 0 %}
+                        Consultar
+                    {% else %}
+                        ${{ car.price }}
+                    {% endif %}
                 </li>
                 <li>
                     Marca: {{ car.brand }}

@@ -25,7 +25,13 @@
 
                     <div class="card-body-shop">
                         <h3 class="card-title">{{ car.name }}</h3>
-                        <p class="card-text">${{ car.price }}</p>
+                        <p class="card-text">
+                            {% if car.price == 0 %}
+                                Consultar
+                            {% else %}
+                                ${{ car.price }}
+                            {% endif %}
+                        </p>
                         <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See
                             more</a>
                     </div>

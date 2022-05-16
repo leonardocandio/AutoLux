@@ -15,7 +15,7 @@
         text-align: center;
         /* Arreglar margen debajo de la imagen */
         display: block;
-        height: 800px;
+        height: 900px;
     }
 
     .container-index{
@@ -70,18 +70,20 @@
     }
     .whatiscont{
         font-size: 2em;
-        width: 700px;
-        text-align: center;
-        padding: 20px 600px;
+        padding: auto;
     }
     .whatdo{
         text-align: center;
     }
     .whatdocont{
         font-size: 2em;
-        width: 700px;
-        text-align: center;
-        padding: 20px 600px;
+        padding: auto;
+    }
+    .content-news{
+        width:auto;
+        height: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 </style>
@@ -93,12 +95,11 @@
     <img src="https://fondosmil.com/fondo/24658.jpg" alt="">
     
     <div >
-        
         <input type="text" class="index-btn form-control" id="search-input">
         <button type="submit" class="search" onclick="search()">
             <img src="{{ url_for('static', filename='image/buscar.png') }}">
         </button>
-        
+
     </div>
     
     
@@ -120,7 +121,13 @@
     
                         <div class="card-body-shop">
                             <h3 class="card-title">{{ car.name }}</h3>
-                            <p class="card-text">${{ car.price }}</p>
+                            <p class="card-text">
+                                {% if car.price == 0 %}
+                                    Consultar
+                                {% else %}
+                                    ${{ car.price }}
+                                {% endif %}
+                            </p>
                             <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See
                                 more</a>
                         </div>
@@ -139,9 +146,11 @@
                     <div class="cars-shop">
                         <img class="card-img-top" src="{{ new.image_url }}" alt="Card image cap">
     
-                        <div class="card-body-shop">
+                        <div class="card-body-shop content-news">
                             <h3 class="card-title">{{ new.title }}</h3>
-                            <p class="card-text">{{ new.description }}</p>
+                            <div class="content-news">
+                                <p>{{ new.description }}</p>
+                            </div>
                             <a href="{{ url_for('news.article_page', newid=new.id) }}" class="btn-shop btn-primary">See
                                 more</a>
                         </div>
@@ -152,6 +161,7 @@
         </div>
     </div>
     
+    
     <div class="whatis">
         <h1>Qué es AutoLux</h1>
         <p class="whatiscont">Autolux es un aplicación enfocada a ayudar a nuestros usuarios en su proceso de compra de el auto que más se acomode a sus necesidades</p>
@@ -160,8 +170,12 @@
     <div class="whatdo">
         <h1>Qué hacemos</h1>
         <p class="whatdocont">Ofrecemos a nuestros usuarios un catalogo con gran variedad de autos de distintas marcas, noticias relacionadas con el mundo de los autos,
-             además de un foro donde podrán encontrar reviews y opiniones de otros usuarios.</p>
+                además de un foro donde podrán encontrar reviews y opiniones de otros usuarios.</p>
     </div>
+    
+        
+    
+    
 
 </div>
 

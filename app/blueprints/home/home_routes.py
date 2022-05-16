@@ -1,14 +1,15 @@
-from flask import render_template, abort
+from flask import render_template, abort, jsonify
 from flask_login import login_required, current_user
 
 from app.blueprints.auth.models.role import Permission
 from app.blueprints.home.controller import home
 from app.blueprints.shop.models.car import Car
 from app.blueprints.news.models.article import Article
+from app.blueprints.shop.models.brand import Brand
 
 from random import choices
 
-# Rutas de prueba
+
 @home.route('/')
 def home_page():
     cars = choices( Car.query.all(), k=6)
@@ -19,7 +20,16 @@ def home_page():
     return render_template("index.html", cars=cars, news=news)
 
 
-#
+
+@home.route('/get_brands')
+def get_brands():
+    brands = Brand.query.all()
+
+
+    return jsonify()
+
+
+
 # @home.route('/add_car')
 # def add_car():
 #     car = Car('TOYOTA RAV4')
