@@ -202,7 +202,7 @@ nav .grid-item {
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    h110px;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
@@ -649,6 +649,5 @@ PUBLISH
 }
 
 h1 {
-    color: #f0f0f0;
     padding: 30px 350px;
 }

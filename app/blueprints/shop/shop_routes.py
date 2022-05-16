@@ -12,7 +12,7 @@ def home():
     cars = Car.query.all()
     return render_template('shop.html', cars=cars)
 
-@shop.route('/<search>', methods=['GET', 'POST'])
+@shop.route('/search/<search>', methods=['GET', 'POST'])
 def home_search(search = ""):
     cars = Car.query.all()
     cars = filter(cars, search)

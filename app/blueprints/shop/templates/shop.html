@@ -1,5 +1,22 @@
 {% extends "base.html" %} {% block body %}
+
+<style>
+    .search{
+        position: absolute;
+        padding-top: 10px;
+        border-radius: 20px;
+        border: 0px;
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+    }
+</style>
     <h1 class="center">Shop</h1>
+    <div style="text-align: center;">
+        <input type="text" class="form-control" id="search-input" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
+        <button type="submit" class="search" onclick="search()">
+            <img src="{{ url_for('static', filename='image/buscar.png') }}">
+        </button>
+    </div>
     <div class="cont-shop">
         <div class="lista-tienda">
             {% for car in cars %}
@@ -16,6 +33,15 @@
             {% endfor %}
         </div>
     </div>
+
+    <script type="text/javascript">
+    
+        function search(){
+            const value = document.getElementById("search-input").value.toLowerCase() ;
+            window.location.replace("/shop/search/" + value);
+        }
+       
+    </script>
 
 
 {% endblock %}

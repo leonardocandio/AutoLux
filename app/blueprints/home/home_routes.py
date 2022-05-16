@@ -3,13 +3,21 @@ from flask_login import login_required, current_user
 
 from app.blueprints.auth.models.role import Permission
 from app.blueprints.home.controller import home
+from app.blueprints.shop.models.car import Car
+from app.blueprints.news.models.article import Article
 
+from random import choices
 
 # Rutas de prueba
 @home.route('/')
 @login_required
 def home_page():
-    return render_template("index.html")
+    cars = choices( Car.query.all(), k=6)
+
+    news = choices( Article.query.all(), k=6)
+   
+
+    return render_template("index.html", cars=cars, news=news)
 
 
 #

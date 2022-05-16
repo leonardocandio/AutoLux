@@ -15,12 +15,13 @@
         text-align: center;
         /* Arreglar margen debajo de la imagen */
         display: block;
-        height: 1200px;
+        height: 800px;
     }
 
     .container-index{
-        margin-left: 100px;
-        margin-right: 100px;
+        width: 100%;
+        height: 650px;
+        text-align: center;
     }
         
     .container-fluid > img {
@@ -92,10 +93,45 @@
 <div class="container-main">
     <div class="container-index">
         <h1>Carros Recomendados</h1>
-    </div>
+
+        <div class="cont-shop">
+            <div class="lista-tienda">
+                {% for car in cars %}
+                    <div class="cars-shop">
+                        <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
+    
+                        <div class="card-body-shop">
+                            <h3 class="card-title">{{ car.name }}</h3>
+                            <p class="card-text">${{ car.price }}</p>
+                            <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See
+                                more</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
     
     <div class="container-index">
         <h1>Noticias Recomendadas</h1>
+
+        <div class="cont-shop">
+            <div class="lista-tienda">
+                {% for new in news %}
+                    <div class="cars-shop">
+                        <img class="card-img-top" src="{{ new.image_url }}" alt="Card image cap">
+    
+                        <div class="card-body-shop">
+                            <h3 class="card-title">{{ new.title }}</h3>
+                            <p class="card-text">{{ new.description }}</p>
+                            <a href="{{ url_for('news.article_page', newid=new.id) }}" class="btn-shop btn-primary">See
+                                more</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
     
     <div class="container-index">
@@ -105,13 +141,14 @@
     <div class="container-index">
         <h1>Qué hacemos</h1>
     </div>
+
 </div>
 
 <script type="text/javascript">
     
     function search(){
         const value = document.getElementById("search-input").value.toLowerCase() ;
-        window.location.replace("/shop/" + value);
+        window.location.replace("/shop/search/" + value);
     }
    
 </script>
