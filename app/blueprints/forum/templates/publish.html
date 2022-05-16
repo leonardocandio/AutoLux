@@ -1,10 +1,20 @@
-{% extends "base.html" %}
-
-{% block body %}
-    <form method="post" class="form">
-        {{ form.csrf_token }}
-        {{ form.title() }}
-        {{ form.body() }}
-        {{ form.submit() }}
-    </form>
+{% extends "base.html" %} {% block body %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+</style>
+<form method="post" class="form">
+    {{ form.csrf_token }}
+    <!--notocar-->
+    <div class="center cont-form-publish">
+        <div class="cont-publish-forum">
+            <h2>Titulo:</h2>
+            {{ form.title(class_="title_publish") }}
+        </div>
+        <div class="cont-body-forum">
+            <h2>Cuerpo:</h2>
+            {{ form.body(class_="body_publish") }}
+        </div>
+        {{ form.submit(class_="btn btn-submit") }}
+    </div>
+</form>
 {% endblock %}

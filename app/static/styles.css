@@ -23,8 +23,12 @@ body {
     background-color: var(--color-base);
 }
 
+textarea {
+    resize: none;
+}
+
 h1 {
-    color: rgb(221, 221, 221);
+    color: black;
     font-size: 2.5em;
     font-weight: bold;
     border: 5px;
@@ -477,9 +481,46 @@ FORUM
 ==================================================
 */
 
+.contenedor {
+    width: 100%;
+}
+
+.nav-forum {
+    height: 100px;
+    width: 85%;
+    align-items: center;
+    margin: 20px 50px;
+}
+
+.nav-forum h1 {
+    font-family: 'Share Tech Mono', monospace;
+    color: black;
+    padding: 0 50% 0 0;
+    float: left;
+}
+
+.nav-forum a {
+    padding: 5px;
+}
+
+.btn-forum {
+    margin: 21.40px 0;
+    color: rgb(0, 39, 168);
+    float: right;
+    font-size: 20px;
+    background-color: #c9c9a8;
+    border-color: #c9c9a8;
+}
+
+.nav-forum a:hover {
+    color: #0f0707;
+    opacity: 0.5;
+    transition: all 0.5s;
+}
+
 .post {
     border: 1px #b8daff solid;
-    margin: 10px 50px;
+    margin: 20px 50px;
     height: 300px;
 }
 
@@ -511,8 +552,60 @@ FORUM
     margin: 10px 10px;
 }
 
+.post-title h2 {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.post-title h4 {
+    font-family: 'Kanit', sans-serif;
+}
+
 .cont-nick-body {
+    margin: 15px 15px;
+}
+
+.cont-nick-body h3 {
+    font-family: 'Staatliches', cursive;
+    font-size: 30px;
+}
+
+
+/*
+=========================================
+PUBLISH
+=========================================
+*/
+
+.cont-form-publish {
+    height: 62vh;
+}
+
+.cont-publish-forum {
+    height: 30%;
     margin: 10px 10px;
+}
+
+.cont-body-forum {
+    height: 30%;
+    margin: 10px 10px;
+}
+
+.cont-publish-forum h2,
+.cont-body-forum h2 {
+    font-family: 'Share Tech Mono', monospace;
+    margin: 2px;
+}
+
+.title_publish {
+    height: 35%;
+    width: 50%;
+    font-size: 25px;
+}
+
+.body_publish {
+    width: 90%;
+    height: 75%;
+    font-size: 20px;
 }
 
 
