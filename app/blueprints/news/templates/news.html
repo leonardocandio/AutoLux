@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block body %}
-<h1 class="center">News</h1>
+<h1 class="center">Noticias</h1>
 <div class="container-news">
     <ul class="lista-productos">
         {% for article in articles %}
@@ -8,7 +8,7 @@
             <div class="card-body-div">
                 <h5 class="card-title">{{ article.title }}</h5>
                 <p class="card-text-div">{{ article.description }}</p>
-                <a href="{{ url_for('news.article_page',newid=article.id) }}" class="btn btn-primary">See more</a>
+                <a href="{{ url_for('news.article_page',newid=article.id) }}" class="btn btn-primary">Ver mas</a>
             </div>
         </li>
         {% endfor %}

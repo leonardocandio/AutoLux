@@ -1,51 +1,52 @@
-{% extends 'base.html' %}
-
-{% block body %}
+{% extends 'base.html' %} {% block body %}
 
 <style>
     h1 {
         color: lightslategray;
     }
-    .container-main{
+    
+    .container-main {
         text-align: center;
     }
-
-    .container-fluid{
+    
+    .container-fluid {
         width: 100%;
         text-align: center;
         /* Arreglar margen debajo de la imagen */
         display: block;
         height: 900px;
     }
-
-    .container-index{
+    
+    .container-index {
         width: 100%;
         height: 650px;
         text-align: center;
     }
-        
-    .container-fluid > img {
+    
+    .container-fluid>img {
         max-width: 99vw;
-        display:block;
-
+        display: block;
         transform: translate(0px, -300px);
         filter: saturate(1.5);
         background-color: black;
         box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.40);
     }
-    .centrado{
+    
+    .centrado {
         position: absolute;
         top: 30%;
         left: 35%;
         transform: translate(-50%, -50%);
     }
-
-    .index-title{
+    
+    .index-title {
         width: 100%;
+        padding: 0 0 0 28%;
         color: whitesmoke;
         font-size: 90px;
     }
-    .index-btn{
+    
+    .index-btn {
         width: 20%;
         height: 50px;
         position: absolute;
@@ -54,7 +55,8 @@
         transform: translate(-50%, -50%);
         background-color: rgba(255, 255, 255, 0.8);
     }
-    .search{
+    
+    .search {
         width: 45px;
         line-height: 40px;
         position: absolute;
@@ -65,44 +67,48 @@
         background-color: rgba(255, 255, 255, 0.1);
         cursor: pointer;
     }
-    .whatis{
+    
+    .whatis {
         text-align: center;
     }
-    .whatiscont{
+    
+    .whatiscont {
         font-size: 2em;
         padding: auto;
     }
-    .whatdo{
+    
+    .whatdo {
         text-align: center;
     }
-    .whatdocont{
+    
+    .whatdocont {
         font-size: 2em;
         padding: auto;
     }
-    .content-news{
-        width:auto;
+    
+    .content-news {
+        width: auto;
         height: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
 </style>
 
 
 
 <div class="container-fluid">
-    
+
     <img src="https://fondosmil.com/fondo/24658.jpg" alt="">
-    
-    <div >
+
+    <div>
         <input type="text" class="index-btn form-control" id="search-input">
         <button type="submit" class="search" onclick="search()">
             <img src="{{ url_for('static', filename='image/buscar.png') }}">
         </button>
 
     </div>
-    
-    
+
+
     <div class="centrado">
         <h1 class="index-title">Encuentra el carro de tus sueños</h1>
     </div>
@@ -116,76 +122,67 @@
         <div class="cont-shop">
             <div class="lista-tienda">
                 {% for car in cars %}
-                    <div class="cars-shop">
-                        <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
-    
-                        <div class="card-body-shop">
-                            <h3 class="card-title">{{ car.name }}</h3>
-                            <p class="card-text">
-                                {% if car.price == 0 %}
-                                    Consultar
-                                {% else %}
-                                    ${{ car.price }}
-                                {% endif %}
-                            </p>
-                            <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See
-                                more</a>
-                        </div>
+                <div class="cars-shop">
+                    <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
+
+                    <div class="card-body-shop">
+                        <h3 class="card-title">{{ car.name }}</h3>
+                        <p class="card-text">
+                            {% if car.price == 0 %} Consultar {% else %} ${{ car.price }} {% endif %}
+                        </p>
+                        <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">Ver mas</a>
                     </div>
-                {% endfor %}
                 </div>
+                {% endfor %}
             </div>
         </div>
-    
+    </div>
+
     <div class="container-index">
         <h1>Noticias Recomendadas</h1>
 
         <div class="cont-shop">
             <div class="lista-tienda">
                 {% for new in news %}
-                    <div class="cars-shop">
-                        <img class="card-img-top" src="{{ new.image_url }}" alt="Card image cap">
-    
-                        <div class="card-body-shop content-news">
-                            <h3 class="card-title">{{ new.title }}</h3>
-                            <div class="content-news">
-                                <p>{{ new.description }}</p>
-                            </div>
-                            <a href="{{ url_for('news.article_page', newid=new.id) }}" class="btn-shop btn-primary">See
-                                more</a>
+                <div class="cars-shop">
+                    <img class="card-img-top" src="{{ new.image_url }}" alt="Card image cap">
+
+                    <div class="card-body-shop content-news">
+                        <h3 class="card-title">{{ new.title }}</h3>
+                        <div class="content-news">
+                            <p>{{ new.description }}</p>
                         </div>
+                        <a href="{{ url_for('news.article_page', newid=new.id) }}" class="btn-shop btn-primary">Ver mas</a>
                     </div>
-                {% endfor %}
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    
-    
-    <div class="whatis">
-        <h1>Qué es AutoLux</h1>
-        <p class="whatiscont">Autolux es un aplicación enfocada a ayudar a nuestros usuarios en su proceso de compra de el auto que más se acomode a sus necesidades</p>
-    </div>
-    
-    <div class="whatdo">
-        <h1>Qué hacemos</h1>
-        <p class="whatdocont">Ofrecemos a nuestros usuarios un catalogo con gran variedad de autos de distintas marcas, noticias relacionadas con el mundo de los autos,
-                además de un foro donde podrán encontrar reviews y opiniones de otros usuarios.</p>
-    </div>
-    
-        
-    
-    
+</div>
+
+
+<div class="whatis">
+    <h1>Qué es AutoLux</h1>
+    <p class="whatiscont">Autolux es un aplicación enfocada a ayudar a nuestros usuarios en su proceso de compra de el auto que más se acomode a sus necesidades</p>
+</div>
+
+<div class="whatdo">
+    <h1>Qué hacemos</h1>
+    <p class="whatdocont">Ofrecemos a nuestros usuarios un catalogo con gran variedad de autos de distintas marcas, noticias relacionadas con el mundo de los autos, además de un foro donde podrán encontrar reviews y opiniones de otros usuarios.</p>
+</div>
+
+
+
+
 
 </div>
 
 <script type="text/javascript">
-    
-    function search(){
-        const value = document.getElementById("search-input").value.toLowerCase() ;
+    function search() {
+        const value = document.getElementById("search-input").value.toLowerCase();
         window.location.replace("/shop/search/" + value);
     }
-   
 </script>
 
 <!-- {% if not current_user.picture %}
