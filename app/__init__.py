@@ -5,6 +5,8 @@ from app.blueprints.forum import create_module as forum_create_module
 from app.blueprints.home import create_module as home_create_module
 from app.blueprints.news import create_module as news_create_module
 from app.blueprints.shop import create_module as shop_create_module
+from app.blueprints.profile import create_module as profile_create_module
+from app.errors.error_handlers import error_handlers
 
 from app.cache import cache
 from app.oauth import oauth
@@ -22,6 +24,7 @@ def create_app():
     """
     app = Flask(__name__)
     app.config.from_object('config.Config')
+    error_handlers(app)
 
     with app.app_context():
         cache.init_app(app)
@@ -34,5 +37,6 @@ def create_app():
         news_create_module(app)
         home_create_module(app)
         forum_create_module(app)
+        profile_create_module(app)
 
     return app

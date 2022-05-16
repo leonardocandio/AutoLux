@@ -1,7 +1,7 @@
 from functools import wraps
 
 from flask import (
-    redirect, url_for, render_template, request,
+    redirect, session, url_for, render_template, request,
     abort
 )
 from flask_login import login_user, login_required, logout_user, current_user
@@ -30,6 +30,10 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
+            # añádimos la información del usuario a la session
+            session['user_username'] = new_user.username
+            session['user_email'] = new_user.email
+            session['user_image_url'] = new_user.image_url
         except Exception as e:
             print(e)
 
@@ -44,14 +48,15 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).one()
+        # añádimos la información del usuario a la session
+        session['user_username'] = user.username
+        session['user_email'] = user.email
+        session['user_image_url'] = user.image_url
         login_user(user, remember=True)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for("home.home_page")
         return redirect(next_page)
-
-    google = oauth.create_client('google')
-    redirect_uri = 'http://localhost:5000/authorize'
 
     return render_template("login.html", form=form)
 
@@ -91,6 +96,9 @@ def authorize():
         new_user = User(username=user.email.split("@")[0], email=user.email, password=user.sub)
         db.session.add(new_user)
         db.session.commit()
+        session['user_username'] = new_user.username
+        session['user_email'] = new_user.email
+        session['user_image_url'] = new_user.image_url
         login_user(new_user)
     else:
         login_user(google_user, remember=True)

@@ -10,6 +10,10 @@ def home():
     articles = Article.query.all()
     return render_template('news.html', articles=articles)
 
+@news.route('/<newid>', methods=['GET', 'POST'])
+def article_page(newid):
+    article = Article.query.get(newid)
+    return render_template('see_more_news.html', article=article)
 
 @news.route('/add_news')
 def add_news():
@@ -24,3 +28,4 @@ def delete_news():
 @news.app_context_processor
 def inject_permissions():
     return dict(Permission=Permission)
+

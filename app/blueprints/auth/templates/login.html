@@ -18,16 +18,28 @@
         <a class="main-link" href="{{ url_for('auth.register') }}">Todavía no eres miembro?</a>
     </li>
     
-    <li>    
-        <a style="
+    <li>
+        <hr style="color: lightslategray">
+        <div style="
             box-sizing: border-box;
-            border-radius: 6px;
+            border-radius: 20px;
             padding: 6px;
-            border: 1px solid lightgrey;
-            box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.14)" class="main-link" href="{{ url_for('auth.login_google') }}">
-            <img style="width:50px;height:50px;" src="https://cdn.icon-icons.com/icons2/2415/PNG/512/google_original_logo_icon_146496.png">
-        </a>
+            border: #000f 2px;
+            background: linear-gradient(to right, #337eff, #4ba8ff );
+            box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.14)">
+            <a style="display:flex;" class="main-link" href="{{ url_for('auth.login_google') }}">
+                <img style="width:40px;
+                height:40px;
+                background-color: aliceblue; 
+                padding:7px;
+                border-radius: 20px;" src="https://cdn.icon-icons.com/icons2/2415/PNG/512/google_original_logo_icon_146496.png">
+                <p style="margin: 20px 30px; color: black;  ">Inicia sesión con Google</p>
+            </a>
+        </div>
+        
     </li>
+
+
 
 {% endblock %}
 
