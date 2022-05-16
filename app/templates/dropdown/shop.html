@@ -1,43 +1,71 @@
-<div class="nav-grid-header">
+
+
+<style>
+    .li-bar{
+        font-size: 40px;
+    }
+    .container-bar{
+        width: 50%;
+    }
+</style>
+
+<div class="nav-grid-header" style="width: 100%; text-align: center;">
     <h1>BUSCA POR MARCA</h1>
 </div>
-<div class="nav-grid">
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/403/toyota.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/240/kia.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/309/nissan.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/36/bmw.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/279/mazda.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/433/volkswagen.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/189/hyundai.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/281/mercedes-benz.jpg?20220427160756">
+<div class="" style="display: flex;">
+
+    <div class="container-bar">
+        <img src="{{ url_for('static', filename='image/autolux_logo_blanco.png') }}" alt="" id="img-bar">
     </div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/137/ford.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/387/suzuki.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/181/honda.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/66/chevrolet.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/386/subaru.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/218/jeep.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/287/mitsubishi.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/21/audi.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/343/renault.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/324/peugeot.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/330/porsche.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/133/fiat.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/72/citroen.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/787/chery.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/101/dodge.jpg?20220427160756"></div>
-    <div class="grid-item"><img src="https://cde.neoauto.pe/marca/logo/106x105/284/mg.jpg?20220427160756"></div>
-
-
+    
+    <div class="container-bar">
+        <ul style="display:flex; flex-wrap:wrap; margin-top: 5%;" id="ul-brands">
+            
+        </ul>
+    </div>
 
 
 
 </div>
 
 <script type="text/javascript">
-    function get_brands(){
-        fetch('/get_brands', {
-            
+    
+    const response = fetch('/get_brands', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    })
+
+    response.then(function(res) {
+        if(res.ok) {
+            res.json().then(function(data) {
+                
+                const ul = document.getElementById('ul-brands')
+                for(let i=1; i < Object.keys(data).length + 1; i++) {
+                    var new_li = document.createElement('li');
+                    var new_a = document.createElement('a');
+
+                    new_a.innerText = data[i]['name'];
+                    new_li.appendChild(new_a);
+                    new_li.setAttribute('id', data[i]['id']);
+                    new_li.setAttribute('onmouseover', 'show_img('+ data[i]['id'] +')');
+                    new_li.setAttribute('type', data[i]['image_url']);
+                    ul.appendChild(new_li);
+
+                }
+            });
+        } else {
+            console.log('Respuesta de red OK pero respuesta HTTP no OK');
+        }
         })
+        .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+    });
+
+    function show_img(id){
+        var li = document.getElementById(id);
+        var img = document.getElementById('img-bar').src = li.type;
     }
+
 </script>

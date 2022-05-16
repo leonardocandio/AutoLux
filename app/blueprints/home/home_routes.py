@@ -21,12 +21,17 @@ def home_page():
 
 
 
-@home.route('/get_brands')
+@home.route('/get_brands', methods=['POST'])
 def get_brands():
     brands = Brand.query.all()
-
-
-    return jsonify()
+    response = {}
+    for brand in brands:
+        response[brand.id] = {
+            'id': brand.id,
+            'name': brand.name,
+            'image_url': brand.image_url
+        }
+    return jsonify(response)
 
 
 
