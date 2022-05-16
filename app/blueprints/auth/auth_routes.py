@@ -34,6 +34,7 @@ def register():
             session['user_username'] = new_user.username
             session['user_email'] = new_user.email
             session['user_image_url'] = new_user.image_url
+            session['user_id'] = new_user.id
         except Exception as e:
             print(e)
 
@@ -52,6 +53,7 @@ def login():
         session['user_username'] = user.username
         session['user_email'] = user.email
         session['user_image_url'] = user.image_url
+        session['user_id'] = user.id
         login_user(user, remember=True)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
@@ -70,6 +72,10 @@ def recovery():
 @login_required
 def logout():
     user = current_user
+    session['user_username'] = ''
+    session['user_email'] = ''
+    session['user_image_url'] = ''
+    session['user_id'] = ''
     logout_user()
     return redirect('/login')
 
@@ -89,18 +95,22 @@ def authorize():
     user = oauth.google.userinfo()  # uses openid endpoint to fetch user info
     # Here you use the profile/user data that you got and query your database find/register the user
     # and set ur own data in the session not the profile from google
-    user_info = resp.json()
-
+    print(user)
     google_user = User.query.filter_by(email=user.email).first()
     if google_user is None and user is not None:
-        new_user = User(username=user.email.split("@")[0], email=user.email, password=user.sub)
+        new_user = User(username=user.email.split("@")[0], email=user.email, password=user.sub, image_url=user.picture)
         db.session.add(new_user)
         db.session.commit()
-        session['user_username'] = new_user.username
+        session['user_username'] = new_user.email
         session['user_email'] = new_user.email
         session['user_image_url'] = new_user.image_url
+        session['user_id'] = new_user.id
         login_user(new_user)
-    else:
+    elif google_user is not None:
+        session['user_username'] = google_user.email
+        session['user_email'] = google_user.email
+        session['user_image_url'] = google_user.image_url
+        session['user_id'] = google_user.id
         login_user(google_user, remember=True)
 
     return redirect(url_for("home.home_page"))
