@@ -13,10 +13,11 @@
                          alt="profile-picture">
                 </div>
                 <div class="post-author">
-                    {{ post.author.username }}
+                    <a href="{{ url_for('profile.profile_page',id=post.author.id) }}">{{ post.author.username }}</a>
+
                 </div>
                 <div class="post-main-date">
-                    {{ post.created_at }}
+                    {{ post.created_at.strftime('%Y-%m-%d') }}
                 </div>
                 <div class="post-body">
                     {{ post.body }}
