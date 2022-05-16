@@ -37,8 +37,6 @@
                 box-shadow: 0 0 1px;" src="{{ session['user_image_url'] }}" alt="">
         </a>
         
-        
-        
     </ul>
 </nav>
 
@@ -64,22 +62,38 @@
         background-color: lightgray;
         width: 100%;
         height: 250px;
+        text-align: center;
     }
     .links-footer{
-        display:flex;
+        display: flex;
+        justify-content: center;
+        height: auto;
+    }
+    .link-footer{
+        font-size: 17px;
+        margin: 20px 50px;
+    }
+    .img-footer{
+        width: 150px;
+        margin-top: 20px;
+        border-radius:10px;
     }
 </style>
 
 <footer class="main-nav footer">
 
+    <a class="link-footer" href="{{ url_for('home.home_page') }}">
+        <img class="img-footer" src="{{ url_for('static', filename='image/autolux_logo_blanco.png') }}" alt="autolux_logo_blanco">
+    </a>
     <ul class="links-footer">
-        <li ><a class="trigger-drop" href={{ url_for("forum.home") }}>Forum<i class="arrow"></i></a>
+        
+        <li class="link-footer"><a href="{{ url_for('forum.home') }}">Forum</a>
         </li>
 
-        <li><a class="trigger-drop" href={{ url_for("news.home") }}>News<i class="arrow"></i></a>
+        <li class="link-footer"><a href="{{ url_for('news.home') }}">News</a>
         </li>
 
-        <li><a class="trigger-drop" href={{ url_for("shop.home") }}>Shop<i class="arrow"></i></a>
+        <li class="link-footer"><a href="{{ url_for('shop.home') }}">Shop</a>
         </li>
     </ul>
 
