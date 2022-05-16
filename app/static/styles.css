@@ -360,6 +360,7 @@ h3{
         text-align: center;
     }
 
+
     .card-news {
         width: 100%;
         height: 100%;
@@ -379,6 +380,11 @@ h3{
 .lista-productos {
     display: grid;
     grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.card {
+    text-align: justify;
+    margin: 5% 10%;
 }
 
 .card-news img {
