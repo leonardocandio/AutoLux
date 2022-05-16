@@ -2,49 +2,51 @@
 
 {% block body %}
     <div class="container">
-        <ul class="posts">
-            {% for post in posts %}
-                <li class="post">
-                    <div class="post post-image">
-                        <img src="{{ post.author.image_url }}" alt="profile-picture">
-                    </div>
-                    <div class="post post-date">
-                        {{ post.created_at }}
-                    </div>
-                    <div class="post post-author">
-                        {{ post.author.nickname }}
-                    </div>
-                    <div class="post post-title">
-                        {{ post.title }}
-                    </div>
-                    <div class="post post-body">
-                        {{ post.body }}
-                    </div>
-                </li>
-            {% endfor %}
-            <div class="comment-form">
-                <form method="post" class="form">
-                    {{ form.csrf_token }}
-                    {{ form.body() }}
-                    {{ form.submit(class_="btn btn-submit") }}
-                </form>
+        {% for post in posts %}
+            <div class="main-post">
+                <div class="post-main-title">
+                    {{ post.title }}
+                </div>
+                <div class="post-author-image">
+                    <img src="{{ post.author.image_url }}" alt="profile-picture">
+                </div>
+                <div class="post-main-date">
+                    {{ post.created_at }}
+                </div>
+                <div class="post-author">
+                    {{ post.author.nickname }}
+                </div>
+                <div class="post-body">
+                    {{ post.body }}
+                </div>
             </div>
-            <div class="comments">
-                <ul class="comments">
-                    {% for comment in comments %}
-                        <li>
-
-                            {{ comment.body }}
-                            {{ comment.last_updated }}
-                            {{ comment.author.username }}
-
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </ul>
+        {% endfor %}
+        <div>
+            <form method="post" class="form form-comment" id="form-comment">
+                {{ form.csrf_token }}
+                {{ form.body() }}
+                {{ form.submit(class_="btn btn-submit") }}
+            </form>
+        </div>
+        <div>
+            <ul class="comments" id="comments">
+                {% for comment in comments %}
+                    <li class="comment">
+                            <span class="comment comment-body">
+                                {{ comment.body }}
+                            </span>
+                        <span class="comment comment-date">
+                                {{ comment.last_updated }}
+                            </span>
+                        <span class="comment comment-author">
+                                {{ comment.author.username }}
+                            </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock %}
 {% block script %}
-    <script href="/static/script.js"></script>
+    <script src="/static/comments.js"></script>
 {% endblock %}

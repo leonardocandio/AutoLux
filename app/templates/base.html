@@ -15,82 +15,47 @@
 </head>
 
 <body>
-<nav class="main-nav">
-    <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
-    <ul class="links">
-        <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "forum.home") }}'>Forum<i class="arrow"></i></a>
-            <div class="dropdown-content">
-                {% include "dropdown/forum.html" %}
-            </div>
-        </li>
-        <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "news.home") }}'>News<i class="arrow"></i></a>
-            <div class="dropdown-content">
-                {% include "dropdown/news.html" %}
-            </div>
-        </li>
-        <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "shop.home") }}'>Shop<i class="arrow"></i></a>
-            <div class="dropdown-content">
-                {% include "dropdown/shop.html" %}
-            </div>
-        </li>
-        <li><a class="" href={{ url_for( "auth.logout") }}>Logout</a></li>
+<div class="content-wrap">
+    <nav class="main-nav">
+        <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
+        <ul class="links">
+            <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "forum.home") }}'>Forum<i
+                    class="arrow"></i></a>
+                <div class="dropdown-content">
+                    {% include "dropdown/forum.html" %}
+                </div>
+            </li>
+            <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "news.home") }}'>News<i
+                    class="arrow"></i></a>
+                <div class="dropdown-content">
+                    {% include "dropdown/news.html" %}
+                </div>
+            </li>
+            <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "shop.home") }}'>Shop<i
+                    class="arrow"></i></a>
+                <div class="dropdown-content">
+                    {% include "dropdown/shop.html" %}
+                </div>
+            </li>
+            <li><a class="" href={{ url_for( "auth.logout") }}>Logout</a></li>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile.profile_page', id=current_user.id ) }} ">
 
-        <a href="{{ url_for('profile.profile_page', id=session['user_id'] ) }} ">
-            <img style="
+                    <img style="
                 width: 60px;
                 height: 60px;
                 border-radius: 100%; 
                 box-shadow: 0 0 1px;" src="{{ session['user_image_url'] }}" alt="">
-        </a>
+                </a>
+            {% endif %}
+        </ul>
+    </nav>
 
-    </ul>
-</nav>
+    {% block body %}
+    {% endblock %}
 
-<body>
-
-<!-- Mostrando las alertas -->
-{% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class=flashes>
-        {% for message in messages %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </ul>
-{% endif %} {% endwith %}
-<div>
-    {% block body %}{% endblock %}
 </div>
-
-{% block script %}{% endblock %}
-
-<style type="text/css">
-    .footer {
-        background-color: lightgray;
-        width: 100%;
-        height: 250px;
-        text-align: center;
-    }
-
-    .links-footer {
-        display: flex;
-        justify-content: center;
-        height: auto;
-    }
-
-    .link-footer {
-        font-size: 17px;
-        margin: 20px 50px;
-    }
-
-    .img-footer {
-        width: 150px;
-        margin-top: 20px;
-        border-radius: 10px;
-    }
-</style>
-
-<footer class="main-nav footer">
+<footer class="footer">
 
     <a class="link-footer" href="{{ url_for('home.home_page') }}">
         <img class="img-footer" src="{{ url_for('static', filename='image/autolux_logo_blanco.png') }}"
@@ -110,7 +75,32 @@
 
 
 </footer>
+{% block script %}{% endblock %}
+<style>
+    .footer {
+        background-color: lightgray;
+        width: 100%;
+        text-align: center;
+        flex-shrink: 0;
+    }
 
+    .links-footer {
+        display: flex;
+        justify-content: center;
+        height: auto;
+    }
+
+    .link-footer {
+        font-size: 17px;
+        margin: 20px 50px;
+    }
+
+    .img-footer {
+        width: 150px;
+        margin-top: 20px;
+        border-radius: 10px;
+    }
+</style>
 </body>
 
 </html>

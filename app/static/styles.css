@@ -19,7 +19,10 @@
 /*Fin herramienta*/
 
 body {
+    height: 100%;
     margin: 0;
+    display: flex;
+    flex-direction: column;
     background-color: var(--color-base);
 }
 
@@ -101,13 +104,12 @@ nav .links {
 nav .links li {
     list-style: none;
     position: relative;
-    margin: 20px;
-    margin-bottom: 0;
+    margin: 20px 20px 0;
     padding-bottom: 34px;
     display: inline-block;
 }
 
-nav .links li>a {
+nav .links li > a {
     position: relative;
     display: inline-block;
     padding: 0 20px;
@@ -115,17 +117,17 @@ nav .links li>a {
     height: 30px;
 }
 
-nav .links li>a:hover {
+nav .links li > a:hover {
     color: #fff;
     background: var(--color-accent);
     border-radius: 2px;
 }
 
-nav .links li>.trigger-drop {
+nav .links li > .trigger-drop {
     padding-right: 30px;
 }
 
-nav .links li>a .arrow {
+nav .links li > a .arrow {
     top: 35%;
     right: auto;
     position: absolute;
@@ -137,23 +139,23 @@ nav .links li>a .arrow {
     transform: rotate(45deg);
 }
 
-nav .links li>a:hover .arrow {
+nav .links li > a:hover .arrow {
     border: solid white;
     border-width: 0 1px 1px 0;
 }
 
-nav .links li>.dropdown-content {
+nav .links li > .dropdown-content {
     display: none;
     position: fixed;
     background-color: var(--color-background);
     top: 65px;
     left: 0;
     right: 0;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
-nav .links li:hover>.dropdown-content {
+nav .links li:hover > .dropdown-content {
     display: block;
     margin-top: 35px;
     animation-name: appear;
@@ -192,17 +194,25 @@ nav .grid-item {
     }
 }
 
+.page-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrap {
+    flex: 1 0 auto;
+}
+
 .btn {
     display: inline-block;
     font-weight: 400;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    border: 0px;
+    border: 0;
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 10px;
-    h110px;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
@@ -283,6 +293,12 @@ nav .grid-item {
     box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
 }
 
+.comments {
+    display: flex;
+    flex-direction: column;
+
+}
+
 .page-title {
     padding-top: 12%;
     color: var(--color-accent);
@@ -314,13 +330,13 @@ h3{
 } */
 
 .main-link {
-    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    text-shadow: 0 0 3px rgba(117, 117, 117, 0.12);
     display: inline-block;
 }
 
 @media (max-width: 600px) {
     .main {
-        border-radius: 0px;
+        border-radius: 0;
     }
 }
 
@@ -332,23 +348,28 @@ h3{
         max-width: 1000px;
         margin: 0 auto;
     }
+
     .lista-productos {
         padding: 0;
         list-style: none;
     }
+
     .lista-productos li {
         text-decoration: none;
         float: left;
         padding: 20px;
         text-align: center;
     }
+
     .card-news {
         width: 100%;
         height: 100%;
     }
+
     .card-news img {
         width: 100%;
     }
+
     .card-body-div {
         display: grid;
         margin: 0 auto 0 auto;
@@ -403,8 +424,6 @@ SHOP
 
 .cont-shop {
     padding: 0 15px;
-    position: absolute;
-    right: 0;
     height: 80%;
     overflow: hidden;
     overflow-y: auto;
@@ -461,11 +480,8 @@ SHOP
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    border: 0px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    border: 0;
+    padding: 10px 40px;
     font-size: 1rem;
     /* line-height: 1.5; */
     border-radius: 0.25rem;
@@ -504,7 +520,7 @@ FORUM
 }
 
 .btn-forum {
-    margin: 21.40px 0;
+    margin-top: 20px;
     color: rgb(0, 39, 168);
     float: right;
     font-size: 20px;
@@ -548,7 +564,7 @@ FORUM
 
 .post-title {
     height: 100%;
-    width: 100;
+    width: 100%;
     margin: 10px 10px;
 }
 

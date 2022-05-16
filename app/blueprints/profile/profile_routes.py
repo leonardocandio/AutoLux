@@ -1,10 +1,11 @@
 from flask import jsonify, render_template, session, request, redirect, url_for, abort
-
+from flask_login import current_user, login_required
 from database import db
 from app.blueprints.profile.controller import profile
 from app.blueprints.auth.models.user import User
 from ..auth.models.role import Permission
 from .forms import ChangeUsernameForm, ChangePasswordForm, ChangeImageForm
+
 
 @profile.route('/<id>', methods=['GET', 'POST'])
 def profile_page(id):
@@ -19,7 +20,7 @@ def profile_page(id):
             session['user_username'] = username
         except Exception as e:
             print(e)
-        
+
         return redirect(url_for("profile.profile_page", id=user.id))
 
     form2 = ChangePasswordForm()
@@ -57,3 +58,10 @@ def profile_page(id):
 @profile.app_context_processor
 def inject_permissions():
     return dict(Permission=Permission)
+
+
+@profile.before_request
+@login_required
+def before_request():
+    if not current_user.is_authenticated:
+        abort(401)

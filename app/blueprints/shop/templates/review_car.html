@@ -1,48 +1,71 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 
 {% block body %}
 
-<div class="namecar">
-    <h1 style="color: #fff;">{{ car.name }}</h1>
-</div>
-
-<div class="cont">
-    <div class="padre">
-    <div class = "image">
-        <img class="imgcr" src="{{ car.image_url }}">
+    <div class="namecar">
+        <h1 style="color: #fff;">{{ car.name }}</h1>
     </div>
-    <div class="infocar">
-        Precio: ${{ car.price }}<br><br>
-        Marca: {{ car.brand }}<br><br>
-        Modelo: {{ car.model }}<br><br>
-        Categoría: {{ car.category }}<br><br>
-        Año: {{ car.year }}<br><br>
-        Año de fabricación: {{ car.year_production }}<br><br>
-        Kilometraje: {{ car.mileage }}<br><br>
-        Transmisión: {{ car.transmission }}<br><br>
-        Combustible: {{ car.fuel }}<br><br>
-        Cilindrada: {{ car.engine_displacement }}<br><br>
-        Número de puertas: {{ car.doors }}<br><br>
-        Tipo de tracción: {{ car.drivetrain }}<br><br>
-        Color: {{ car.color }}<br><br>
-        Ubicación: {{ car.location }}<br><br>
+
+    <div class="cont">
+        <div class="padre">
+            <div class="image">
+                <img class="imgcr" src="{{ car.image_url }}">
+            </div>
+            <ul class="infocar">
+                <li>
+                    Precio: ${{ car.price }}
+                </li>
+                <li>
+                    Marca: {{ car.brand }}
+                </li>
+                <li>
+                    Modelo: {{ car.model }}
+                </li>
+                <li>
+                    Categoría: {{ car.category }}
+                </li>
+                <li>
+                    Año: {{ car.year }}
+                </li>
+                <li>
+                    Año de fabricación: {{ car.year_production }}
+                </li>
+                <li>
+                    Kilometraje: {{ car.mileage }}
+                </li>
+                <li>
+                    Transmisión: {{ car.transmission }}
+                </li>
+                <li>
+                    Combustible: {{ car.fuel }}
+                </li>
+                <li>
+                    Cilindrada: {{ car.engine_displacement }}
+                </li>
+                <li>
+                    Número de puertas: {{ car.doors }}
+                </li>
+                <li>
+                    Tipo de tracción: {{ car.drivetrain }}
+                </li>
+                <li>
+                    Color: {{ car.color }}
+                </li>
+                <li>
+                    Ubicación: {{ car.location }}
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="container">
+            <div class="card">
+                <h4 class="p-3">Descripción</h4>
+                <p class="p-3">{{ car.description }}</p>
+            </div>
+        </div>
+
+
     </div>
-</div>
-
-
-<div class="container">
-    <div class="card">
-        <h4 class="p-3">Descripción</h4>
-        <p class="p-3">{{ car.description }}</p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="card">
-        <h4 class="p-3">Comentarios</h4>
-        <input type="text" name="" id="">
-    </div>
-</div>
-
 
 {% endblock %}
