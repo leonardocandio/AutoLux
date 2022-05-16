@@ -1,5 +1,5 @@
 import sqlalchemy
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, jsonify
 from flask_login import current_user, login_required
 
 from app.blueprints.forum.controller import forum
@@ -35,11 +35,20 @@ def publish():
     return render_template("publish.html", form=form)
 
 
-@forum.route('/<id>')
+@forum.route('/<id>', methods=['GET', 'POST'])
 def post(id):
-    _post = Post.query.get_or_404(id)
+    post_q = Post.query.get_or_404(id)
     form = CommentForm()
-    return render_template("post.html", posts=[_post])
+    if form.validate_on_submit():
+        comment = Comment(body=form.body.data, post=post_q, author=current_user._get_current_object())
+        db.session.add(comment)
+        db.session.commit()
+        return jsonify({"id": comment.id,
+                        "body": comment.body,
+                        "author": comment.author.username,
+                        "last_updated": comment.last_updated})
+    comments = post_q.comments
+    return render_template("post.html", posts=[post_q], form=form, comments=comments)
 
 
 @forum.app_context_processor

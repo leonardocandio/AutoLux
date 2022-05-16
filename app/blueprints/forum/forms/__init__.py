@@ -11,3 +11,4 @@ class PostForm(FlaskForm):
 
 class CommentForm(FlaskForm):
     body = TextAreaField("Comenta", validators=[InputRequired()])
+    submit = SubmitField('Publicar')

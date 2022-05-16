@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.png') }}">
-    <title>Register</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -20,19 +20,19 @@
 {% endwith %}
 
 <div class="main">
-    <p class="page-title">{% block title %}{% endblock %}</p>
-    
-        <form method="post" class="form">
+    <p class="page-title">{% block page_title %}{% endblock %}</p>
+
+    <form method="post" class="form">
         {{ form.csrf_token }}
 
         {% block form %}
 
         {% endblock %}
 
-    {{ form.submit(class_="btn btn-submit") }}
-    {% block button %}
-    {% endblock %}
-    </button>
+        {{ form.submit(class_="btn btn-submit") }}
+        {% block button %}
+        {% endblock %}
+        </button>
     </form>
     <div class="container">
         <ul class="link-list">

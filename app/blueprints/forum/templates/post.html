@@ -22,6 +22,29 @@
                     </div>
                 </li>
             {% endfor %}
+            <div class="comment-form">
+                <form method="post" class="form">
+                    {{ form.csrf_token }}
+                    {{ form.body() }}
+                    {{ form.submit(class_="btn btn-submit") }}
+                </form>
+            </div>
+            <div class="comments">
+                <ul class="comments">
+                    {% for comment in comments %}
+                        <li>
+
+                            {{ comment.body }}
+                            {{ comment.last_updated }}
+                            {{ comment.author.username }}
+
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </ul>
     </div>
+{% endblock %}
+{% block script %}
+    <script href="/static/script.js"></script>
 {% endblock %}

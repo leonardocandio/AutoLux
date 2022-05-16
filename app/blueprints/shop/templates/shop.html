@@ -1,35 +1,21 @@
-{% extends "base.html"%} {% block body %}
-<h1 class="center">Shop</h1>
-<div class="cont-shop">
-    <div class="lista-tienda">
-        {% for car in cars %}
-        <div class="cars-shop">
-            <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
+{% extends "base.html" %} {% block body %}
+    <h1 class="center">Shop</h1>
+    <div class="cont-shop">
+        <div class="lista-tienda">
+            {% for car in cars %}
+                <div class="cars-shop">
+                    <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
 
-<<<<<<< HEAD
-            <div class="card-body-shop">
-                <h3 class="card-title">{{ car.name }}</h3>
-                <p class="card-text">${{ car.price }}</p>
-                <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See more</a>
-            </div>
-=======
-{% block body %}
-
-<div class="container">
-    <h1>Shop</h1>
-
-    {% for car in cars %}
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{ car.image_url }}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{ car.name }}</h5>
-          <p class="card-text">${{ car.price }}</p>
-          <a href="{{ url_for('shop.product_page',car_id=car.id) }}" class="btn btn-primary">See more</a>
->>>>>>> 410d5abeb83c07e3918b20aef7f80fb64aeb9836
+                    <div class="card-body-shop">
+                        <h3 class="card-title">{{ car.name }}</h3>
+                        <p class="card-text">${{ car.price }}</p>
+                        <a href="{{ url_for('shop.product_page' ,car_id=car.id) }}" class="btn-shop btn-primary">See
+                            more</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 
 
 {% endblock %}

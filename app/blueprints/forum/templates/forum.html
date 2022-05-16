@@ -1,27 +1,29 @@
-{% extends "base.html" %} {% block body %}
-<div class="">
+{% extends "base.html" %}
+{% block body %}
+    <div class="">
 
-    {% for post in posts %}
-    <div class="post">
-        <div class="cont-img-title">
-            <div class="post-image">
-                <img src="{{ post.author.image_url }}" alt="profile-picture">
+        {% for post in posts %}
+            <div class="post">
+                <div class="cont-img-title">
+                    <div class="post-image">
+                        <img src="{{ post.author.image_url }}" alt="profile-picture">
+                    </div>
+
+                    <div class="post-title">
+                        <h2>{{ post.title }}</h2>
+                        <!--titulo-->
+                        <h3>{{ post.created_at }}</h3>
+                        <!--fecha-->
+                    </div>
+                </div>
+                <div class="cont-nick-body">
+                    <h4>{{ post.author.nickname }}</h4>
+                    <!--nickname-->
+
+                    <p>{{ post.body }}</p>
+                    <!--comentario-->
+                </div>
             </div>
-
-            <div class="post-title">
-                <h2>{{ post.title }}</h2>
-                <!--titulo-->
-                <h3>{{post.created_at }}</h3>
-                <!--fecha-->
-            </div>
-        </div>
-        <div class="cont-nick-body">
-            <h4>{{ post.author.nickname }}</h4>
-            <!--nickname-->
-
-            <p>{{ post.body }}</p>
-            <!--comentario-->
-        </div>
-
+        {% endfor %}
     </div>
-    {% endblock %}
+{% endblock %}
