@@ -10,7 +10,7 @@ class Post(db.Model, TimeModel):
     body = db.Column(db.Text)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments = db.relationship(
-        'Comment', backref='post', lazy="dynamic"
+        'Comment', backref='post_comments', lazy="dynamic"
     )
 
     def __repr__(self):

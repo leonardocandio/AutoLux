@@ -7,3 +7,7 @@ class PostForm(FlaskForm):
     title = TextAreaField(validators=[InputRequired()])
     body = TextAreaField("¿En que estas pensando?", validators=[InputRequired()])
     submit = SubmitField('Publicar')
+
+
+class CommentForm(FlaskForm):
+    body = TextAreaField("Comenta", validators=[InputRequired()])

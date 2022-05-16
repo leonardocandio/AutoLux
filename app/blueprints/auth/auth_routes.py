@@ -22,9 +22,10 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         username = form.username.data
+        email = form.email.data
         password = form.password.data
 
-        new_user = User(username=username, nickname=username, password=password)
+        new_user = User(username=username, email=email, password=password)
 
         try:
             db.session.add(new_user)
@@ -42,7 +43,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).one()
+        user = User.query.filter_by(email=form.email.data).one()
         login_user(user, remember=True)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
@@ -85,9 +86,9 @@ def authorize():
     # and set ur own data in the session not the profile from google
     user_info = resp.json()
 
-    google_user = User.query.filter_by(username=user.sub).first()
+    google_user = User.query.filter_by(email=user.email).first()
     if google_user is None and user is not None:
-        new_user = User(username=user.sub, nickname=user.email.split("@")[0], password=user.email)
+        new_user = User(username=user.email.split("@")[0], email=user.email, password=user.sub)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)

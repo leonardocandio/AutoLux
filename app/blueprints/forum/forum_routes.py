@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 
 from app.blueprints.forum.controller import forum
 from database import db
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 # noinspection PyUnresolvedReferences
 from .models.comment import Comment
 from .models.post import Post
@@ -33,6 +33,13 @@ def publish():
 
         return redirect(url_for("forum.home"))
     return render_template("publish.html", form=form)
+
+
+@forum.route('/<id>')
+def post(id):
+    _post = Post.query.get_or_404(id)
+    form = CommentForm()
+    return render_template("post.html", posts=[_post])
 
 
 @forum.app_context_processor
