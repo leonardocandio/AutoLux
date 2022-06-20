@@ -19,20 +19,20 @@
         <nav class="main-nav">
             <a href="{{ url_for('home.home_page') }}" class="main-logo">AutoLux</a>
             <ul class="links">
-                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "forum.home") }}'>Foro<i
-                    class="arrow"></i></a>
+                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "forum.home") }}'>Foro<em
+                    class="arrow"></em></a>
                     <div class="dropdown-content">
                         {% include "dropdown/forum.html" %}
                     </div>
                 </li>
-                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "news.home") }}'>Noticias<i
-                    class="arrow"></i></a>
+                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "news.home") }}'>Noticias<em
+                    class="arrow"></em></a>
                     <div class="dropdown-content">
                         {% include "dropdown/news.html" %}
                     </div>
                 </li>
-                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "shop.home") }}'>Tienda<i
-                    class="arrow"></i></a>
+                <li class="dropdown"><a class="trigger-drop" href='{{ url_for( "shop.home") }}'>Tienda<em
+                    class="arrow"></em></a>
                     <div class="dropdown-content">
                         
                     </div>
