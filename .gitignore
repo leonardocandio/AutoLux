@@ -1,9 +1,9 @@
-app/__pycache__
-app/blueprints/__pycache__
-app/utils/__pycache__
-app/models/__pycache__
-app/models/super_models/__pycache__
-tests/__pycache__
+server/app/__pycache__
+server/app/blueprints/__pycache__
+server/app/utils/__pycache__
+server/app/models/__pycache__
+server/app/models/super_models/__pycache__
+server/tests/__pycache__
 venv/*
 migrations
 migrations/*
