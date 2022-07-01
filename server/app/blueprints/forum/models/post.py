@@ -11,6 +11,16 @@ class Post(db.Model, TimeModel):
     comments = db.relationship(
         'Comment', backref='post', lazy="dynamic"
     )
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def __repr__(self):
         return f"<Post {self.title}>"

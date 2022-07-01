@@ -82,14 +82,14 @@ def logout():
 
 @auth.route('/login_google')
 def login_google():
-    google = oauth.create_client('google')  # create the google oauth client
+    google = oauth.create_client('google')  # insert the google oauth client
     redirect_uri = url_for('auth.authorize', _external=True)
     return google.authorize_redirect(redirect_uri)
 
 
 @auth.route('/authorize')
 def authorize():
-    google = oauth.create_client('google')  # create the google oauth client
+    google = oauth.create_client('google')  # insert the google oauth client
     token = google.authorize_access_token()  # Access token from google (needed to get user info)
     resp = google.get('userinfo')  # userinfo contains stuff u specificed in the scrope
     user = oauth.google.userinfo()  # uses openid endpoint to fetch user info
