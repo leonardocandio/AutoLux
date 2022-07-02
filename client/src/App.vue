@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/" class="main-logo">AutoLux</router-link>
     <ul class="router-links">
-      <li><router-link to="/forum">Forum</router-link></li>
+      <li><router-link to="/forum">Foro</router-link></li>
     </ul>
   </nav>
   <router-view/>
@@ -124,5 +124,31 @@ nav .links li>router-link:hover {
   background: var(--color-accent);
   border-radius: 2px;
 }
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 0;
+  padding: 10px 40px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
 
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-submit {
+  border-radius: 5em;
+  background: linear-gradient(to right, #00bcd4, #00e5ff);
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  margin: auto;
+  display: block;
+}
 </style>

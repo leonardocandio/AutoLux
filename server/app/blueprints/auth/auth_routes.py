@@ -40,6 +40,14 @@ def register():
 @cache.cached(timeout=50)
 @auth.route('/login', methods=['POST'])
 def login():
+    if current_user.is_authenticated:
+        return jsonify({
+            'code': 200,
+            'success': True,
+            'message': 'User already logged in',
+            'user': current_user.format()
+        })
+
     body = request.get_json()
     email = body.get('email', None)
     password = body.get('password', None)
@@ -63,7 +71,7 @@ def recovery():
     return render_template("recovery.html")
 
 
-@auth.route('/logout')
+@auth.route('/logout', methods=['GET'])
 @login_required
 def logout():
     logout_user()
