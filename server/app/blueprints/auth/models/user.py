@@ -23,6 +23,17 @@ class User(UserMixin, db.Model, TimeModel):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
 
+    def format(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'image_url': self.image_url,
+            'role_id': self.role_id,
+            'created_at': self.created_at,
+            'last_updated': self.last_updated
+        }
+
     def can(self, permissions):
         return self.role is not None and (self.role.permissions & permissions) == permissions
 
@@ -40,8 +51,36 @@ class User(UserMixin, db.Model, TimeModel):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     def __repr__(self):
         return f'<User {self.id}>'
+
+    @staticmethod
+    def validate_login(_email, password):
+        print(_email)
+        user = User.query.filter_by(email=_email).one_or_none()
+        if user is None:
+            return False
+        if not user.verify_password(password):
+            return False
+        return user
+
+    @staticmethod
+    def validate_register(_email):
+        user = User.query.filter_by(email=_email).one_or_none()
+        if user is not None:
+            return False
+        return True
 
     @staticmethod
     def first_user():

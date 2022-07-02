@@ -2,65 +2,60 @@ from functools import wraps
 
 from flask import (
     redirect, session, url_for, render_template, request,
-    abort
+    abort, jsonify
 )
 from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.urls import url_parse
 
 from server.app.blueprints.auth.controller import auth
 from server.app.cache import cache
 from server.app.oauth import oauth
 from server.database import db
-from .forms import LoginForm, RegisterForm
-from .models.user import User
 from .models.role import Permission
+from .models.user import User
 
 
 @cache.cached(timeout=50)
-@auth.route('/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['POST'])
 def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
-        password = form.password.data
+    body = request.get_json()
+    username = body.get('username', None)
+    email = body.get('email', None)
+    password = body.get('password', None)
 
+    if User.validate_register(email):
         new_user = User(username=username, email=email, password=password)
-
         try:
-            db.session.add(new_user)
-            db.session.commit()
-            # añádimos la información del usuario a la session
-            session['user_username'] = new_user.username
-            session['user_email'] = new_user.email
-            session['user_image_url'] = new_user.image_url
-            session['user_id'] = new_user.id
-        except Exception as e:
-            print(e)
-
+            new_user.insert()
+        except Exception:
+            abort(500)
         login_user(new_user, remember=True)
-        return redirect(url_for("home.home_page"))
-    return render_template("register.html", form=form)
+        return jsonify({
+            'code': 200,
+            'success': True,
+            'message': 'User created successfully'
+        })
+    abort(400)
 
 
 @cache.cached(timeout=50)
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).one()
-        # añádimos la información del usuario a la session
-        session['user_username'] = user.username
-        session['user_email'] = user.email
-        session['user_image_url'] = user.image_url
-        session['user_id'] = user.id
-        login_user(user, remember=True)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for("home.home_page")
-        return redirect(next_page)
+    body = request.get_json()
+    email = body.get('email', None)
+    password = body.get('password', None)
 
-    return render_template("login.html", form=form)
+    user = User.validate_login(email, password)
+
+    if user:
+        login_user(user, remember=True)
+        return jsonify({
+            'code': 200,
+            'success': True,
+            'message': 'User logged in successfully',
+            'user': user.format()
+        })
+
+    abort(401)
 
 
 @auth.route('/account-recovery')
@@ -71,16 +66,15 @@ def recovery():
 @auth.route('/logout')
 @login_required
 def logout():
-    user = current_user
-    session['user_username'] = ''
-    session['user_email'] = ''
-    session['user_image_url'] = ''
-    session['user_id'] = ''
     logout_user()
-    return redirect('/login')
+    return jsonify({
+        'code': 200,
+        'success': True,
+        'message': 'User logged out successfully'
+    })
 
 
-@auth.route('/login_google')
+@auth.route('/google-login')
 def login_google():
     google = oauth.create_client('google')  # insert the google oauth client
     redirect_uri = url_for('auth.authorize', _external=True)
