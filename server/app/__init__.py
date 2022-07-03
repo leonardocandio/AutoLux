@@ -13,9 +13,9 @@ from server.app.oauth import oauth
 from server.database import db, migrate
 
 
-def create_app():
+def create_app(config='config.Config'):
     app = Flask(__name__)
-    app.config.from_object('config.Config')
+    app.config.from_object(config)
     #CORS(app, origins=['localhost:8080', 'http://localhost:8080/', 'localhost:8080/', 'http://localhost:8080'])
     error_handlers(app)
 

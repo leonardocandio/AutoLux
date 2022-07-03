@@ -22,3 +22,8 @@ class Config:
     # Database definition
     SQLALCHEMY_DATABASE_URI = os.getenv("DB_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+class ConfigTest(Config):
+    LOGIN_DISABLED = True
+    FLASK_ENV = 'development'
