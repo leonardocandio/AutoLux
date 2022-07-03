@@ -62,6 +62,7 @@ export default {
       username: '',
       email: '',
       password: '',
+      res: {}
     }
   },
   name: "AuthForm",
@@ -72,11 +73,16 @@ export default {
     }
   },
   methods: {
-    submitWrapper() {
-      if( this.action === 'login'){
-        this.loginSubmit()
-      } else if (this.action === 'register'){
-        this.registerSubmit()
+    async submitWrapper() {
+      if (this.action === 'login') {
+        await this.loginSubmit()
+      } else if (this.action === 'register') {
+        await this.registerSubmit()
+      }
+      if (this.res.code === 200) {
+        router.push('/')
+      } else {
+        console.log(this.res.message)
       }
     },
     loginSubmit() {
@@ -89,14 +95,32 @@ export default {
           email: this.email,
           password: this.password
         })
-      }).then(response => response.json()).then(res => {
-        console.log(res);
+      }).then(response => {
+        return response.json()
+      }).then(data => {
+        this.res = JSON.parse(JSON.stringify(data))
       }).catch(error => {
         console.log(error);
       });
     },
     registerSubmit() {
-
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password,
+          username: this.username
+        })
+      }).then(response => {
+        return response.json()
+      }).then(data => {
+        this.res = JSON.parse(JSON.stringify(data))
+      }).catch(error => {
+        console.log(error);
+      });
     }
   }
 }
