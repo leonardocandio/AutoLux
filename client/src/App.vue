@@ -2,11 +2,24 @@
   <nav>
     <router-link to="/" class="main-logo">AutoLux</router-link>
     <ul class="router-links">
+      <li><SearchForm /></li>
       <li><router-link to="/forum">Foro</router-link></li>
+      <li><router-link to="/shop">Shop</router-link></li>
     </ul>
   </nav>
   <router-view/>
 </template>
+
+<script>
+import SearchForm from '@/components/SearchForm.vue'
+export default {
+  name: 'App',
+  components: {
+    SearchForm
+  }
+}
+</script>
+
 
 <style>
 *:not(i) {

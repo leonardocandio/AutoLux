@@ -26,7 +26,7 @@ def search_by_name(data, search: str, nitems: int):
 def filter_by(data, by, search):
     filter_list = []
     if search == '':
-        return data
+        return []
 
     for i, _ in enumerate(data):
         if by == 'price':

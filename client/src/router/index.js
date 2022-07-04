@@ -27,8 +27,6 @@ const routes = [
       }
 
     ]
-
-
   },
   {
     path: '/shop',
