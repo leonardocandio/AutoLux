@@ -31,3 +31,26 @@ class Car(db.Model, TimeModel):
     def get_cars():
         if len(Car.query.all()) == 0:
             create_all_cars(db, Car)
+
+    def format(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "image_url": self.image_url,
+            "price": self.price,
+            "description": self.description,
+            "brand" :self.brand,
+            "model" :self.model,
+            "category" :self.category,
+            "year" :self.year,
+            "year_production" :self.year_production, 
+            "mileage" :self.mileage,
+            "transmission" :self.transmission,
+            "fuel" :self.fuel,
+            "engine_displacement" :self.engine_displacement ,
+            "doors" :self.doors,
+            "drivetrain" :self.drivetrain,
+            "color" :self.color,
+            "cylinders" :self.cylinders,
+            "location" :self.location
+        }

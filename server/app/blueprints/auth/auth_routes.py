@@ -118,6 +118,14 @@ def authorize():
     return redirect(url_for("home.home_page"))
 
 
+# --------------- POST GET -----------------#
+
+# --------------- CARS GET -----------------#
+
+
+
+
+
 def permission_required(permission):
     def decorator(f):
         @wraps(f)

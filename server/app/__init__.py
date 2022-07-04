@@ -13,11 +13,17 @@ from server.app.oauth import oauth
 from server.database import db, migrate
 
 
-def create_app(config='config.Config'):
+def create_app(config = 'server.config.Config'):
     app = Flask(__name__)
     app.config.from_object(config)
-    #CORS(app, origins=['localhost:8080', 'http://localhost:8080/', 'localhost:8080/', 'http://localhost:8080'])
+    CORS(app, origins=['http://localhost:8080', 'http://127.0.0.1:8080', 'http://192.168.0.6:8080'])
     error_handlers(app)
+
+    @app.after_request
+    def after_resquest(response):
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorizations, true')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
+        return response
 
     with app.app_context():
         cache.init_app(app)

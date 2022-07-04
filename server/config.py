@@ -26,4 +26,8 @@ class Config:
 
 class ConfigTest(Config):
     LOGIN_DISABLED = True
-    FLASK_ENV = 'development'
+
+    FLASK_ENV = "production"
+
+    # Database definition
+    SQLALCHEMY_DATABASE_URI = os.getenv("DB_URI_TEST")
