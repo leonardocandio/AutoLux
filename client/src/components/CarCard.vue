@@ -1,6 +1,6 @@
 <template>
     <div class="cars-shop">
-        <img class="card-img-top" :src="car.image_url" alt="Card image cap">
+        <img class="card-img-top" :src="car.image_url" :alt="car.name">
 
         <div class="card-body-shop">
             <h3 class="card-title">{{ car.name }}</h3>

@@ -8,23 +8,21 @@ from .filter import search_by_name, filter_by
 
 # --------------- PAGINATION -----------------#
 
-ITEMS_PER_PAGE = 9
-def paginate(model, request, last_page=False):
-    query = Car.query.order_by(model.created_at.desc())
-
+def paginate(query, request, items_per_page=9, last_page=False):
     if last_page:
-        page = query.count() // ITEMS_PER_PAGE
+        page = query.count() // items_per_page
     else:
         page = request.args.get('page', 1, type=int)
 
     return query.paginate(
-        page=page, per_page=ITEMS_PER_PAGE, error_out=True)
+        page=page, per_page=items_per_page, error_out=True)
 
 # --------------- CARS GET -----------------#
 
 @shop.route('/', methods=['GET'])
 def get_cars():
-    cars = paginate(Car, request)
+    query = Car.query.order_by()
+    cars = paginate(query, request)
     try:
         return jsonify({
             'code': 200,
@@ -54,16 +52,17 @@ def ger_car():
 
 @shop.route('/', methods=['POST'])
 def search_car():
-    search = request.args.get('search')
+    search = request.args.get('search', None)
+    nitems = request.args.get('nitems', None, int)
     
     if search:
-        cars = Car.query.all()
-        cars = search_by_name(cars, search)
+        query = Car.query.all()
+        cars_searched = search_by_name(query, search, nitems)
         return jsonify({
                 'code': 200,
                 'success': True,
-                'cars': [car.format() for car in cars],
-                'total_cars': cars.count()
+                'cars': [car.format() for car in cars_searched],
+                'total_cars': len(cars_searched)
                 })
     else:
         abort(404)

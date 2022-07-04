@@ -1,5 +1,5 @@
 # apply filter in a data
-def search_by_name(data, search: str):
+def search_by_name(data, search: str, nitems: int):
     filter_list = []
     if search != '':
         for i in range(len(data)):
@@ -17,7 +17,10 @@ def search_by_name(data, search: str):
     else:
         return data
 
-    return filter_list
+    if nitems is None:
+        return filter_list
+    else:
+        return filter_list[0:nitems]
 
 
 def filter_by(data, by, search):
