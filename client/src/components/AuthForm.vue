@@ -56,11 +56,10 @@
 </template>
 
 <script>
-import router from '@/router'
-
+import router from "@/router";
 
 export default {
-  data(){
+  data() {
     return {
       username: '',
       email: '',
@@ -83,7 +82,7 @@ export default {
         await this.registerSubmit()
       }
       if (this.res.code === 200) {
-        router.push('/')
+        await router.push('/forum')
       } else {
         console.log(this.res.message)
       }
@@ -107,7 +106,7 @@ export default {
       });
     },
     registerSubmit() {
-      fetch('/login', {
+      fetch('/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

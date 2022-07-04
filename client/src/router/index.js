@@ -18,7 +18,17 @@ const routes = [
   {
     path: '/forum',
     name: 'forum',
-    component: () => import('../views/ForumView.vue')
+    component: () => import('../views/ForumView.vue'),
+    children: [
+      {
+        path: '/:id',
+        name: 'forum-detail',
+        component: () => import('../views/ForumDetailView.vue')
+      }
+
+    ]
+
+
   },
   {
     path: '/shop',

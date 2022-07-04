@@ -5,9 +5,9 @@
     </h1>
   </div>
   <div class="content">
-    <ForumPost v-for="post in posts"
-               :key = "post.id"
-               :post = "post"
+    <ForumPost v-for="(post, index) in posts"
+               :key="index"
+               :post="post"
     />
   </div>
 </template>
@@ -24,8 +24,8 @@ export default {
     };
   },
   mounted() {
-    fetch("https://jsonplaceholder.typicode.com/posts", {method: "GET"})
-        .then(response => response.json()).then(data => (this.posts = data)).then(function () {
+    fetch("/posts/", {method: "GET"})
+        .then(response => response.json()).then(data => (this.posts = data.posts)).then(function () {
       console.log(this.posts)
     }).catch(error => {
       console.log(error);
