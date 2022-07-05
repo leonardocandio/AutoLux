@@ -22,7 +22,7 @@ textarea {
 
 :root {
   --color-base: #f5f5f5;
-  --color-background: #fff;
+  --color-background: #ffffff;
   --color-accent: #395e76;
 }
 

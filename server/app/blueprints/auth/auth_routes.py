@@ -1,15 +1,13 @@
 from functools import wraps
 
 from flask import (
-    redirect, session, url_for, render_template, request,
+    render_template, request,
     abort, jsonify
 )
 from flask_login import login_user, login_required, logout_user, current_user
 
 from server.app.blueprints.auth.controller import auth
 from server.app.cache import cache
-from server.app.oauth import oauth
-from server.database import db
 from .models.role import Permission
 from .models.user import User
 
@@ -65,7 +63,7 @@ def login():
     password = body.get('password', None)
 
     user = User.validate_login(email, password)
-
+    print(email, password)
     if user:
         login_user(user, remember=True)
         return jsonify({

@@ -48,6 +48,13 @@ const routes = [
         meta: {requiresAuth: true}
     },
     {
+        path:'/forum/new',
+        name: 'new-post',
+        component: () => import('../views/ForumNewView.vue'),
+        props: true,
+        meta: {requiresAuth: true}
+    },
+    {
         path: '/profile/:id',
         name: 'profile',
         component: () => import('../views/ProfileView.vue'),

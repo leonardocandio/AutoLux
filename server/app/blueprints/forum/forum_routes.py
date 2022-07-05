@@ -47,7 +47,7 @@ def create_post():
             post.insert()
         except Exception:
             abort(500)
-
+        print(post.format())
         posts = paginate(Post, request)
     return jsonify({
         'code': 200,

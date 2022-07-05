@@ -8,12 +8,11 @@
           id="auth-form"
           :actions="false"
           @submit="submitWrapper"
-
       >
         <FormKit type="text"
                  name="username"
                  placeholder="Nombre de usuario"
-                 validation="required|min:3|max:20"
+                 validation="required|length:3,20"
                  input-class="$reset form-control"
                  v-model="username"
                  v-if="authRoute.name==='register'"
@@ -97,8 +96,8 @@ export default {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: this.email,
-          password: this.password
+          'email': this.email,
+          'password': this.password
         })
       }).then(response => {
         return response.json()
@@ -115,9 +114,9 @@ export default {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: this.email,
-          password: this.password,
-          username: this.username
+          'email': this.email,
+          'password': this.password,
+          'username': this.username
         })
       }).then(response => {
         return response.json()

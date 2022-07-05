@@ -1,14 +1,25 @@
 <template>
-  <div class="header">
-    <h1>
-      Todas las publicaciones
-    </h1>
-  </div>
-  <div class="content">
-    <ForumPost v-for="(post, index) in posts"
-               :key="index"
-               :post="post"
-    />
+  <div class="forum">
+    <div class="forum-container">
+      <div class="forum-header">
+        <span class="forum-title">
+        Todas las publicaciones
+        </span>
+        <span class="forum-new">
+        <router-link :to="{name:'new-post'}">
+          <button class="btn btn-primary">
+            Crear nueva publicación
+          </button>
+        </router-link>
+        </span>
+      </div>
+      <div class="content">
+        <ForumPost v-for="(post, index) in posts"
+                   :key="index"
+                   :post="post"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,13 +54,37 @@ export default {
 </script>
 
 <style scoped>
-
-.header {
-  height: 100px;
-  width: 85%;
-  align-items: center;
-  margin: 20px 50px;
+.forum-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
+
+.forum {
+  margin: auto;
+}
+
+.forum-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.forum-new {
+  width: fit-content;
+}
+
+.forum-title {
+  font-size: 2.5em;
+  font-weight: bold;
+}
 </style>
 
