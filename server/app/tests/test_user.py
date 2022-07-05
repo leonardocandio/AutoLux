@@ -1,6 +1,6 @@
-import unittest
+from . import BaseTestClass
 
-class UserTest(unittest.TestCase):
+class UserTest(BaseTestClass):
     def setUp(self):
         pass
 
