@@ -16,7 +16,11 @@
 export default {
   name: 'CarCard',
   props: {
-    car: Object,
+    car: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    }
   }
 }
 </script>
@@ -24,8 +28,8 @@ export default {
 
 <style scoped>
 .cars-shop:hover {
-    box-shadow: 0 11px 35px 2px rgba(2, 2, 2, 0.14);
-    transition: all 0.5s;
+box-shadow: 0 11px 35px 2px rgba(2, 2, 2, 0.14);
+transition: all 0.5s;
 }
 
 .cars-shop > img:hover {
@@ -38,12 +42,15 @@ export default {
     height: 250px;
     margin: 5px;
     display: flex;
+    border: 2px solid #e1e1e1;
     padding: 10px 10px;
 }
+
 .cars-shop img {
     height: 100%;
     width: 50%;
 }
+
 .card-body-shop {
     display: table-cell;
     position: relative;
@@ -53,6 +60,7 @@ export default {
     text-align: center;
     padding: 0;
 }
+
 .card-body-shop h3 {
     margin: 5px 5px;
     font-size: 100%;

@@ -35,6 +35,7 @@ def get_forum():
 
 
 @forum.route('/', methods=['POST'])
+@login_required
 def create_post():
     body = request.get_json()
     post_body = body.get('post_body', None)
@@ -58,6 +59,7 @@ def create_post():
 
 
 @forum.route('/', methods=['DELETE'])
+@login_required
 def delete_post():
     body = request.get_json()
     post_id = body.get('post_id', None)
@@ -71,13 +73,16 @@ def delete_post():
         return jsonify({
             'code': 200,
             'success': True,
+            'post_deleted': post_id,
             'posts': [post.format() for post in posts.items],
             'total_posts': posts.total
         })
     else:
         abort(403)
 
+
 @forum.route('/', methods=['PATCH'])
+@login_required
 def update_post():
     body = request.get_json()
     post_id = body.get('post_id', None)
@@ -96,6 +101,7 @@ def update_post():
         return jsonify({
             'code': 200,
             'success': True,
+            'post_updated': post_id,
             'posts': [post.format() for post in posts.items],
             'total_posts': posts.total
         })
@@ -104,20 +110,18 @@ def update_post():
 
 
 @forum.route('/<id>', methods=['GET'])
+@login_required
 def get_post(id):
     post = Post.query.get_or_404(id)
-    comments = paginate(Comment, request)
     return jsonify({
-        'id': post.id,
-        'title': post.title,
-        'body': post.body,
-        'author_id': post.author_id,
-        'last_updated': post.last_updated,
-        'created_at': post.created_at,
-        'comments': [comment.format() for comment in comments.items]})
+        'code': 200,
+        'success': True,
+        'post': post.format()
+    })
 
 
 @forum.route('/<id>', methods=['POST'])
+@login_required
 def create_comment(id):
     post = Post.query.get_or_404(id)
     body = request.get_json()
@@ -126,17 +130,20 @@ def create_comment(id):
     try:
         comment = Comment(body=comment_body, post=post, author=comment_author)
         comment.insert()
-        return jsonify({
-            "code": 200,
-            "body": comment.body,
-            "img": comment.author.image_url,
-            "author": comment.author.username,
-            "last_updated": comment.last_updated.strftime("%Y-%m-%d")})
-    except Exception as e:
-        print(e)
+    except Exception:
+        abort(500)
+    comments = paginate(Comment, request)
+    return jsonify({
+        'code': 200,
+        'success': True,
+        'comment_created': comment.id,
+        'comments': [comment.format() for comment in comments.items],
+        'total_comments': comments.total
+    })
 
 
 @forum.route('/<id>', methods=['DELETE'])
+@login_required
 def delete_comment(id):
     body = request.get_json()
     comment_id = body.get('comment_id', None)
@@ -150,6 +157,7 @@ def delete_comment(id):
         return jsonify({
             'code': 200,
             'success': True,
+            'comment_deleted': comment_id,
             'comments': [comment.format() for comment in comments.items],
             'total_comments': comments.total
         })
@@ -158,6 +166,7 @@ def delete_comment(id):
 
 
 @forum.route('/<id>', methods=['PATCH'])
+@login_required
 def update_comment(id):
     body = request.get_json()
     comment_id = body.get('comment_id', None)
@@ -174,6 +183,7 @@ def update_comment(id):
         return jsonify({
             'code': 200,
             'success': True,
+            'comment_updated': comment_id,
             'comments': [comment.format() for comment in comments.items],
             'total_comments': comments.total
         })
@@ -186,8 +196,3 @@ def inject_permissions():
     return dict(Permission=Permission)
 
 
-@forum.before_request
-@login_required
-def before_request():
-    if not current_user.is_authenticated:
-        abort(401)

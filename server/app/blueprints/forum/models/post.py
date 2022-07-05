@@ -2,6 +2,7 @@ from server.app.blueprints.auth.models.user import User
 from server.app.models.super_models.time_model import TimeModel
 from server.database import db
 
+
 class Post(db.Model, TimeModel):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
@@ -11,6 +12,7 @@ class Post(db.Model, TimeModel):
     comments = db.relationship(
         'Comment', backref='post', lazy="dynamic"
     )
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
@@ -27,13 +29,22 @@ class Post(db.Model, TimeModel):
 
     def format(self):
         return {
-            'id' : self.id,
-            'title' : self.title,
-            'body' : self.body,
-            'author_id' : self.author_id,
-            'last_updated' : self.last_updated
+            'id': self.id,
+            'title': self.title,
+            'body': self.body,
+            'author': self.author.format(),
+            'last_updated': self.last_updated,
+            'created_at': self.created_at,
+            'comments': [comment.format() for comment in self.comments.all()]
         }
-
+    def format_short(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'body': self.body,
+            'last_updated': self.last_updated,
+            'created_at': self.created_at
+        }
 
     @staticmethod
     def generate_fake(count=100):

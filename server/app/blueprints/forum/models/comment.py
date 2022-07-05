@@ -1,5 +1,5 @@
-from server.database import db
 from server.app.models.super_models.time_model import TimeModel
+from server.database import db
 
 
 class Comment(db.Model, TimeModel):
@@ -12,10 +12,10 @@ class Comment(db.Model, TimeModel):
 
     def format(self):
         return {
-            'id' : self.id,
-            'body' : self.body,
-            'author_id' : self.author_id,
-            'last_updated' : self.last_updated,
+            'id': self.id,
+            'body': self.body,
+            'author': self.author.format(),
+            'last_updated': self.last_updated,
             'post_id': self.post_id,
             'created_at': self.created_at,
             'disabled': self.disabled

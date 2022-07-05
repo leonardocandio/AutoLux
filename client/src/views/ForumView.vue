@@ -23,13 +23,20 @@ export default {
       posts: []
     };
   },
-  mounted() {
-    fetch("/posts/", {method: "GET"})
-        .then(response => response.json()).then(data => (this.posts = data.posts)).then(function () {
-      console.log(this.posts)
-    }).catch(error => {
-      console.log(error);
-    });
+  beforeRouteEnter(to, from, next) {
+    fetch('/posts/', {method: "GET"})
+        .then(response => response.json())
+        .then(res => {
+          next(vm => vm.setData(res.posts))
+        })
+        .catch(error => {
+          console.log(error);
+        });
+  },
+  methods: {
+    setData(data) {
+      this.posts = data;
+    }
   }
 }
 

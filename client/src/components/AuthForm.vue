@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <p class="card-header" v-if="action==='login'">Ingresar</p>
-    <p class="card-header" v-if="action==='register'">Registrarse</p>
+    <p class="card-header" v-if="authRoute.name==='login'">Ingresar</p>
+    <p class="card-header" v-if="authRoute.name==='register'">Registrarse</p>
     <div class="card-body">
       <FormKit
           type="form"
@@ -16,7 +16,7 @@
                  validation="required|min:3|max:20"
                  input-class="$reset form-control"
                  v-model="username"
-                 v-if="action==='register'"
+                 v-if="authRoute.name==='register'"
         />
         <FormKit type="text"
                  name="email"
@@ -39,13 +39,13 @@
       </FormKit>
       <div class="card-footer">
         <ul class="auth-links">
-          <li v-if="action==='login'">
+          <li v-if="authRoute.name==='login'">
             <a class="auth-link" href="/register">¿No tienes una cuenta?</a>
           </li>
-          <li v-if="action==='register'">
+          <li v-if="authRoute.name==='register'">
             <a class="auth-link" href="/login">¿Ya tienes una cuenta?</a>
           </li>
-          <li v-if="action==='login'">
+          <li v-if="authRoute.name==='login'">
             <a class="auth-link" href="/account-recovery">¿Olvidaste tu contraseña?</a>
           </li>
         </ul>
@@ -57,6 +57,7 @@
 
 <script>
 import router from "@/router";
+import {setUser} from "@/store";
 
 export default {
   data() {
@@ -69,22 +70,24 @@ export default {
   },
   name: "AuthForm",
   props: {
-    action: {
-      type: String,
-      required: true
+    authRoute: {
+      type: Object,
+      required: true,
+      default: () => ({})
     }
   },
   methods: {
     async submitWrapper() {
-      if (this.action === 'login') {
+      if (this.authRoute.name === 'login') {
         await this.loginSubmit()
-      } else if (this.action === 'register') {
+      } else if (this.authRoute.name === 'register') {
         await this.registerSubmit()
       }
       if (this.res.code === 200) {
+        setUser(this.res.user)
         await router.push('/forum')
       } else {
-        console.log(this.res.message)
+        alert(this.res.message)
       }
     },
     loginSubmit() {

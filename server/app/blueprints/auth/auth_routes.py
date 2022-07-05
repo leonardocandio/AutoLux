@@ -37,6 +37,18 @@ def register():
     abort(400)
 
 
+@auth.route('/login', methods=['GET'])
+def logged_in():
+    if current_user.is_authenticated:
+        return jsonify({
+            'code': 200,
+            'success': True,
+            'message': 'User is logged in',
+            'user': current_user.format()
+        })
+    abort(401)
+
+
 @cache.cached(timeout=50)
 @auth.route('/login', methods=['POST'])
 def login():
@@ -82,48 +94,9 @@ def logout():
     })
 
 
-@auth.route('/google-login')
-def login_google():
-    google = oauth.create_client('google')  # insert the google oauth client
-    redirect_uri = url_for('auth.authorize', _external=True)
-    return google.authorize_redirect(redirect_uri)
-
-
-@auth.route('/authorize')
-def authorize():
-    google = oauth.create_client('google')  # insert the google oauth client
-    token = google.authorize_access_token()  # Access token from google (needed to get user info)
-    resp = google.get('userinfo')  # userinfo contains stuff u specificed in the scrope
-    user = oauth.google.userinfo()  # uses openid endpoint to fetch user info
-    # Here you use the profile/user data that you got and query your database find/register the user
-    # and set ur own data in the session not the profile from google
-    print(user)
-    google_user = User.query.filter_by(email=user.email).first()
-    if google_user is None and user is not None:
-        new_user = User(username=user.email.split("@")[0], email=user.email, password=user.sub, image_url=user.picture)
-        db.session.add(new_user)
-        db.session.commit()
-        session['user_username'] = new_user.email
-        session['user_email'] = new_user.email
-        session['user_image_url'] = new_user.image_url
-        session['user_id'] = new_user.id
-        login_user(new_user)
-    elif google_user is not None:
-        session['user_username'] = google_user.email
-        session['user_email'] = google_user.email
-        session['user_image_url'] = google_user.image_url
-        session['user_id'] = google_user.id
-        login_user(google_user, remember=True)
-
-    return redirect(url_for("home.home_page"))
-
-
 # --------------- POST GET -----------------#
 
 # --------------- CARS GET -----------------#
-
-
-
 
 
 def permission_required(permission):

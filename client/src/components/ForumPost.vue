@@ -5,16 +5,20 @@
         <img :src="post.author.image_url" alt="profile picture">
       </div>
       <div class="post-title">
-        <h2><a href="">{{ post.title }}</a></h2>
-        <h4>{{ post.created_at }}</h4>
+        <h2 class="post-title-text">
+          <router-link :to="{name: 'post-details', params: {id:post.id}}">
+            {{ post.title }}
+          </router-link>
+        </h2>
+        <h4 class="post-time">{{ post.created_at }}</h4>
       </div>
     </div>
     <div class="post-body">
-      <a href="/posts/{{ post.id }}">
+      <router-link :to="{name: 'profile', params: {id:post.author.id}}">
         <h3>
           {{ post.author.username }}
         </h3>
-      </a>
+      </router-link>
       <p class="post-text">
         {{ post.body }}
       </p>
@@ -27,9 +31,7 @@
 export default {
   name: "ForumPost",
   data() {
-    return {
-
-    };
+    return {};
   },
   props: {
     post: {
@@ -101,6 +103,16 @@ export default {
   height: 100%;
   width: 100%;
   margin: 10px 10px;
+}
+
+.post-time {
+  font-size: 12px;
+  margin: 0 0 0 20px;
+}
+
+.post-title-text {
+  font-size: 30px;
+  margin: 20px 0 0 20px;
 }
 
 .post-text {

@@ -1,30 +1,21 @@
 <template>
-  <nav>
-    <router-link to="/" class="main-logo">AutoLux</router-link>
-    <ul class="router-links">
-      <li><SearchForm /></li>
-      <li><router-link to="/forum">Foro</router-link></li>
-      <li><router-link to="/shop">Shop</router-link></li>
-    </ul>
-  </nav>
+  <NavBar/>
   <router-view/>
 </template>
 
 <script>
-import SearchForm from '@/components/SearchForm.vue'
+import NavBar from "@/components/NavBar";
+
 export default {
   name: 'App',
   components: {
-    SearchForm
+    NavBar
   }
 }
 </script>
 
-
 <style>
-*:not(i) {
-  font-family: 'Roboto', sans-serif;
-}
+
 textarea {
   resize: none;
 }
@@ -62,6 +53,7 @@ ul {
 li {
   margin: 5%;
 }
+
 h1 {
   color: black;
   font-size: 2.5em;
@@ -85,6 +77,7 @@ h3 {
   font-size: 1.5em;
   font-weight: bold;
 }
+
 a {
   text-decoration: none;
   color: var(--color-accent);
@@ -95,28 +88,12 @@ a:hover {
   cursor: pointer;
 }
 
-.main-logo {
-  position: relative;
-  float: left;
-  height: 100px;
-  line-height: 100px;
-  padding: 0 15px;
-  font-size: 22px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.router-links {
-  float: right;
-  margin-right: 30px;
-  position: relative;
-}
-
 nav .router-link :hover {
   color: #fff;
   background: var(--color-accent);
   border-radius: 2px;
 }
+
 nav .router-links li {
   list-style: none;
   position: relative;
@@ -124,7 +101,8 @@ nav .router-links li {
   padding-bottom: 34px;
   display: inline-block;
 }
-nav .links li>router-link {
+
+nav .links li > router-link {
   position: relative;
   display: inline-block;
   padding: 0 20px;
@@ -132,11 +110,12 @@ nav .links li>router-link {
   height: 30px;
 }
 
-nav .links li>router-link:hover {
+nav .links li > router-link:hover {
   color: #fff;
   background: var(--color-accent);
   border-radius: 2px;
 }
+
 .btn {
   display: inline-block;
   font-weight: 400;

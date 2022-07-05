@@ -10,13 +10,13 @@
         :car="car"/>
     </div>
 
-   
+
   </div>
 
   <PaginationComp @pagination_func="pagination_cars" :num_of_pages="n_pages" :page="page" ></PaginationComp>
-  
+
 </template>
-  
+
 <script>
 // @ is an alias to /src
 import CarCard from '@/components/CarCard.vue'
@@ -93,7 +93,7 @@ export default {
       this.change_page();
     },
   },
-  
+
 }
 </script>
 

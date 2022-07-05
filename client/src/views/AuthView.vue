@@ -1,12 +1,27 @@
 <template>
-<AuthForm action="login"/>
+<AuthForm :authRoute="authRoute" v-if="authRoute"/>
 </template>
 
 <script>
 import AuthForm from "@/components/AuthForm";
+import router from "@/router";
 export default {
+  data(){
+    return {
+      authRoute: null
+    }
+  },
+
   name: "LoginView",
-  components: {AuthForm}
+  components: {AuthForm},
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.setData(router.currentRoute))
+  },
+  methods: {
+    setData(data) {
+      this.authRoute = data;
+    }
+  }
 }
 </script>
 

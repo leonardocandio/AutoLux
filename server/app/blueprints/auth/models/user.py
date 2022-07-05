@@ -31,7 +31,8 @@ class User(UserMixin, db.Model, TimeModel):
             'image_url': self.image_url,
             'role_id': self.role_id,
             'created_at': self.created_at,
-            'last_updated': self.last_updated
+            'last_updated': self.last_updated,
+            'posts': [post.format_short() for post in self.posts.all()]
         }
 
     def can(self, permissions):
