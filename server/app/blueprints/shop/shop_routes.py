@@ -20,8 +20,6 @@ def paginate(query, request, items_per_page=9, last_page=False):
         page=page, per_page=items_per_page, error_out=True)
 
 def paginate_array(array, request, items_per_page=9, last_page=False):
-    print("El len del array es : ", len(array))
-    print("El numero de paginas es: ", (len(array) // items_per_page)+1 )
     n_pages = (len(array) // items_per_page)+1
 
     if last_page:
@@ -39,9 +37,6 @@ def paginate_array(array, request, items_per_page=9, last_page=False):
         _initial_page = (page-1)*items_per_page
         _last_page = _initial_page + items_per_page
         return [array[_initial_page:_last_page], n_pages ]
-    
-
-
     
 
 # --------------- CARS GET -----------------#
@@ -104,16 +99,16 @@ def search_car():
 
         cars = Car.query.all()
         n_cars = len(cars)
-        if start_price != '' and end_price != '':
+        if (start_price != '' and end_price != '') and (start_price is not None and end_price is not None):
             cars = filter_by(cars, 'price', [int(start_price), int(end_price)])
 
-        if model != '':
+        if (model != '') and (model is not None):
             cars = filter_by(cars, 'model', model)
         
-        if brand != '':
+        if (brand != '') and (brand is not None):
             cars = filter_by(cars, 'brand', brand)
 
-        if year != '':
+        if (year != '') and (year is not None):
             cars = filter_by(cars, 'year', int(year))
 
         if len(cars) == 0:

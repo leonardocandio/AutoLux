@@ -1,5 +1,6 @@
 import unittest
 
+from server.app.blueprints.shop.models.car import Car
 from server.app.blueprints.auth.models.role import Role
 from server.app import create_app
 from server.database import db
@@ -12,6 +13,7 @@ class BaseTestClass(unittest.TestCase):
         self.client = self.app.test_client
         with self.app.app_context():
             db.create_all()
+            Car.create_first_car()
             Role.insert_roles()
 
     def tearDown(self):

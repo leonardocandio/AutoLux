@@ -32,6 +32,38 @@ class Car(db.Model, TimeModel):
         if len(Car.query.all()) == 0:
             create_all_cars(db, Car)
 
+    @staticmethod
+    def create_first_car():
+        car = {
+            'name': 'Toyota yaris 2022',
+            'image_url': 'https://careerpartners.com.pe/wp-content/themes/consultix/images/no-image-found-360x260.png',
+            'price': 9999,
+            'description': 'Toyota yaris 2022',
+            'brand': 'Toyota',
+            'model': 'yaris',
+            'category': 'Camioneta',
+            'year': 2022,
+            'year_production': 2000,
+            'milage': 2000,
+            'transmission': '',
+            'fuel': 'test_fuel',
+            'engine_displacement': 'test_enigne',
+            'doors': 4,
+            'drivetrain': 'test_drive',
+            'color': 'negro',
+            'cylinders': 1,
+            'location': 'San Borja'
+        }
+        try:
+            db.session.add(car)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(e)
+        finally:
+            db.session.close()
+
+
     def format(self):
         return {
             "id": self.id,
