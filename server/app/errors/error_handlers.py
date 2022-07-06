@@ -37,6 +37,7 @@ def error_handlers(app):
         return jsonify({
             "title": "Página restringida",
             "code": e.code,
+            "success": False,
             "image": IMAGE_URL,
             "description": "Necesita permisos para entrar a esta página, no te sientas mal, mirar estos carros te hará sentir mejor.",
             "redirect": HOME_PATH
@@ -47,6 +48,7 @@ def error_handlers(app):
         return jsonify({
             "title": PAGE_NOT_FOUND_TITLE,
             "code": e.code,
+            "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
             "redirect": HOME_PATH
@@ -57,6 +59,7 @@ def error_handlers(app):
         return jsonify({
             "title": PAGE_NOT_FOUND_TITLE,
             "code": e.code,
+            "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
             "redirect": HOME_PATH
@@ -67,6 +70,7 @@ def error_handlers(app):
         return jsonify({
             "title": PAGE_NOT_FOUND_TITLE,
             "code": "404",
+            "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
             "redirect": HOME_PATH
@@ -77,6 +81,7 @@ def error_handlers(app):
         return jsonify({
             "title": PAGE_NOT_FOUND_TITLE,
             "code": "404",
+            "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
             "redirect": HOME_PATH

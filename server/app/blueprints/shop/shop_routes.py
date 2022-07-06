@@ -11,10 +11,13 @@ from .filter import search_by_name, filter_by
 # --------------- PAGINATION -----------------#
 
 def paginate(query, request, items_per_page=9, last_page=False):
+    n_pages = (query.count() // items_per_page)+1
     if last_page:
         page = query.count() // items_per_page
     else:
         page = request.args.get('page', 1, type=int)
+        if(page > n_pages):
+            abort(404)
 
     return query.paginate(
         page=page, per_page=items_per_page, error_out=True)
@@ -27,9 +30,10 @@ def paginate_array(array, request, items_per_page=9, last_page=False):
     else:
         page = request.args.get('page', 1, type=int)
 
-    num_of_pages = (len(array) // items_per_page) + 1
+    if(page > n_pages):
+            abort(404)
 
-    if page == num_of_pages:
+    if page == n_pages:
         _initial_page = (page-1)*items_per_page
         _last_page = len(array)
         return [array[_initial_page:_last_page], n_pages]
@@ -82,6 +86,9 @@ def search_car():
     if search:
         query = Car.query.all()
         cars_searched = search_by_name(query, search, nitems)
+        if(len(cars_searched) == 0):
+            abort(404)
+
         return jsonify({
                 'code': 200,
                 'success': True,
@@ -122,19 +129,3 @@ def search_car():
                 'total_cars': n_cars,
                 'n_pages': n_pages
             })
-
-
-# --------------- CARS DELETE -----------------#
-
-
-
-# @shop.app_context_processor
-# def inject_permissions():
-#     return dict(Permission=Permission)
-
-
-# @shop.before_request
-# @login_required
-# def before_request():
-#     if not current_user.is_authenticated:
-#         abort(401)

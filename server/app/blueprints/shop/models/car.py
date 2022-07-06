@@ -44,7 +44,7 @@ class Car(db.Model, TimeModel):
             'category': 'Camioneta',
             'year': 2022,
             'year_production': 2000,
-            'milage': 2000,
+            'mileage': 2000,
             'transmission': '',
             'fuel': 'test_fuel',
             'engine_displacement': 'test_enigne',
@@ -55,7 +55,7 @@ class Car(db.Model, TimeModel):
             'location': 'San Borja'
         }
         try:
-            db.session.add(car)
+            db.session.add(Car(**car))
             db.session.commit()
         except Exception as e:
             db.session.rollback()

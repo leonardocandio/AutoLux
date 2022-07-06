@@ -19,4 +19,4 @@ class BaseTestClass(unittest.TestCase):
     def tearDown(self):
         with self.app.app_context():
             db.session.remove()
-            db.drop_all()
+            # db.drop_all()
