@@ -16,6 +16,7 @@ def register():
     username = body.get('username', None)
     email = body.get('email', None)
     password = body.get('password', None)
+    print(username, email, password)
 
     if User.validate_register(email):
         new_user = User(username=username, email=email, password=password)
@@ -27,7 +28,8 @@ def register():
         return jsonify({
             'code': 200,
             'success': True,
-            'message': 'User created successfully'
+            'message': 'User created successfully',
+            'user': new_user.format()
         })
     abort(400)
 

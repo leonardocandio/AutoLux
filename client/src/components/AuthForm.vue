@@ -78,19 +78,18 @@ export default {
   methods: {
     async submitWrapper() {
       if (this.authRoute.name === 'login') {
-        await this.loginSubmit()
+        this.res = JSON.parse(JSON.stringify(await this.loginSubmit()))
       } else if (this.authRoute.name === 'register') {
-        await this.registerSubmit()
+        this.res =JSON.parse(JSON.stringify(await this.registerSubmit()))
       }
+      console.log("submitWrapper: ", this.res);
       if (this.res.code === 200) {
         setUser(this.res.user)
         await router.push('/forum')
-      } else {
-        alert(this.res.message)
       }
     },
-    loginSubmit() {
-      fetch('/users/session', {
+    async loginSubmit() {
+      const res = await fetch('/users/session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -99,16 +98,11 @@ export default {
           'email': this.email,
           'password': this.password
         })
-      }).then(response => {
-        return response.json()
-      }).then(data => {
-        this.res = JSON.parse(JSON.stringify(data))
-      }).catch(error => {
-        console.log(error);
-      });
+      })
+      return res.json()
     },
-    registerSubmit() {
-      fetch('/users/', {
+    async registerSubmit() {
+      const res = await fetch('/users/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -118,13 +112,8 @@ export default {
           'password': this.password,
           'username': this.username
         })
-      }).then(response => {
-        return response.json()
-      }).then(data => {
-        this.res = JSON.parse(JSON.stringify(data))
-      }).catch(error => {
-        console.log(error);
-      });
+      })
+      return res.json()
     }
   }
 }
