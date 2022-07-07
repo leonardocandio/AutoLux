@@ -8,7 +8,7 @@
         <img :src="post.author.image_url" alt="profile picture">
       </div>
       <div class="post-author">
-        <router-link to="">
+        <router-link :to="{name:'profile', params:{id:post.author.id}}">
           {{ post.author.username }}
         </router-link>
       </div>

@@ -43,7 +43,6 @@ export default {
   box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
   margin: 2%;
 }
-
 .comment-img {
   grid-area: pic;
   border-radius: 50%;
