@@ -43,6 +43,8 @@ export default {
 .profile-container {
   margin: 10%;
   display: flex;
+  flex-direction: column;
+    text-align: center;
 }
 
 </style>

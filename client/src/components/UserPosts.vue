@@ -26,7 +26,7 @@ export default {
 .profile-posts {
   border: 2px solid lightgrey;
   text-align: center;
-  width: 40%;
+  /* width: 40%; */
   padding: 2em;
   border-radius: 10px;
 }
