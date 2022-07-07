@@ -2,7 +2,7 @@ from flask import render_template, abort
 from flask_login import current_user, login_required
 from server.app.blueprints.news.controller import news
 from .models.article import Article
-from ..auth.models.role import Permission
+from server.app.blueprints.users.models.role import Permission
 
 
 @news.route('/', methods=['GET', 'POST'])

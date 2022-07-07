@@ -1,4 +1,4 @@
-from server.app.blueprints.auth.models.user import User
+from server.app.blueprints.users.models.user import User
 from server.app.models.super_models.time_model import TimeModel
 from server.database import db
 

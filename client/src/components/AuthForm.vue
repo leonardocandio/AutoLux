@@ -90,7 +90,7 @@ export default {
       }
     },
     loginSubmit() {
-      fetch('/login', {
+      fetch('/users/session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ export default {
       });
     },
     registerSubmit() {
-      fetch('/register', {
+      fetch('/users/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

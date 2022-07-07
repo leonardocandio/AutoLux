@@ -37,9 +37,8 @@ export default {
 
 <style scoped>
 .post {
-  margin: 2%;
+  margin-left: 1%;
   display: grid;
-  width: 600px;
   align-items: center;
   background: var(--color-background);
   box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
@@ -54,13 +53,15 @@ export default {
 .post-container{
   width: 50%;
   display: flex;
-  justify-content: center;
+  align-content: flex-end;
+  align-items: flex-start;
+
 }
 .post-title {
   text-align: center;
   grid-area: title;
   color: var(--color-accent);
-  font-size: 300%;
+  font-size: 3em;
 }
 
 .post-author-image {
@@ -81,9 +82,12 @@ export default {
 
 .post-body {
   overflow: scroll;
-  height: 400px;
   text-align: justify;
-  margin: 5% 30px;
+  min-height: 400px;
+  min-width: 500px;
+  max-width: inherit;
+  max-height: 700px;
+  margin: 5%;
   grid-area: body;
   align-self: start;
 }

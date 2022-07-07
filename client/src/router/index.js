@@ -19,7 +19,7 @@ const routes = [
         path: '/logout',
         name: 'logout',
         beforeEnter(to, from, next) {
-            fetch('/logout', {'method': 'GET'}).then(r => {
+            fetch('/users/session', {'method': 'DELETE'}).then(r => {
                 if (r.status === 200) {
                     clearUser();
                     return next('/');

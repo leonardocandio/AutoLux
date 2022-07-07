@@ -6,13 +6,13 @@ from flask_login import current_user, login_required
 from server.app.blueprints.forum.controller import forum
 from .models.comment import Comment
 from .models.post import Post
-from ..auth.models.role import Permission
+from server.app.blueprints.users.models.role import Permission
 
 ITEMS_PER_PAGE = 20
 
 
 def paginate(model, request, last_page=False):
-    query = Post.query.order_by(model.created_at.desc())
+    query = model.query.order_by(model.created_at.desc())
 
     if last_page:
         page = query.count() // ITEMS_PER_PAGE
@@ -132,13 +132,13 @@ def create_comment(id):
         comment.insert()
     except Exception:
         abort(500)
-    comments = paginate(Comment, request)
+    comments = post.comments.all()
     return jsonify({
         'code': 200,
         'success': True,
         'comment_created': comment.id,
-        'comments': [comment.format() for comment in comments.items],
-        'total_comments': comments.total
+        'comments': [comment.format() for comment in comments],
+        'total_comments': len(comments)
     })
 
 

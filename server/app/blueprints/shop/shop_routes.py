@@ -1,11 +1,7 @@
-from math import ceil
-from flask import render_template, abort, request, jsonify
-from flask_login import current_user, login_required
-from math import ceil
+from flask import abort, request, jsonify
 
 from server.app.blueprints.shop.controller import shop
 from .models.car import Car
-from ..auth.models.role import Permission
 from .filter import search_by_name, filter_by
 
 # --------------- PAGINATION -----------------#
