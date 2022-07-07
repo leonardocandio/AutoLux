@@ -154,14 +154,22 @@
 
 + Article:
     - columnas: id, title, description, content, image_url, author, date_published, category 
-    - get_new: retorna el total de news que exista
-+ CARS
-+ USERS
++ CARS:
+    - columnas: id, name, image_url, price, model, category, year_production, mileage, transmission, engine_displacement, drivetrain, color, location.
+
 + Permission:
-    ...
+    COMMENT = 0x02
+    WRITE_ARTICLES = 0x04
+    MODERATE_COMMENTS = 0x08
+    ADMINISTER = 0x80
 + Role:
     - crea los roles con las columnas: id, name, default, permissions
-    -
+    - insert_roles():
+    ...
++ User:
+    - columnas: id, username, email, password_hash, image_url, role_id, posts, comments 
+
+    ...
 # Descripción:
 
 new_ routes:
