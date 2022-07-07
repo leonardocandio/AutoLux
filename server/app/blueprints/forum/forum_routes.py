@@ -30,6 +30,7 @@ def get_forum():
         'code': 200,
         'success': True,
         'posts': [post.format() for post in posts.items],
+        'n_pages': posts.pages,
         'total_posts': posts.total
     })
 
