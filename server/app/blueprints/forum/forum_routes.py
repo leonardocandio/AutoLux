@@ -4,9 +4,9 @@ from flask import jsonify, request, abort
 from flask_login import current_user, login_required
 
 from server.app.blueprints.forum.controller import forum
+from server.app.blueprints.users.models.role import Permission
 from .models.comment import Comment
 from .models.post import Post
-from server.app.blueprints.users.models.role import Permission
 
 ITEMS_PER_PAGE = 20
 
@@ -41,14 +41,14 @@ def create_post():
     post_body = body.get('post_body', None)
     post_title = body.get('post_title', None)
 
-    if current_user.can(Permission.WRITE_ARTICLES):
-        post = Post(title=post_body, body=post_title, author=current_user._get_current_object())
-        try:
-            post.insert()
-        except Exception:
-            abort(500)
-        print(post.format())
-        posts = paginate(Post, request)
+    post = Post(title=post_title, body=post_body, author=current_user._get_current_object())
+    try:
+        post.insert()
+    except Exception:
+        abort(500)
+    print(post.format())
+    posts = paginate(Post, request)
+
     return jsonify({
         'code': 200,
         'success': True,
@@ -194,5 +194,3 @@ def update_comment(id):
 @forum.app_context_processor
 def inject_permissions():
     return dict(Permission=Permission)
-
-
