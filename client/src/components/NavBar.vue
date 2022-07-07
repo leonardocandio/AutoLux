@@ -9,10 +9,10 @@
         <router-link to="/forum">Foro</router-link>
       </li>
       <li>
-        <router-link to="/shop">Shop</router-link>
+        <router-link to="/shop">Tienda</router-link>
       </li>
       <li v-if="Object.keys(user).length !== 0">
-        <router-link to="/logout">Logout</router-link>
+        <router-link to="/logout">Salir</router-link>
       </li>
       <li v-if="Object.keys(user).length !== 0">
         <router-link :to="{ name:'profile', params:{id:user.id}}">

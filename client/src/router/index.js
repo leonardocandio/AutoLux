@@ -48,7 +48,7 @@ const routes = [
         meta: {requiresAuth: true}
     },
     {
-        path:'/forum/new',
+        path: '/forum/new',
         name: 'new-post',
         component: () => import('../views/ForumNewView.vue'),
         props: true,
@@ -80,18 +80,12 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL), routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (Object.keys(getUser).length === 0) {
-            next({
-                name: 'login',
-                query: {redirect: to.fullPath}
-            })
-        } else {
-            next()
+        const user = await getUser;
+        if (!user) {
+            return router.push('/login');
         }
-    } else {
-        next()
     }
 })
 export default router

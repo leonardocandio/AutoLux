@@ -10,6 +10,9 @@ export default {
   name: 'App',
   components: {
     NavBar
+  },
+  mounted() {
+    document.title = 'AutoLux'
   }
 }
 </script>
