@@ -20,40 +20,47 @@
     parámetros: page(URL), entero
 -**get_forum**:
     Se encarga de retornar todo el forum
+    methods= GET
 -**create_post**:
     realiza los post de los forum
     parámetros: JSON(post_body string, post_title string)
     retorna: retorna los posts y el total
+    methods= POST
 -**delete_post**:
     Elimina el post
     parámetros: JSON(post_id integer, post_body string y post_title string)
     retorna: el post_id, eliminado y los restos 
+    methods= DELETE
 -**update_post**:
     Sube el post
     parámetros: JSON(post_id integer, post_body string y post_title string)
     retorna: el post_id y el total
+    methods= PATCH
 -**get_post**:
     obtiene el post por el id (URL)
     parámetros : id de post 
+    methods= GET
 -**create_comment**:
     crea el comentario
     parámetros: id de post (URL) ,JSON(comment_body string)
     retorna: el comentario, id y total de los comentarios
+    methods= POST
 -**delete_comment**:
     Elimina el comentario
     parámetros: id de post (URL), JSON(comment_id string)
     retorna: el comentario, id y total de los comentarios
+    methods= DELETE
 -**update_comment**:
     Sube el comentario
     parámetros: id de post (URL), JSON(comment_id integer, comment_body string)
     retorna: el comentario, id y total de los comentarios 
-
+    methods= PATCH
 
 **========**
 # HOME_routes:
 -**Home_page**:
     selecciona aleatoriamente un auto y un articulo en un rango de 6
-    ...
+    methods= POST
 -**get_brands**:
     obtiene las marcas de los autos.
     retorna: un response que contiene a cada marca en un diccionario con el id
@@ -87,9 +94,11 @@
 - **get_cars:**:
     recorre todos los Car 
     retorna: los cars, el total de cars, y los n_pages
+    methods= GET
 - **ger_car:**:
     filtra cada Car por su id
     retorna: el code, success y diccionario del carro
+    methods= GET
 - **search_car**:
     busqueda de los cars
     parámetros: URL(search y nitems)
@@ -97,6 +106,7 @@
         retorna un format
     if body:
     parámetros: JSON(start_price string, end_price string, model string, brand string, year string)
+    methods= POST
 **========**
 
 # Users_routes
@@ -105,17 +115,22 @@
     registra a los usuarios
     parámetros: JSON(username string, email string, password string)
     retorna: un mensaje que el usuario fue creado satisfactoriamente
+    methods= POST
 - **logged_in**:
     retorna: el usuario ya esta logeado 
+    methods= GET
 - **logout**:
     retorna: el usuario se desconectó con exito 
+    methods= DELETE
 - **login**:
     si el usuario esta identificado
     parámetro: JSON(email string, password string)
     si el usuario existe retorna: el usuario inició con exito
+    methods= POST
 - **get_profile_page**:
     parámetro: id del usuario (URL)
     retorna: Usuario encontrado 
+    methods= GET
 - **profile_page**:
     ...
 - **inject_permissions**:
