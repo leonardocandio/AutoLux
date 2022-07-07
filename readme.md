@@ -215,14 +215,3 @@ Nuestra aplicación es un sitio web el cual contiene:
     Queremos llegar a la mayor cantidad de usuarios y así ayudarlos en el proceso de 
     decisión de compra de el auto que más se acomode a sus necesidades
 
-# Manejo de errores:
-
-# Como ejecutar el sistema:
-
-
-# Licencia
-
-
-
-# Librerias utilizadas:
-- 
