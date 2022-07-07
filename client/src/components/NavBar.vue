@@ -12,7 +12,7 @@
         <router-link to="/shop">Tienda</router-link>
       </li>
       <li v-if="Object.keys(user).length !== 0">
-        <router-link to="/logout">Logout</router-link>
+        <router-link to="/logout">Salir</router-link>
       </li>
       <li v-if="Object.keys(user).length !== 0">
         <router-link :to="{ name:'profile', params:{id:user.id}}">
