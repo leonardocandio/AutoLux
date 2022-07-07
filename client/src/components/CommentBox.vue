@@ -77,9 +77,9 @@ export default {
 
 <style scoped>
 .comment-box {
-  display: flex;
+  display: block;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
   align-items: flex-start;
   overflow-y: scroll;
   height: 85vh;
@@ -92,5 +92,9 @@ export default {
 .comments {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.formkit-wrapper{
+  margin: 10px 0;
 }
 </style>
