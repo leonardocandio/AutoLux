@@ -19,37 +19,50 @@
                    :post="post"
         />
       </div>
+      <PaginationComp @pagination_func="pagination_posts" :num_of_pages="n_pages" :page="page"/>
     </div>
   </div>
 </template>
 
 <script>
 import ForumPost from "@/components/ForumPost";
+import PaginationComp from "@/components/PaginationComp";
 
 export default {
   name: "ForumView",
-  components: {ForumPost},
+  components: {PaginationComp, ForumPost},
   data() {
     return {
-      posts: []
+      posts: [],
+      n_pages: 0,
+      page: 1,
     };
   },
-  beforeRouteEnter(to, from, next) {
-    fetch('/posts/', {method: "GET"})
-        .then(response => response.json())
-        .then(res => {
-          next(vm => vm.setData(res.posts))
-        })
-        .catch(error => {
-          console.log(error);
-        });
+  mounted() {
+    this.get_all_posts();
   },
   methods: {
+    get_all_posts() {
+      fetch(`/posts?page=${this.page}`, {method: "GET"})
+          .then(response => response.json())
+          .then(res => {
+            this.posts = res.posts;
+            this.n_pages = parseInt(res.n_pages);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+    },
     setData(data) {
       this.posts = data;
+    },
+    pagination_posts(page) {
+      this.page = page;
+      this.get_all_posts();
     }
   }
 }
+
 
 </script>
 
@@ -60,6 +73,7 @@ export default {
   width: 60%;
   margin: auto;
 }
+
 .content {
   display: flex;
   flex-direction: column;
@@ -78,6 +92,7 @@ export default {
   align-items: center;
 
 }
+
 .forum-new {
   width: fit-content;
 }

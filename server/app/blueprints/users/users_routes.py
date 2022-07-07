@@ -1,19 +1,16 @@
 from functools import wraps
 
-from flask import (
-    render_template, request,
-    abort, jsonify
-)
+from flask import abort, jsonify, request
 from flask_login import login_user, login_required, logout_user, current_user
 
-from server.app.blueprints.auth.controller import auth
+from server.app.blueprints.users.controller import users
+from server.app.blueprints.users.models.role import Permission
+from server.app.blueprints.users.models.user import User
 from server.app.cache import cache
-from .models.role import Permission
-from .models.user import User
 
 
 @cache.cached(timeout=50)
-@auth.route('/register', methods=['POST'])
+@users.route('/', methods=['POST'])
 def register():
     body = request.get_json()
     username = body.get('username', None)
@@ -35,20 +32,30 @@ def register():
     abort(400)
 
 
-@auth.route('/login', methods=['GET'])
+@users.route('/session', methods=['GET'])
+@login_required
 def logged_in():
-    if current_user.is_authenticated:
-        return jsonify({
-            'code': 200,
-            'success': True,
-            'message': 'User is logged in',
-            'user': current_user.format()
-        })
-    abort(401)
+    return jsonify({
+        'code': 200,
+        'success': True,
+        'message': 'User is logged in',
+        'user': current_user.format()
+    })
+
+
+@users.route('/session', methods=['DELETE'])
+@login_required
+def logout():
+    logout_user()
+    return jsonify({
+        'code': 200,
+        'success': True,
+        'message': 'User logged out successfully'
+    })
 
 
 @cache.cached(timeout=50)
-@auth.route('/login', methods=['POST'])
+@users.route('/session', methods=['POST'])
 def login():
     if current_user.is_authenticated:
         return jsonify({
@@ -76,25 +83,31 @@ def login():
     abort(401)
 
 
-@auth.route('/account-recovery')
-def recovery():
-    return render_template("recovery.html")
-
-
-@auth.route('/logout', methods=['GET'])
+@users.route('/<id>', methods=['GET'])
 @login_required
-def logout():
-    logout_user()
+def get_profile_page(id):
+    user = User.query.get_or_404(id)
+    permissions = current_user.id == user.id
     return jsonify({
         'code': 200,
         'success': True,
-        'message': 'User logged out successfully'
+        'message': 'User found',
+        'permissions': permissions,
+        'user': user.format()
     })
 
 
-# --------------- POST GET -----------------#
+@users.route('/<id>', methods=['PATCH'])
+def profile_page(id):
+    user = User.query.get_or_404(id)
+    res = request.get_json()
 
-# --------------- CARS GET -----------------#
+    pass
+
+
+@users.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)
 
 
 def permission_required(permission):
@@ -114,6 +127,6 @@ def admin_required(f):
     return permission_required(Permission.ADMINISTER)(f)
 
 
-@auth.app_context_processor
+@users.app_context_processor
 def inject_permissions():
     return dict(Permission=Permission)

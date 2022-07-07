@@ -55,3 +55,64 @@ class CarTest(BaseTestClass):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['title'], 'Página no encontrada')
 
+
+new_user = {
+    'username': 'test',
+    'email': 'test@test.com',
+    'password': 'test'
+}
+
+
+class UserTest(BaseTestClass):
+
+    def get_user_profile_success(self):
+        self.client().post('/users/', json=new_user)
+        res = self.client().get('/users/1')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['user'])
+
+    def get_user_profile_failed_404(self):
+        res = self.client().get('/users/10000')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['title'], "Página no encontrada")
+
+    def log_in_success(self):
+        self.client().post('/users/', json=new_user)
+        self.client().delete('/users/session/')
+        res = self.client().post('/users/session/', json=new_user)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['user']['username'], 'test')
+
+    def log_in_failed_401(self):
+        res = self.client().post('/users/session', json=new_user)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['success'], False)
+
+    def log_out_success(self):
+        self.client().post('/users/', json=new_user)
+        self.client().post('/users/session', json=new_user)
+        res = self.client().delete('/users/session')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['message'], 'logout success')
+
+    def log_out_failed_401(self):
+        res = self.client().delete('/users/session')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 401)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'unauthorized')

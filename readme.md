@@ -7,7 +7,165 @@
 * Renato Cernades
 * Ronaldo Flores
 
+**==================================**
+# BLUEPRINTS
+**CADA RESPONSE CONTIENE :**
+    -**code:***Es el Status de la petición*
+    -**Success***Nos indica si nuestra peticon fue exitosa*
+**========**
+# FORUM_routes:
+**URL:**"/posts"
+-**paginate**:
+    Se encarga de la paginación
+    parámetros: page(URL), entero
+-**get_forum**:
+    Se encarga de retornar todo el forum
+-**create_post**:
+    realiza los post de los forum
+    parámetros: JSON(post_body string, post_title string)
+    retorna: retorna los posts y el total
+-**delete_post**:
+    Elimina el post
+    parámetros: JSON(post_id integer, post_body string y post_title string)
+    retorna: el post_id, eliminado y los restos 
+-**update_post**:
+    Sube el post
+    parámetros: JSON(post_id integer, post_body string y post_title string)
+    retorna: el post_id y el total
+-**get_post**:
+    obtiene el post por el id (URL)
+    parámetros : id de post 
+-**create_comment**:
+    crea el comentario
+    parámetros: id de post (URL) ,JSON(comment_body string)
+    retorna: el comentario, id y total de los comentarios
+-**delete_comment**:
+    Elimina el comentario
+    parámetros: id de post (URL), JSON(comment_id string)
+    retorna: el comentario, id y total de los comentarios
+-**update_comment**:
+    Sube el comentario
+    parámetros: id de post (URL), JSON(comment_id integer, comment_body string)
+    retorna: el comentario, id y total de los comentarios 
+
+
+**========**
+# HOME_routes:
+-**Home_page**:
+    selecciona aleatoriamente un auto y un articulo en un rango de 6
+    ...
+-**get_brands**:
+    obtiene las marcas de los autos.
+    retorna: un response que contiene a cada marca en un diccionario con el id
+-**inject_permissions**:
+    ...
+-**before_request**:
+    ...  
+
+**========**
+# NEW_routes
+- **home**:
+    render_templatede de 'news.html' y articles
+- **article_page**:
+    render_templatede de 'see_more_news.html' y articles
+- **add_news**:
+    retorna add news
+- **delete_news**:
+    retorna delete news
+- **inject_permissions**:
+    retorna diccionario de Permission
+- **before_request**:
+    si el user no esta identificado retorna abort(401)
+
+**========**
+# Shop_routes
+**URL:**"/cars"
+- **paginate**:
+    ...
+- **paginate_array**:
+    ...
+- **get_cars:**:
+    recorre todos los Car 
+    retorna: los cars, el total de cars, y los n_pages
+- **ger_car:**:
+    filtra cada Car por su id
+    retorna: el code, success y diccionario del carro
+- **search_car**:
+    busqueda de los cars
+    parámetros: URL(search y nitems)
+    si detecta el search:
+        retorna un format
+    if body:
+    parámetros: JSON(start_price string, end_price string, model string, brand string, year string)
+**========**
+
+# Users_routes
+**URL:**"/users"
+- **register**:
+    registra a los usuarios
+    parámetros: JSON(username string, email string, password string)
+    retorna: un mensaje que el usuario fue creado satisfactoriamente
+- **logged_in**:
+    retorna: el usuario ya esta logeado 
+- **logout**:
+    retorna: el usuario se desconectó con exito 
+- **login**:
+    si el usuario esta identificado
+    parámetro: JSON(email string, password string)
+    si el usuario existe retorna: el usuario inició con exito
+- **get_profile_page**:
+    parámetro: id del usuario (URL)
+    retorna: Usuario encontrado 
+- **profile_page**:
+    ...
+- **inject_permissions**:
+    retorna: un diccionario con sus permisos
+- **permission_required**:
+    ...
+- **admin_required**:
+    ...
+- **inject_permissions**:
+    ...
+**==================================**
+# ERRORS
+# errors_handlers   
+-**bad_request**:
+    error 400, petición inválida
+-**auth_required**:
+    error 401, Se requiere autenticación
+-**page_restricted**:
+    error 403, Página restringida
+-**page_not_found**:
+    error 404, Página no encontrada
+-**invalid_request**:
+    error 412, Solicitud no válida
+-**internal_server_error**:
+    error 500, Error interno del servidor
+-**handle_exception**:
+    error 401, Se requiere autenticación
+
+# FUNCIONES :
+-**create_all_articles**: 
+    crea todos los articulos
+-**insert_roles**: 
+    dentro de Role, ...
+
+# CLASES:
+
++ Article:
+    - columnas: id, title, description, content, image_url, author, date_published, category 
+    - get_new: retorna el total de news que exista
++ CARS
++ USERS
++ Permission:
+    ...
++ Role:
+    - crea los roles con las columnas: id, name, default, permissions
+    -
 # Descripción:
+
+new_ routes:
++ 
 
 Nuestra aplicación es un sitio web el cual contiene:
 + Noticias relacionadas a los autos
@@ -17,84 +175,25 @@ Nuestra aplicación es un sitio web el cual contiene:
 
 # Objetivos principales / Misión / Visión
 + Objetivos principales:
-    Nuestro objetivo como desarrolladores es facilitar la busqueda de informacion
-    sobre automoviles para los usuarios, como es en las noticias y precios  de los
-    carros usando un filtro que agilizara la busqueda.
+    Nuestro objetivo como desarrolladores es facilitar la búsqueda de información
+    sobre automóviles para los usuarios, como es en las noticias y precios de los
+    autos usando un filtro que agilizará la búsqueda.
 + Misión:
-    Cumplir los requerimientos del proyecto para tener una buena presentacion a la
-    hora de aplicar los metodos vistos en clase para la funcionalidad de la 
-    aplicacion
+    Cumplir los requerimientos del proyecto para tener una buena presentación a la
+    hora de aplicar los métodos vistos en clase para la funcionalidad de la 
+    aplicación
 + Visión:
-    Queremos llegar a la mayor cantidad de usuarios y asi ayudarlos en el proceso de 
+    Queremos llegar a la mayor cantidad de usuarios y así ayudarlos en el proceso de 
     decisión de compra de el auto que más se acomode a sus necesidades
 
 # Manejo de errores:
-En la carpetas errors se manejan los errores 400, 401, 402, 403, 404, 412, 500.
 
 # Como ejecutar el sistema:
-Ejecutar el run.py
-Usando flask shell
-- ctx = app.test_request_context()
-- ctx.push()
-- from app.blueprints.auth.models.user import User
-- from app.blueprints.forum.models.post import Post
-- from app.blueprints.shop.models.car import Car
-- from app.blueprints.news.models.article import Article
-- User.first_user()
-- User.generate_fake()
-- Post.generate_fake()
-- Car.get_cars()
-- Article.get_news()
 
 
 # Licencia
 
-La licencia es de tipo MIT por lo que está permitido copiar, distribuir, modificar y/o vender este mismo software.
 
 
 # Librerias utilizadas:
-- alembic==1.7.7
-- Authlib==1.0.1
-- autopep8==1.6.0
-- beautifulsoup4==4.11.1
-- cachelib==0.6.0
-- certifi==2021.10.8
-- cffi==1.15.0
-- charset-normalizer==2.0.12
-- click==8.1.2
-- colorama==0.4.4
-- cryptography==37.0.2
-- dnspython==2.2.1
-- email-validator==1.2.1
-- Flask==2.1.1
-- Flask-Caching==1.10.1
-- Flask-Login==0.6.1
-- Flask-Migrate==3.1.0
-- Flask-OAuthlib==0.9.6
-- Flask-SQLAlchemy==2.5.1
-- Flask-WTF==1.0.1
-- ForgeryPy==0.1
-- greenlet==1.1.2
-- idna==3.3
-- importlib-metadata==4.11.3
-- itsdangerous==2.1.2
-- Jinja2==3.1.1
-- Mako==1.2.0
-- MarkupSafe==2.1.1
-- oauthlib==2.1.0
-- password==0.2
-- posts==0.2.2
-- psycopg2==2.9.3
-- psycopg2-binary==2.9.3
-- pycodestyle==2.8.0
-- pycparser==2.21
-- python-dotenv==0.20.0
-- requests==2.27.1
-- requests-oauthlib==1.1.0
-- soupsieve==2.3.2
-- SQLAlchemy==1.4.34
-- toml==0.10.2
-- urllib3==1.26.9
-- Werkzeug==2.1.1
-- WTForms==3.0.1
-- zipp==3.8.0
+- 

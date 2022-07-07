@@ -19,7 +19,8 @@ def error_handlers(app):
             "code": e.code,
             "image": IMAGE_URL,
             "description": "La petición que estás intentando hacer no es válida. Por favor, inténtalo de nuevo.",
-            "redirect": LOGIN_PATH
+            "redirect": LOGIN_PATH,
+            "success": False
         }), e.code
 
     @app.errorhandler(401)
@@ -29,7 +30,8 @@ def error_handlers(app):
             "code": e.code,
             "image": IMAGE_URL,
             "description": "Todavía puedes registrate o iniciar sesión en nuestra página o mediante google sign in.",
-            "redirect": LOGIN_PATH
+            "redirect": LOGIN_PATH,
+            "success": False
         }), e.code
 
     @app.errorhandler(403)
@@ -40,7 +42,7 @@ def error_handlers(app):
             "success": False,
             "image": IMAGE_URL,
             "description": "Necesita permisos para entrar a esta página, no te sientas mal, mirar estos carros te hará sentir mejor.",
-            "redirect": HOME_PATH
+            "redirect": HOME_PATH,
         }), e.code
 
     @app.errorhandler(404)
@@ -51,7 +53,7 @@ def error_handlers(app):
             "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
-            "redirect": HOME_PATH
+            "redirect": HOME_PATH,
         }), e.code
 
     @app.errorhandler(412)
@@ -62,7 +64,7 @@ def error_handlers(app):
             "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
-            "redirect": HOME_PATH
+            "redirect": HOME_PATH,
         }), e.code
 
     @app.errorhandler(500)
@@ -73,7 +75,7 @@ def error_handlers(app):
             "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
-            "redirect": HOME_PATH
+            "redirect": HOME_PATH,
         }), 404
 
     @app.errorhandler(HTTPException)
@@ -84,5 +86,5 @@ def error_handlers(app):
             "success": False,
             "image": IMAGE_URL,
             "description": GENERIC_DESCRIPTION,
-            "redirect": HOME_PATH
+            "redirect": HOME_PATH,
         }), 404

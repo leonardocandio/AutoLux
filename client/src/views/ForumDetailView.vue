@@ -42,14 +42,10 @@ export default {
 </script>
 
 <style scoped>
-.detail-container{
+.detail-container {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100%;
-  align-content: space-evenly;
-  align-items: flex-start;
-  justify-content: center;
 }
 @media (max-width: 768px) {
   .detail-container {

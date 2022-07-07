@@ -4,7 +4,7 @@
          alt="comment-author"
          class="comment-img">
     <span class="comment-author">
-      <router-link to="">
+      <router-link :to="{name:'profile', params:{id:comment.author.id}}">
         {{ comment.author.username }}
       </router-link>
     </span>
@@ -43,6 +43,7 @@ export default {
   box-shadow: 0 11px 35px 2px rgba(0, 0, 0, 0.14);
   margin: 2%;
 }
+
 .comment-img {
   grid-area: pic;
   border-radius: 50%;

@@ -96,7 +96,7 @@ export default {
   grid-area: author;
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   font-size: 1.3em;
 }
 

@@ -1,7 +1,7 @@
 from flask import render_template, abort, jsonify
 from flask_login import login_required, current_user
 
-from server.app.blueprints.auth.models.role import Permission
+from server.app.blueprints.users.models.role import Permission
 from server.app.blueprints.home.controller import home
 from server.app.blueprints.shop.models.car import Car
 from server.app.blueprints.news.models.article import Article
