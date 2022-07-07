@@ -8,7 +8,6 @@
         </ul>
         </nav>
     </div>
-
 </template>
 
 

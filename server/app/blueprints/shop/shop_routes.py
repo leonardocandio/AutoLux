@@ -62,10 +62,9 @@ def get_cars():
         abort(404)
 
 
-@shop.route('/', methods=['GET'])
-def ger_car():
-    car_id = request.args.get('id', type=int)
-    car = Car.query.filter_by(id=car_id).first()
+@shop.route('/<id>', methods=['GET'])
+def get_car(id):
+    car = Car.query.filter_by(id=id).first_or_404()
     if car:
         return jsonify({
             'code': 200,

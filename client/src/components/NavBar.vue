@@ -59,8 +59,8 @@ export default {
 }
 
 nav .router-links :hover {
-  color: #fff;
-  background: var(--color-accent);
+  color: #2688f7b8;
+  /* background: var(--color-accent); */
   border-radius: 2px;
 }
 

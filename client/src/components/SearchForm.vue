@@ -9,7 +9,10 @@
         <li class="search-item" v-for="(car, index) in cars" :key="index">
             <a class="item-box" href="#">
                 <img class="image" :src="car.image_url" :alt="car.name">
-                <p class="name">{{ car.name }}</p>
+                <router-link :to="{name: 'car-details', params: {id:car.id}}">
+                    <p class="name">{{ car.name }}</p>
+                </router-link>
+                
             </a>
             <hr>
         </li>
@@ -44,7 +47,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
     .search-input {
         width: 400px;
     }
@@ -54,7 +57,7 @@ export default {
         width: 400px;
         margin: 0;
         position: absolute;
-        background-color: var(--color-background);
+        background-color: #ffffff;
         border: 1px solid gray;
         padding: 0;
     }

@@ -67,6 +67,12 @@ const routes = [
         component: () => import('../views/ShopView.vue'),
         meta: {requiresAuth: false}
     },
+    {
+        path: '/shop/:id',
+        name: 'car-details',
+        component: () => import('../views/CarDetailView.vue'),
+        meta: {requiresAuth: false}
+    }
 
 ]
 

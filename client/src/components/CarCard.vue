@@ -1,13 +1,16 @@
 <template>
     <div class="cars-shop">
-        <img class="card-img-top" :src="car.image_url" :alt="car.name">
 
+        <img class="card-img-top" :src="car.image_url" :alt="car.name">
+        
         <div class="card-body-shop">
             <h3 class="card-title">{{ car.name }}</h3>
             <p class="card-text">
                 {{  car.price }} $
             </p>
-            <a :href="car.id" class="btn-shop btn-primary">Ver más</a>
+            <router-link :to="{name: 'car-details', params: {id:car.id}}">
+                 <button class="btn-shop btn-primary">Ver más</button>
+            </router-link>
         </div>
     </div>
 </template>
@@ -28,8 +31,8 @@ export default {
 
 <style scoped>
 .cars-shop:hover {
-box-shadow: 0 11px 35px 2px rgba(2, 2, 2, 0.14);
-transition: all 0.5s;
+    box-shadow: 0 11px 35px 2px rgba(2, 2, 2, 0.14);
+    transition: all 0.5s;
 }
 
 .cars-shop > img:hover {
