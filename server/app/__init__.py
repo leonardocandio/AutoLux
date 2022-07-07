@@ -2,8 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 
 from server.app.blueprints.forum import create_module as forum_create_module
-from server.app.blueprints.home import create_module as home_create_module
-from server.app.blueprints.news import create_module as news_create_module
 from server.app.blueprints.users import create_module as users_create_module
 from server.app.blueprints.shop import create_module as shop_create_module
 from server.app.cache import cache
@@ -31,8 +29,6 @@ def create_app(config='server.config.Config'):
         migrate.init_app(app, db)
 
         shop_create_module(app)
-        news_create_module(app)
-        home_create_module(app)
         forum_create_module(app)
         users_create_module(app)
 
