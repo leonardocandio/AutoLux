@@ -7,7 +7,165 @@
 * Renato Cernades
 * Ronaldo Flores
 
+**==================================**
+# BLUEPRINTS
+**CADA RESPONSE CONTIENE :**
+    -**code:***Es el Status de la petición*
+    -**Success***Nos indica si nuestra peticon fue exitosa*
+**========**
+# FORUM_routes:
+**URL:**"/posts"
+-**paginate**:
+    se encarga de la paginación
+    parametros: page(URL), entero
+-**get_forum**:
+    Se encarga de retornar todo el forum
+-**create_post**:
+    realiza los post de los forum
+    parametros: JSON(post_body string, post_title string)
+    retorna: retorna los posts y el total
+-**delete_post**:
+    Elimina el post
+    parametros: JSON(post_id integer, post_body string y post_title string)
+    retorna: el post_id eliminado y los restos 
+-**update_post**:
+    Sube el post
+    parametros: JSON(post_id integer, post_body string y post_title string)
+    retorna: el post_id y el total
+-**get_post**:
+    obtiene el post por el id (URL)
+    parametros : id de post 
+-**create_comment**:
+    crea el comentario
+    parametros: id de post (URL) ,JSON(comment_body string)
+    retorna: el comentarios id y total de los comentarios
+-**delete_comment**:
+    Elimina el comentario
+    parametros: id de post (URL), JSON(comment_id string)
+    retorna: el comentarios id y total de los comentarios
+-**update_comment**:
+    Sube el comentario
+    parametros: id de post (URL), JSON(comment_id integer, comment_body string)
+    retorna: el comentarios id y total de los comentarios 
+
+
+**========**
+# HOME_routes:
+-**Home_page**:
+    selecciona aleatoriamente un carro y un articulo en un rango de 6
+    ...
+-**get_brands**:
+    obtiene las marcas de los carros.
+    retorna: un response que contiene a cada marca en un diccionario con el id
+-**inject_permissions**:
+    ...
+-**before_request**:
+    ...  
+
+**========**
+# NEW_routes
+- **home**:
+    render_templatede de 'news.html' y articles
+- **article_page**:
+    render_templatede de 'see_more_news.html' y articles
+- **add_news**:
+    retorna add news
+- **delete_news**:
+    retorna delete news
+- **inject_permissions**:
+    retorna diccionario de Permission
+- **before_request**:
+    si el user no esta identificado retorna abort(401)
+
+**========**
+# Shop_routes
+**URL:**"/cars"
+- **paginate**:
+    ...
+- **paginate_array**:
+    ...
+- **get_cars:**:
+    recorre todos los Car 
+    retorna: los cars, el total de cars, y los n_pages
+- **ger_car:**:
+    filtra cada Car por su id
+    retorna: el code, success y diccionario del carro
+- **search_car**:
+    busqueda de los cars
+    parametros: URL(search y nitems)
+    si detecta el search:
+        retorna un format
+    if body:
+    parametros: JSON(start_price string, end_price string, model string, brand string, year string)
+**========**
+
+# Users_routes
+**URL:**"/users"
+- **register**:
+    registra a los usuarios
+    parametros: JSON(username string, email string, password string)
+    retorna: un mensaje que el usuario fue creado satisfactoriamente
+- **logged_in**:
+    retorna: el usuario ya esta logeado 
+- **logout**:
+    retorna: el usuario se desconecto con exito
+- **login**:
+    si el usuario esta identificado
+    parametro: JSON(email string, password string)
+    si el usuario existe retorna: el usuario inicio con exito
+- **get_profile_page**:
+    parametro: id del usuario (URL)
+    retorna: Usuario encontrado 
+- **profile_page**:
+    ...
+- **inject_permissions**:
+    retorna: un diccionario con sus permisos
+- **permission_required**:
+    ...
+- **admin_required**:
+    ...
+- **inject_permissions**:
+    ...
+**==================================**
+# ERRORS
+# errors_handlers   
+-**bad_request**:
+    para error 400, peticion invalida
+-**auth_required**:
+    para error 401, Se requiere autenticación
+-**page_restricted**:
+    para error 403, Página restringida
+-**page_not_found**:
+    para error 404, Página no encontrada
+-**invalid_request**:
+    para error 412, Solicitud no válida
+-**internal_server_error**:
+    para error 500, Error interno del servidor
+-**handle_exception**:
+    para error 401, Se requiere autenticación
+
+# FUNCIONES :
+-**create_all_articles**: 
+        crea todos los articulos
+-**insert_roles**: 
+    dentro de Role, ...
+
+# CLASES:
+
++ Article:
+    - columnas: id, title, description, content, image_url, author, date_published, category 
+    - get_new: retorna el total de news que exista
++ CARS
++ USERS
++ Permission:
+    ...
++ Role:
+    - crea los roles con las columnas: id, name, default, permissions
+    -
 # Descripción:
+
+new_ routes:
++ 
 
 Nuestra aplicación es un sitio web el cual contiene:
 + Noticias relacionadas a los autos
@@ -29,72 +187,13 @@ Nuestra aplicación es un sitio web el cual contiene:
     decisión de compra de el auto que más se acomode a sus necesidades
 
 # Manejo de errores:
-En la carpetas errors se manejan los errores 400, 401, 402, 403, 404, 412, 500.
 
 # Como ejecutar el sistema:
-Ejecutar el run.py
-Usando flask shell
-- ctx = app.test_request_context()
-- ctx.push()
-- from app.blueprints.auth.models.user import User
-- from app.blueprints.forum.models.post import Post
-- from app.blueprints.shop.models.car import Car
-- from app.blueprints.news.models.article import Article
-- User.first_user()
-- User.generate_fake()
-- Post.generate_fake()
-- Car.get_cars()
-- Article.get_news()
 
 
 # Licencia
 
-La licencia es de tipo MIT por lo que está permitido copiar, distribuir, modificar y/o vender este mismo software.
 
 
 # Librerias utilizadas:
-- alembic==1.7.7
-- Authlib==1.0.1
-- autopep8==1.6.0
-- beautifulsoup4==4.11.1
-- cachelib==0.6.0
-- certifi==2021.10.8
-- cffi==1.15.0
-- charset-normalizer==2.0.12
-- click==8.1.2
-- colorama==0.4.4
-- cryptography==37.0.2
-- dnspython==2.2.1
-- email-validator==1.2.1
-- Flask==2.1.1
-- Flask-Caching==1.10.1
-- Flask-Login==0.6.1
-- Flask-Migrate==3.1.0
-- Flask-OAuthlib==0.9.6
-- Flask-SQLAlchemy==2.5.1
-- Flask-WTF==1.0.1
-- ForgeryPy==0.1
-- greenlet==1.1.2
-- idna==3.3
-- importlib-metadata==4.11.3
-- itsdangerous==2.1.2
-- Jinja2==3.1.1
-- Mako==1.2.0
-- MarkupSafe==2.1.1
-- oauthlib==2.1.0
-- password==0.2
-- posts==0.2.2
-- psycopg2==2.9.3
-- psycopg2-binary==2.9.3
-- pycodestyle==2.8.0
-- pycparser==2.21
-- python-dotenv==0.20.0
-- requests==2.27.1
-- requests-oauthlib==1.1.0
-- soupsieve==2.3.2
-- SQLAlchemy==1.4.34
-- toml==0.10.2
-- urllib3==1.26.9
-- Werkzeug==2.1.1
-- WTForms==3.0.1
-- zipp==3.8.0
+- 
