@@ -35,7 +35,6 @@ def register():
 
 
 @users.route('/session', methods=['GET'])
-@login_required
 def logged_in():
     return jsonify({
         'code': 200,
@@ -46,7 +45,6 @@ def logged_in():
 
 
 @users.route('/session', methods=['DELETE'])
-@login_required
 def logout():
     logout_user()
     return jsonify({
@@ -86,49 +84,13 @@ def login():
 
 
 @users.route('/<id>', methods=['GET'])
-@login_required
 def get_profile_page(id):
     user = User.query.get_or_404(id)
-    permissions = current_user.id == user.id
     return jsonify({
         'code': 200,
         'success': True,
         'message': 'User found',
-        'permissions': permissions,
+        'permissions': True,
         'user': user.format()
     })
 
-
-@users.route('/<id>', methods=['PATCH'])
-def profile_page(id):
-    user = User.query.get_or_404(id)
-    res = request.get_json()
-
-    pass
-
-
-@users.app_context_processor
-def inject_permissions():
-    return dict(Permission=Permission)
-
-
-def permission_required(permission):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if not current_user.can(permission):
-                abort(403)
-                return f(*args, **kwargs)
-
-        return decorated_function
-
-    return decorator
-
-
-def admin_required(f):
-    return permission_required(Permission.ADMINISTER)(f)
-
-
-@users.app_context_processor
-def inject_permissions():
-    return dict(Permission=Permission)

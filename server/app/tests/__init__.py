@@ -1,5 +1,7 @@
 import unittest
 
+from flask_login import FlaskLoginClient
+
 from server.app.blueprints.shop.models.car import Car
 from server.app.blueprints.users.models.role import Role
 from server.app import create_app
