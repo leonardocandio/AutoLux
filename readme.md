@@ -16,46 +16,46 @@
 # FORUM_routes:
 **URL:**"/posts"
 -**paginate**:
-    se encarga de la paginación
-    parametros: page(URL), entero
+    Se encarga de la paginación
+    parámetros: page(URL), entero
 -**get_forum**:
     Se encarga de retornar todo el forum
 -**create_post**:
     realiza los post de los forum
-    parametros: JSON(post_body string, post_title string)
+    parámetros: JSON(post_body string, post_title string)
     retorna: retorna los posts y el total
 -**delete_post**:
     Elimina el post
-    parametros: JSON(post_id integer, post_body string y post_title string)
-    retorna: el post_id eliminado y los restos 
+    parámetros: JSON(post_id integer, post_body string y post_title string)
+    retorna: el post_id, eliminado y los restos 
 -**update_post**:
     Sube el post
-    parametros: JSON(post_id integer, post_body string y post_title string)
+    parámetros: JSON(post_id integer, post_body string y post_title string)
     retorna: el post_id y el total
 -**get_post**:
     obtiene el post por el id (URL)
-    parametros : id de post 
+    parámetros : id de post 
 -**create_comment**:
     crea el comentario
-    parametros: id de post (URL) ,JSON(comment_body string)
-    retorna: el comentarios id y total de los comentarios
+    parámetros: id de post (URL) ,JSON(comment_body string)
+    retorna: el comentario, id y total de los comentarios
 -**delete_comment**:
     Elimina el comentario
-    parametros: id de post (URL), JSON(comment_id string)
-    retorna: el comentarios id y total de los comentarios
+    parámetros: id de post (URL), JSON(comment_id string)
+    retorna: el comentario, id y total de los comentarios
 -**update_comment**:
     Sube el comentario
-    parametros: id de post (URL), JSON(comment_id integer, comment_body string)
-    retorna: el comentarios id y total de los comentarios 
+    parámetros: id de post (URL), JSON(comment_id integer, comment_body string)
+    retorna: el comentario, id y total de los comentarios 
 
 
 **========**
 # HOME_routes:
 -**Home_page**:
-    selecciona aleatoriamente un carro y un articulo en un rango de 6
+    selecciona aleatoriamente un auto y un articulo en un rango de 6
     ...
 -**get_brands**:
-    obtiene las marcas de los carros.
+    obtiene las marcas de los autos.
     retorna: un response que contiene a cada marca en un diccionario con el id
 -**inject_permissions**:
     ...
@@ -92,29 +92,29 @@
     retorna: el code, success y diccionario del carro
 - **search_car**:
     busqueda de los cars
-    parametros: URL(search y nitems)
+    parámetros: URL(search y nitems)
     si detecta el search:
         retorna un format
     if body:
-    parametros: JSON(start_price string, end_price string, model string, brand string, year string)
+    parámetros: JSON(start_price string, end_price string, model string, brand string, year string)
 **========**
 
 # Users_routes
 **URL:**"/users"
 - **register**:
     registra a los usuarios
-    parametros: JSON(username string, email string, password string)
+    parámetros: JSON(username string, email string, password string)
     retorna: un mensaje que el usuario fue creado satisfactoriamente
 - **logged_in**:
     retorna: el usuario ya esta logeado 
 - **logout**:
-    retorna: el usuario se desconecto con exito
+    retorna: el usuario se desconectó con exito 
 - **login**:
     si el usuario esta identificado
-    parametro: JSON(email string, password string)
-    si el usuario existe retorna: el usuario inicio con exito
+    parámetro: JSON(email string, password string)
+    si el usuario existe retorna: el usuario inició con exito
 - **get_profile_page**:
-    parametro: id del usuario (URL)
+    parámetro: id del usuario (URL)
     retorna: Usuario encontrado 
 - **profile_page**:
     ...
@@ -130,23 +130,23 @@
 # ERRORS
 # errors_handlers   
 -**bad_request**:
-    para error 400, peticion invalida
+    error 400, petición inválida
 -**auth_required**:
-    para error 401, Se requiere autenticación
+    error 401, Se requiere autenticación
 -**page_restricted**:
-    para error 403, Página restringida
+    error 403, Página restringida
 -**page_not_found**:
-    para error 404, Página no encontrada
+    error 404, Página no encontrada
 -**invalid_request**:
-    para error 412, Solicitud no válida
+    error 412, Solicitud no válida
 -**internal_server_error**:
-    para error 500, Error interno del servidor
+    error 500, Error interno del servidor
 -**handle_exception**:
-    para error 401, Se requiere autenticación
+    error 401, Se requiere autenticación
 
 # FUNCIONES :
 -**create_all_articles**: 
-        crea todos los articulos
+    crea todos los articulos
 -**insert_roles**: 
     dentro de Role, ...
 
@@ -175,15 +175,15 @@ Nuestra aplicación es un sitio web el cual contiene:
 
 # Objetivos principales / Misión / Visión
 + Objetivos principales:
-    Nuestro objetivo como desarrolladores es facilitar la busqueda de informacion
-    sobre automoviles para los usuarios, como es en las noticias y precios  de los
-    carros usando un filtro que agilizara la busqueda.
+    Nuestro objetivo como desarrolladores es facilitar la búsqueda de información
+    sobre automóviles para los usuarios, como es en las noticias y precios de los
+    autos usando un filtro que agilizará la búsqueda.
 + Misión:
-    Cumplir los requerimientos del proyecto para tener una buena presentacion a la
-    hora de aplicar los metodos vistos en clase para la funcionalidad de la 
-    aplicacion
+    Cumplir los requerimientos del proyecto para tener una buena presentación a la
+    hora de aplicar los métodos vistos en clase para la funcionalidad de la 
+    aplicación
 + Visión:
-    Queremos llegar a la mayor cantidad de usuarios y asi ayudarlos en el proceso de 
+    Queremos llegar a la mayor cantidad de usuarios y así ayudarlos en el proceso de 
     decisión de compra de el auto que más se acomode a sus necesidades
 
 # Manejo de errores:
