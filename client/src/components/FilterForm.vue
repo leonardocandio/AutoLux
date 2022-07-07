@@ -8,27 +8,27 @@
           <li class="filter">
             <label>Rango de precios</label>
             <div style="display:flex;">
-              <input name="start_price_filter" v-model="start_price" placeholder="Desde" type="number" step="1000"  max="100000"
+              <input autocomplete="off" name="start_price_filter" v-model="start_price"  placeholder="Desde" type="number" step="1000"  max="100000"
                      class="form-control" style="width: 50%; margin-left: 0px;">
 
-              <input name="end_price_filter" v-model="end_price" placeholder="Hasta" type="number" step="1000" max="100000"
+              <input autocomplete="off" name="end_price_filter" v-model="end_price" placeholder="Hasta" type="number" step="1000" max="100000"
                      class="form-control" style="width: 50%; margin-left: 0px;">
             </div>
           </li>
 
           <li class="filter">
             <label for="model_filter">Modelo del carro</label><br>
-            <input name="model_filter" v-model="model" type="text" class="form-control" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
+            <input autocomplete="off" name="model_filter" v-model="model" type="text" class="form-control" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
                     </li>
 
           <li class="filter">
             <label for="brand_filter">Marca del carro</label><br>
-            <input name="brand_filter" v-model="brand" type="text" class="form-control" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
+            <input autocomplete="off" name="brand_filter" v-model="brand" type="text" class="form-control" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
                     </li>
 
           <li class="filter">
             <label for="year_filter">Año del carro</label><br>
-            <input name="year_filter" v-model="year" type="number" max="2022" min="2000" class="form-control" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
+            <input autocomplete="off" name="year_filter" v-model="year" type="number" max="2022" min="2000" class="form-control" style="width: 50%; margin-left: 0px;" placeholder="Buscar">
                     </li>
 
                     <li>

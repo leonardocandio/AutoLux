@@ -2,7 +2,7 @@
 
     <div class="input-group flex-nowrap search-input">
         <span class="input-group-text" id="addon-wrapping">Buscar</span>
-        <input v-model="message" id="search" type="text" class="form-control" placeholder="Encuentra tu carro">
+        <input v-model="message" autocomplete="off" id="search" type="text" class="form-control" placeholder="Encuentra tu carro">
     </div>
 
     <ul class="search-content">
@@ -12,7 +12,6 @@
                 <router-link :to="{name: 'car-details', params: {id:car.id}}">
                     <p class="name">{{ car.name }}</p>
                 </router-link>
-                
             </a>
             <hr>
         </li>
