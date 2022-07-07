@@ -17,79 +17,75 @@
 **URL:**"/posts"
 
 
--**paginate**:
+- **paginate**:
     Se encarga de la paginación
     parámetros: page(URL), entero
 
 
--**get_forum**:
+- **get_forum**:
     Se encarga de retornar todo el forum
     methods= GET
 
 
--**create_post**:
+- **create_post**:
     realiza los post de los forum
     parámetros: JSON(post_body string, post_title string)
     retorna: retorna los posts y el total
     methods= POST
 
 
--**delete_post**:
+- **delete_post**:
     Elimina el post
     parámetros: JSON(post_id integer, post_body string y post_title string)
     retorna: el post_id, eliminado y los restos 
     methods= DELETE
 
-    
--**update_post**:
+
+- **update_post**:
     Sube el post
     parámetros: JSON(post_id integer, post_body string y post_title string)
     retorna: el post_id y el total
     methods= PATCH
 
-    
--**get_post**:
+
+- **get_post**:
     obtiene el post por el id (URL)
     parámetros : id de post 
     methods= GET
 
-    
--**create_comment**:
+
+- **create_comment**:
     crea el comentario
     parámetros: id de post (URL) ,JSON(comment_body string)
     retorna: el comentario, id y total de los comentarios
     methods= POST
 
-    
--**delete_comment**:
+
+- **delete_comment**:
     Elimina el comentario
     parámetros: id de post (URL), JSON(comment_id string)
     retorna: el comentario, id y total de los comentarios
     methods= DELETE
 
-    
--**update_comment**:
+
+- **update_comment**:
     Sube el comentario
     parámetros: id de post (URL), JSON(comment_id integer, comment_body string)
     retorna: el comentario, id y total de los comentarios 
     methods= PATCH
 
-    
+
 
 **========**
 # HOME_routes:
--**Home_page**:
+- **Home_page**:
     selecciona aleatoriamente un auto y un articulo en un rango de 6
     methods= POST
 
-    
--**get_brands**:
+
+- **get_brands**:
     obtiene las marcas de los autos.
     retorna: un response que contiene a cada marca en un diccionario con el id
--**inject_permissions**:
-    ...
--**before_request**:
-    ...  
 
 **========**
 # NEW_routes
@@ -109,10 +105,6 @@
 **========**
 # Shop_routes
 **URL:**"/cars"
-- **paginate**:
-    ...
-- **paginate_array**:
-    ...
 - **get_cars:**:
     recorre todos los Car 
     retorna: los cars, el total de cars, y los n_pages
@@ -179,7 +171,7 @@
 -**create_all_articles**: 
     crea todos los articulos
 -**insert_roles**: 
-    dentro de Role, ...
+    dentro de Role
 
 # CLASES:
 
@@ -196,11 +188,9 @@
 + Role:
     - crea los roles con las columnas: id, name, default, permissions
     - insert_roles():
-    ...
 + User:
     - columnas: id, username, email, password_hash, image_url, role_id, posts, comments 
 
-    ...
 # Descripción:
 
 new_ routes:
