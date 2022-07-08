@@ -1,13 +1,13 @@
 <template>
   <div class="profile-container">
     <UserProfile :user="user" v-if="user"/>
-    <UserPosts :user="user" v-if="user"/>
+
   </div>
 </template>
 
 <script>
 import UserProfile from "@/components/UserProfile";
-import UserPosts from "@/components/UserPosts";
+
 
 export default {
 
@@ -18,7 +18,7 @@ export default {
 
   },
   name: "ProfileView",
-  components: {UserProfile, UserPosts},
+  components: {UserProfile},
   beforeRouteEnter(to, from, next) {
     fetch(`/users/${to.params.id}`, {method: "GET"})
         .then(response => response.json())
